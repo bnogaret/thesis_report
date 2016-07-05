@@ -1,0 +1,114 @@
+\documentclass[12pt]{book}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+% Use the custom "cranfieldthesis" LaTeX style file. 
+\usepackage{cranfieldthesis}
+
+\usepackage[sorting=none, backend=biber, style=numeric]{biblatex}
+\usepackage[colorlinks=false]{hyperref}
+
+% By default, LaTeX uses a serif font - these are traditionally thought to be
+% easier to read.   If you'd prefer sans-serif, please uncomment the 
+% following line.
+%\renewcommand{\familydefault}{\sfdefault}
+
+
+% Example parameters for a typical taught MSc course
+\title{Automated food log analysis}
+\author{NOGARET Baptiste}
+\date{\today}
+\school{Aerospace, Transport and Manufacturing}
+\course{Computational and Software Techniques in Engineering}
+\degree{Master of Science}
+\academicyear{2015--2016}
+\supervisor{Dr RÜGER Stefan}
+\copyrightyear{2016}
+
+\addbibresource{library.bib}
+\addbibresource{my_references.bib}
+
+\begin{document}
+
+
+% Front matter
+\frontmatter
+
+% Standard-Form Title Pages
+\maketitle
+
+% Declaration of authorship
+\include{declaration_authorship}
+
+% Abstract and Keywords
+\include{abstract}
+
+% Table of Contents
+\sstableofcontents
+
+% List of Figures
+\sslistoffigures
+
+% List of Tables
+\sslistoftables
+
+% The list of abbreviations can't be automatically generated so you need to populate it yourself
+\include{abbreviations}
+
+% Acknowledgements
+\include{acknowledgements}
+
+%% Main Matter
+%
+% This is where we include the main thesis content.
+%
+\mainmatter
+
+
+\include{introduction}
+
+\include{literature_review}
+
+\include{feature}
+
+\include{dataset}
+
+\include{evaluation}
+
+% Have to present the dataset
+% Feature
+% Classification tool (Bag of words, SVM, CNN)
+% cnn: present the layers, inspiration ...
+
+\include{conclusion}
+
+
+%% Back matter
+%
+% This is where we include appendices and references
+%
+\appendix
+
+\chapter{Appendix}
+
+This is a sample of thesis text. This is a sample of thesis text. This is a 
+sample of thesis text. This is a sample of thesis text. This is a sample of
+thesis text.
+
+% References - you can use BiBTeX inside the 'references' environment if you want.
+% For short reference lists, you might find it just as easy to use the bibitem form.
+%\begin{references}
+%    \bibitem{lamport94}
+%        Leslie Lamport,
+%        \emph{\LaTeX: a document preparation system}.
+%        Addison Wesley, Massachusetts,
+%        2nd edition,
+%        1994.
+%\end{references}
+
+\printbibliography
+
+\end{document}
+

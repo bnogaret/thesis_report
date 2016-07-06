@@ -3,9 +3,11 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage{graphicx}
 
-% Use the custom "cranfieldthesis" LaTeX style file. 
-\usepackage{cranfieldthesis}
+\usepackage{textcomp}                   % For the special character ° and TM
+
+\usepackage{cranfieldthesis}            % Use the custom "cranfieldthesis" LaTeX style file. 
 
 \usepackage[sorting=none, backend=biber, style=numeric]{biblatex}
 \usepackage[colorlinks=false]{hyperref}
@@ -15,6 +17,7 @@
 % following line.
 %\renewcommand{\familydefault}{\sfdefault}
 
+\newcommand{\TM}{\textsuperscript{TM}~}
 
 % Example parameters for a typical taught MSc course
 \title{Automated food log analysis}
@@ -74,6 +77,8 @@
 \include{feature}
 
 \include{dataset}
+
+\include{implementation}
 
 \include{evaluation}
 

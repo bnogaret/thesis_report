@@ -1,15 +1,22 @@
 \chapter{Evaluation}
+
+\subsection{Environment}
+
+All the code has been run on the "Astral" high performance computer of Cranfield's university. The operating system is SUSE Linux Enterprise Server 11 (64 bits architecture), with a Linux 3 kernel.
+
+The system is separated in login nodes and compute nodes. There are two "front-end" login nodes and they contain two Intel E5-2660 (Sandy Bridge - 8 cores) CPUs giving 16 CPU cores and have a total of 192 GB of shared memory. The login nodes enable the user to connect to the system and compile one's program. There are 80 compute nodes, each node having two Intel E5-2660 (Sandy Bridge - 8 cores) CPUs. This is giving a total of 1280 available cores. Each compute node have at least accessed to 64 GB shared memory. Nodes are connected with Infiniband\TM low-latency interconnect.
+
 \subsection{Segmentation metrics}
 
 In \cite{pascalVoc2012},
 
 Detections are considered true or false positives based on the area of overlap with ground truth bounding boxes. To be considered a correct detection, the area of overlap (also called Intersection ver Union) $a_o$ between the predicted bounding box $B_p$ and ground truth bounding box $B_{gt}$ must exceed 50\% by the formula:
 
-$$a_o = \frac{area(B_p \cap B_{gt})}{area(B_p \cup B_{gt})} $$
+$$A_o = \frac{area(B_p \cap B_{gt})}{area(B_p \cup B_{gt})}$$
 
 To simplify the calculation, this formula can be rewritten as:
 
-$$a_o = \frac{area(B_p \cap B_{gt})}{area(B_p) + area(B_{gt}) - area(B_p \cap B_{gt})} $$
+$$A_o = \frac{area(B_p \cap B_{gt})}{area(B_p) + area(B_{gt}) - area(B_p \cap B_{gt})} $$
 
 \footnote{Information on the evaluation system can be found at  \url{http://host.robots.ox.ac.uk/pascal/VOC/voc2012/devkit_doc.pdf}}
 % http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
@@ -38,3 +45,27 @@ accuracy
 confusion matrix
 
 \section{Results}
+\subsection{Classification}
+
+For using 10 fold cross validation
+without parameters optimization
+
+using LBP (98 bins) + HS (30 * 30 bins) + mean and variance of each RGB channel + Hu-moments
+\begin{itemize}
+    \item random forest: 21 \% (250 trees, gini)
+    \item decision tree: 6 \% (gini)
+    \item k-nearest neighborhood: (k=10, distance metric: minkowski, weights of each neighborhood point: uniform): 10 \%
+    \item SGD classifier:  12 \%
+    \item Gaussian Naive Bayesian: 7 \%
+    \item Linear SVM: 9 \% (no kernel trick)
+    \item AdaBoost with decision tree: 4 \% (SAMME.R algorithm)
+\end{itemize}
+
+using a 2500-word codebook, root-sift, k-mean: 
+
+using the CNN + Random forest (500 trees): 48 \%
+
+\subsection{Segmentation}
+
+
+\subsection{Segmentation followed by classification}

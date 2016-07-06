@@ -1,0 +1,76 @@
+\chapter{Implementation}
+\section{Classification}
+\subsection{Color histogram}
+
+For each picture:
+\begin{enumerate}
+    \item extract the sub-image delimited by the bounding box
+    \item resize this sub-image to $224 \times 224$ pixels
+    \item extract the histogram of local binary pattern
+    \item extract the joint color histogram for the channel $H$ and $s$ of the HSV (hue, saturation and value) representation
+    \item extract the 7 hu-moment: invariant feature for translation, rotation and scale change (as stated in \cite{Hu1962})
+\end{enumerate}
+
+Normalized the data to have all features centered around zero (mean of 0) and have unit variance(variance equal to 1).
+
+Then, apply multiple famous classifiers:
+\begin{itemize}
+    \item decision tree
+    \item random forest
+    \item AdaBoost with decision tree
+    \item k-nearest neighborhood
+    \item SVM
+    \item SGD Classifier
+\end{itemize}
+
+\subsection{Bag of words}
+
+For each picture:
+\begin{enumerate}
+    \item extract the sub-image delimited by the bounding box
+    \item resize this sub-image to $224 \times 224$ pixels
+    \item detection of keypoints: use of a dense grid
+    \item descriptors: Root SIFT. Root SIFT is a simple variant of SIFT, presented in \cite{Arandjelovic2012}. When the SIFT descriptors as been computed for each keypoints, we apply an element wise square root of the L1 normalized SIFT vectors
+\end{enumerate}
+
+clustering: using the k-means algorithm to obtain a 2500-word codebook.
+
+For each picture:
+compute the histogram of occurence counts of visual words
+
+Kernel trick: use of a variant of the $\chi^2$ kernel named additive $\chi$-squared kernel presented in \cite{Vedaldi2010}
+
+Then we apply the SVM classifier.
+
+\subsection{CNN}
+
+A pre-trained CNN used for image recognition on ImageNet Challenge 2014.
+
+\cite{Simonyan2014}
+
+it is available \footnote{\url{https://gist.github.com/ksimonyan/3785162f95cd2d5fee77/}}.
+
+The model is an improved version of the 19-layer model used by the VGG team in the ILSVRC-2014 competition.
+
+\section{Segmentation}
+
+A pre-trained CNN used for saliency detection.
+
+\cite{zhang2015SOD}
+
+it is available \footnote{\url{https://gist.github.com/jimmie33/339fd0a938ed026692267a60b44c0c58}}.
+
+It is the same model as GoogleNet model. It is composed of 19 layers.
+
+\section{Code}
+
+The code is public \footnote{\url{https://github.com/bnogaret/food_log}}.
+
+Using python 3.5.2 and its scientific stack (numpy, scipy, matplotlib)
+For the data structure: pandas \cite{McKinney2010}
+For the image processing: scikit-image \cite{VanderWalt2014}
+For most of the machine learning: package: sklearn \cite{Pedregosa2012}
+For the CNN framework: caffe framework \cite{Jia2014a} (using the pyhton layer)
+SIFT implementation: opencv 3.1 \cite{Bradski2000}
+
+Documentation is generated from the python file using sphinx.

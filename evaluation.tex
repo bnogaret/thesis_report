@@ -8,33 +8,32 @@ The system is separated in login nodes and compute nodes. There are two "front-e
 
 \subsection{Segmentation metrics}
 
-In \cite{pascalVoc2012},
+\footnote{Information on the evaluation system can be found at  \url{http://host.robots.ox.ac.uk/pascal/VOC/voc2012/devkit_doc.pdf}}
 
-Detections are considered true or false positives based on the area of overlap with ground truth bounding boxes. To be considered a correct detection, the area of overlap (also called Intersection ver Union) $a_o$ between the predicted bounding box $B_p$ and ground truth bounding box $B_{gt}$ must exceed 50\% by the formula:
+To measure the precision of the localization / segmentation algorithm, we use the metrics as defined in \cite{pascalVoc2012}.
 
-$$A_o = \frac{area(B_p \cap B_{gt})}{area(B_p \cup B_{gt})}$$
+Detections are considered true or false positives based on the area of overlap with ground truth bounding boxes. To be considered a correct detection, the \textbf{Intersection over Union} $IoU$ between the predicted bounding box $B_p$ and ground truth bounding box $B_{gt}$ must exceed 50\% by the formula:
+
+$$IoU = \frac{area(B_p \cap B_{gt})}{area(B_p \cup B_{gt})}$$
 
 To simplify the calculation, this formula can be rewritten as:
 
-$$A_o = \frac{area(B_p \cap B_{gt})}{area(B_p) + area(B_{gt}) - area(B_p \cap B_{gt})} $$
+$$IoU = \frac{area(B_p \cap B_{gt})}{area(B_p) + area(B_{gt}) - area(B_p \cap B_{gt})} $$
 
-\footnote{Information on the evaluation system can be found at  \url{http://host.robots.ox.ac.uk/pascal/VOC/voc2012/devkit_doc.pdf}}
-% http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
-In information retrieval, precision is a measure of result relevancy, while recall is a measure of how many truly relevant results are returned.
-
-true positive = correctly classified
-true negative = correctly unclassified
-false positive = incorrectly classified
-false negative = incorrectly classified
-
-precision ($P$)  is defined as the number of true positives ($T_p$) over the number of true positives plus the number of false positives ($F_p$)./ recall / accuracy
+Using this metric, we can compute the precision $P$, the recall $R$ and the accuracy $A$ given by:
 
 $$ P =  \frac{T_p}{T_p + F_p}$$
 $$ R =  \frac{T_p}{T_p + F_n}$$
-
-Each segmentation competition will be judged by average segmentation accuracy across the twenty classes and the background class. The segmentation accuracy for a class will be assessed using the intersection/union metric, defined as the number of correctly labelled pixels of that class, divided by the number of pixels labelled with that class in either the ground truth labelling or the inferred labelling. Equivalently, the accuracy is given by the equation:
-
 $$ A = \frac{T_p}{T_p + F_n + F_p} $$
+
+with:
+\begin{itemize}
+   \item $T_p$ the number of true positives (the bounding boxes correctly localized)
+   \item $F_p$ the number of false positives (the predicted bounding boxes incorrectly localized)
+   \item $F_n$ the number of false negative (the ground truth bounding boxes not localized)
+\end{itemize}
+
+Note that given the convention from \cite{pascalVoc2012}, if more than one predicted bounding box overlaps the same ground truth bounding box, only one will be considered as $T_P$, the rest will be $F_P$s.
 
 \subsection{Classification metrics}
 
@@ -45,6 +44,10 @@ accuracy
 confusion matrix
 
 \section{Results}
+\subsection{Food segmentation}
+
+
+
 \subsection{Classification}
 
 For using 10 fold cross validation
@@ -61,11 +64,15 @@ using LBP (98 bins) + HS (30 * 30 bins) + mean and variance of each RGB channel 
     \item AdaBoost with decision tree: 4 \% (SAMME.R algorithm)
 \end{itemize}
 
-using a 2500-word codebook, root-sift, k-mean: 
+using a 2500-word codebook, root-sift, k-mean, RF (500 trees): 10 \% 
 
 using the CNN + Random forest (500 trees): 48 \%
 
-\subsection{Segmentation}
+In \cite{Bolanos2016}, the authors use fine-tuned pre-trained Deep Neural Network and obtain 63 \% accuracyon UEC FOOD-256.
+
+In \cite{Yanai2015}, the authors use fine-tuned pre-trained Deep Neural Network and obtain 67 \% accuracyon UEC FOOD-256.
 
 
 \subsection{Segmentation followed by classification}
+
+\cite{Bolanos2016} : accuracy 36.84 \%, 54.44 \% precision, Recall 50.86 \%

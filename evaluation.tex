@@ -46,7 +46,15 @@ confusion matrix
 \section{Results}
 \subsection{Food segmentation}
 
+For the three metrics:
+Accuracy:
+Precision:
+Recall:
 
+In \cite{Bolanos2016}, the authors use fine-tuned pre-trained Deep Neural Network and obtain around:
+Accuracy: 60 \%
+Precision: 80 \%
+Recall: 70 \%
 
 \subsection{Classification}
 
@@ -57,7 +65,7 @@ using LBP (98 bins) + HS (30 * 30 bins) + mean and variance of each RGB channel 
 \begin{itemize}
     \item random forest: 21 \% (250 trees, gini)
     \item decision tree: 6 \% (gini)
-    \item k-nearest neighborhood: (k=10, distance metric: minkowski, weights of each neighborhood point: uniform): 10 \%
+    \item k-nearest neighborhood: (k=10, distance metric: minkowski, weights of each neighborhood point: uniform): 10 \% and 16 \% with hyperparameter optimization
     \item SGD classifier:  12 \%
     \item Gaussian Naive Bayesian: 7 \%
     \item Linear SVM: 9 \% (no kernel trick)
@@ -66,7 +74,7 @@ using LBP (98 bins) + HS (30 * 30 bins) + mean and variance of each RGB channel 
 
 using a 2500-word codebook, root-sift, k-mean, RF (500 trees): 10 \% 
 
-using the CNN + Random forest (500 trees): 48 \%
+using the CNN + Random forest (500 trees): 49 \%
 
 In \cite{Bolanos2016}, the authors use fine-tuned pre-trained Deep Neural Network and obtain 63 \% accuracyon UEC FOOD-256.
 

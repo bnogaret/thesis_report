@@ -47,9 +47,9 @@ confusion matrix
 \subsection{Food segmentation}
 
 For the three metrics:
-Accuracy:
-Precision:
-Recall:
+Accuracy: 0.73 \%
+Precision: 0.74 \%
+Recall:  0.79 \%
 
 In \cite{Bolanos2016}, the authors use fine-tuned pre-trained Deep Neural Network and obtain around:
 Accuracy: 60 \%
@@ -67,7 +67,7 @@ using LBP (98 bins) + HS (30 * 30 bins) + mean and variance of each RGB channel 
     \item decision tree: 6 \% (gini)
     \item k-nearest neighborhood: (k=10, distance metric: minkowski, weights of each neighborhood point: uniform): 10 \% and 16 \% with hyperparameter optimization
     \item SGD classifier:  12 \%
-    \item Gaussian Naive Bayesian: 7 \%
+    \item Gaussian Naive Bayesian: 4 \%
     \item Linear SVM: 9 \% (no kernel trick)
     \item AdaBoost with decision tree: 4 \% (SAMME.R algorithm)
 \end{itemize}
@@ -83,4 +83,44 @@ In \cite{Yanai2015}, the authors use fine-tuned pre-trained Deep Neural Network 
 
 \subsection{Segmentation followed by classification}
 
+CNN Segmenter + CNN feature descriptor + RF classifier
+
+Result: 0.27 \% (0.73 \% accuracy for segmentation, 0.37 \% for classifier)
+
+Accuracy: 0.73328912
+Precision: 0.74412334
+Recall:  0.7963661
+
+accuracy: 0.37
+precision: 0.54
+recall: 0.45
+f1-score: 0.41
+
+Top 5 :
+french fries 0.93006986503
+beef bowl 0.951754344221
+hamburger 0.954545415101
+rice 0.989278742795
+miso soup 0.989988865517
+
+Least 5:
+meatloaf 0.0
+grilled eggplant 0.0
+mozuku 0.0
+chicken cutlet 0.0
+tanmen 0.00943396137415
+
+134 35 clear soup || miso soup 0.830188600926
+124 35 zoni || miso soup 0.745613969683
+156 35 oshiruko or red bean soup || miso soup 0.71717164473
+88 35 Japanese tofu and vegetable chowder || miso soup 0.591549254116
+135 35 yudofu || miso soup 0.572727220661
+89 35 pork miso soup || miso soup 0.568345282853
+82 5 cutlet curry || beef curry 0.54411760705
+23 22 beef noodle || ramen noodle 0.503703666392
+238 11 kaya toast || toast 0.453488319362
+153 86 Caesar salad || green salad 0.444444389575
+
 \cite{Bolanos2016} : accuracy 36.84 \%, 54.44 \% precision, Recall 50.86 \%
+
+

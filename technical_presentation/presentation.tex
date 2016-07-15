@@ -1,0 +1,200 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\let\oldsection\section
+\renewcommand{\section}[1]{
+    \oldsection{#1}	
+    \subsection{}
+}
+
+\newenvironment{myframe}[1][t]{\begin{frame}[#1]{\secname}{\subsecname}}{\end{frame}}
+
+\usetheme{cranfielduniversity}
+
+\author{Baptiste NOGARET}
+\title{Food log analysis}
+
+\supervisor{Dr Stefan RÜGER}
+
+\setcounter{tocdepth}{1}
+
+\begin{document}
+	
+	\begin{frame}[plain]
+		\titlepage
+	\end{frame}
+    
+    \begin{frame}
+        \frametitle{Table of Contents}
+        \tableofcontents
+    \end{frame}
+    
+    \section{Introduction}
+    
+    \subsection{Why a food log analysis system?}
+    
+	\begin{myframe}
+        Obesity / overweight in the world (lead to obesity, high blood pressure ... + cost)
+        Best way to fight it: watch over what we eat
+        With the progress of machine learning + access to more and more powerful device + widespread smartphone
+        Proposition to automatize it
+	\end{myframe}
+    
+    \subsection{Challenge of food recognition}
+    
+    \begin{myframe}
+        High intra-class variability
+        Environment
+        Way of taking the picture (zoom in or out)
+        
+        (Example)
+    \end{myframe}
+    
+    \subsection{Example of Implementation: Food Log}
+    
+    \begin{myframe}
+        
+    \end{myframe}
+    
+    \subsection{Overall process}
+    
+    \begin{myframe}
+        Have a dataset of picture (from user ...)
+        extract characteristic
+        Segmentate
+        Classify (learn)
+        Estimate calory / quality intake
+        Focus on the first three parts
+    \end{myframe}
+    
+    \section{Dataset}
+    
+     \begin{myframe}
+         Available dataset
+         PFID
+         UECFOOD 100 and 256
+         
+         Choose UECFOOD 256: segmentation, 256 classes (challenging)
+         Different international categories ex: Japanese (rice, )
+    \end{myframe}
+    
+    \begin{myframe}
+        Picture to illustrate the multi items
+    \end{myframe}
+    
+    \section{Feature description}
+    
+    \subsection{Bag of visual words}
+    
+    \begin{myframe}
+        Describe briefly SIFT / SURF
+        Overall process
+        \begin{enumerate}
+            \item Keypoints detection
+            \item Keypoints description
+            \item Clustering to get N words
+            \item Express each picture by an histogram of visual words
+        \end{enumerate}
+    \end{myframe}
+    
+    \subsection{Local binary pattern}
+    
+    \begin{myframe}
+        content...
+    \end{myframe}
+    
+    \subsection{Color moments and histograms}
+    
+    \begin{myframe}
+        Mean, variance
+        Hu moment?
+        
+        Color histogram (joint histogram)
+        HSV channel
+    \end{myframe}
+    
+    \section{Classifiers}
+    
+    \subsection{Tree and random forest}
+    
+    \begin{myframe}
+        content...
+    \end{myframe}
+    
+    \subsection{SVM}
+    
+    \begin{myframe}
+        content...
+    \end{myframe}
+    
+    \subsection{CNN}
+    
+    \begin{myframe}
+        Can be used for more than class
+    \end{myframe}
+    
+    \section{Segmentation}
+    
+    \begin{myframe}
+        content...
+    \end{myframe}
+    
+    \section{Result}
+    
+    \subsection{Segmentation}
+    
+    \begin{myframe}
+        content...
+    \end{myframe}
+    
+    \subsection{Classification}
+    
+    \begin{myframe}
+        content...
+    \end{myframe}
+    
+    \subsection{Segmentation followed by classification}
+    
+    \begin{myframe}
+        COmpare to other results
+    \end{myframe}
+    
+    \section{Future work}
+    
+    \begin{myframe}
+        COmpare to other results
+    \end{myframe}
+    
+    \section{Questions?}
+    
+    \begin{myframe}
+        Thank you for your attention.
+        Do you have any questions?
+    \end{myframe}
+
+
+%    \begin{myframe}
+%        Dataset
+%        
+%        Picture with multiple item
+%
+%         \begin{columns}
+%             
+%             \column{0.5\textwidth}
+%             This is a text in first column.
+%             $$E=mc^2$$
+%             \begin{itemize}
+%                 \item First item
+%                 \item Second item
+%                \end{itemize}
+%                
+%                \column{0.5\textwidth}
+%                This text will be in the second column
+%                and on a second tought this is a nice looking
+%                layout in some cases.
+%            \end{columns}
+%    \end{myframe}
+   
+\end{document}

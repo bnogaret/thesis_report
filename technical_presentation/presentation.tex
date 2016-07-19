@@ -3,6 +3,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{multicol}
+\usepackage{tabulary}
+\usepackage{hyperref}
 
 \usepackage{mathtools}
 
@@ -18,13 +20,13 @@
 
 \usetheme{cranfielduniversity}
 
-\usepackage[sorting=none, backend=biber, style=numeric, doi=false, isbn=false, url=false, eprint=false, date=year]{biblatex}
+\usepackage[sorting=none, backend=biber, style=numeric, doi=false, isbn=false, url=false, eprint=false, date=year, hyperref]{biblatex}
 
 \addbibresource{../library.bib}
 \addbibresource{../my_references.bib}
 
 \author{Baptiste NOGARET}
-\title{Food log analysis}
+\title{Automated food log}
 
 \supervisor{Dr Stefan RÜGER}
 
@@ -76,19 +78,25 @@
     
      \begin{myframe}
          \begin{center}
-             \setlength{\tabcolsep}{5pt} % Default value: 6pt
-             \renewcommand{\arraystretch}{1.5} % Default value: 1
-             \begin{tabular}{||c | c c c c c||} 
+             %\setlength{\tabcolsep}{5pt} % Default value: 6pt
+             \renewcommand{\arraystretch}{1.3} % Default value: 1
+             \begin{tabulary}{\textwidth}{|| c | C c C C C||}
                  \hline
-                 Name & Size & Type of food & Number of classes & multiple food items per image & best known accuracy \\
+                 Name & Release date & Size & Type & Number of classes & Multiple food items \\
                  \hline\hline
-                 PFID & 6 & 6  & 87837 & 787 & 7 \\ 
+                 PFID \cite{Chen2009} & 2009 & 4545 & American fast-food  & 101 & No \\
                  \hline
-                 UEC FOOD 256 & 6 & 6  & 87837 & 787 & 7 \\ 
+                 UEC FOOD 100 \cite{Matsuda2012a} & 2012 & 14361 & Japanese & 100  & Yes \\
                  \hline
-                 UEC FOOD 100 & 6 & 6  & 87837 & 787 & 7 \\ 
+                 FIDS 30 \cite{FIDS30} & 2013 & 971 & Fruit & 30 & No \\
                  \hline
-             \end{tabular}
+                 ETHZ Food-101 \cite{Bossard2014} & 2014 & 101 000 & European & 100 & No \\
+                 \hline
+                 FooDD \cite{ParisaPouladzadehAbdulsalamYassine2015} & 2015 & 3000 & Fruit & 23 & Yes \\
+                 \hline
+                 \textbf{UEC FOOD 256} \cite{Kawano2015} & \textbf{2015} & \textbf{31395} & \textbf{World} & \textbf{256}  & \textbf{Yes} \\ 
+                 \hline
+             \end{tabulary}
         \end{center}
          
          (Available dataset
@@ -105,14 +113,20 @@
          Different international categories ex: Japanese (rice, )
     \end{myframe}
     
-    \subsection{Example of multi-items}
-    
-    \begin{myframe}
-        \begin{figure}[h]
-            \includegraphics[width=0.4\textwidth,  height=0.4\textwidth ]{../img/multiple_food_items_1}
-            \includegraphics[width=0.4\textwidth,  height=0.4\textwidth ]{../img/multiple_food_items_4}
-        \end{figure}
-    \end{myframe}
+    {
+        \setbeamertemplate{footline}{}
+        \setbeamertemplate{headline}{}
+        
+        \subsection{Example of multi-items}
+        
+        \begin{myframe}
+            \begin{figure}[h]
+                \includegraphics[width=0.4\textwidth,  height=0.4\textwidth ]{../img/multiple_food_items_1}
+                \vspace{1cm}
+                \includegraphics[width=0.4\textwidth,  height=0.4\textwidth ]{../img/multiple_food_items_4}
+            \end{figure}
+        \end{myframe}
+    }
     
     \section{Feature description}
     
@@ -222,11 +236,16 @@
     
     \begin{myframe}
         Combining segmentation and classification:
-        
+        % 256:
         Overall accuracy: 28 \%
         74 \% for segmentation
         38 \% for classification
-
+        
+        % 100:
+        Overall accuracy: 33 \%
+        67 \% for segmentation
+        50 \% for classification
+        
         Compare to other results
         
         (Show the 5 best / least classes' accuracy)
@@ -239,19 +258,31 @@
         Regroup the classification in 5 big categories
     \end{myframe}
     
-    \begin{frame}{Food log analysis - Baptiste NOGARET}        
-        \begin{columns}
-            
-            \column{0.5\textwidth}
-            Segmentation and classfication applied on two reference datasets
-            
-            Obtain better segmentation than the reference
-            
-            Overall accuracy of 28 \% (to date, best result is 36 \% in ...).
-            
-            \column{0.5\textwidth}
-            \includegraphics[width=\textwidth]{../img/seg_97_gt}
-        \end{columns}
-    \end{frame}
+    \section{References}
+    
+    \begin{myframe}[t, allowframebreaks]
+        \printbibliography[heading=none]
+    \end{myframe}
+    
+    \section{Question}
+    
+    {
+        % Disable footline for this frame
+        \setbeamertemplate{footline}{} 
+        \begin{frame}{Food log analysis - Baptiste NOGARET}{}
+            \begin{columns}
+                
+                \column{0.5\textwidth}
+                Segmentation and classfication applied on two reference datasets
+                
+                Obtain better segmentation than the reference
+                
+                Overall accuracy of 28 \% (to date, best result is 36 \% in ...).
+                
+                \column{0.5\textwidth}
+                \includegraphics[width=\textwidth]{../img/seg_97_gt}
+            \end{columns}
+        \end{frame}
+    }
    
 \end{document}

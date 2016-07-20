@@ -91,16 +91,17 @@
 \def\const@none{none}
 \def\const@sections{sections}
 
-\defbeamertemplate*{headline}{cranfielduniversity}{%
-  \vskip2pt
+\defbeamertemplate*{headline}{cranfielduniversity}{
+  \vskip1pt
   \leavevmode
   \begin{beamercolorbox}
     [%ignorestructure.bg=true, 
-    wd=\paperwidth, ht=4ex, dp=1.125ex]{structure.fg}
-    \ifnum\insertframenumber=1\else
+    %wd=\paperwidth, ht=4ex, dp=1.125ex]{structure.fg}
+    wd=\paperwidth, ht=3ex, dp=1.125ex]{structure.fg}
+    %\ifnum\insertframenumber=1\else
     \ifx\cu@headline\const@sections
       \insertsectionnavigationhorizontal{\paperwidth}{}{}
-    \fi\fi
+    \fi%\fi
   \end{beamercolorbox}}
 
 \defbeamertemplate*{footline}{cranfielduniversity}
@@ -127,7 +128,7 @@
 
 \defbeamertemplate*{title page}{cranfielduniversity}
 {
-  \parbox{0.39\textwidth}{
+  \parbox{0.4\textwidth}{
   	\vspace*{-2cm}
   	\hspace*{0.7cm}
   	\pgfuseimage{titleimage}
@@ -175,11 +176,11 @@
 
 
 \mode
-<handout>{%
+<handout>{
   % background
   \setbeamertemplate{background canvas}{}
   % headline/footline
-  \setbeamertemplate{headline}{\vskip2mm}
+  \setbeamertemplate{headline}{\vskip1mm}
   \setbeamertemplate{footline}{}%
   % title page
   \setbeamertemplate{title page}[default]}

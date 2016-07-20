@@ -5,7 +5,7 @@
 \usepackage{multicol}
 \usepackage{tabulary}
 \usepackage{hyperref}
-
+\usepackage{tikz}
 \usepackage{mathtools}
 
 \let\oldsection\section
@@ -39,50 +39,76 @@
 	\end{frame}
     
     \begin{frame}{Table of contents}
-        \begin{multicols}{2}
-            \tableofcontents
-        \end{multicols}
+        {
+            \renewcommand{\baselinestretch}{1.5}\normalsize
+            \begin{multicols}{2}
+                \tableofcontents
+            \end{multicols}
+        }
     \end{frame}
     
     \section{Why a food log analysis system?}
     
-	\begin{myframe}
-        Obesity / overweight in the world (lead to obesity, high blood pressure ... + cost)
-        Best way to fight it: watch over what we eat
-        With the progress of machine learning + access to more and more powerful device + widespread smartphone
-        Proposition to automatize it
-	\end{myframe}
+    {
+        % Disable footline for this frame
+        \setbeamertemplate{footline}{}
+    	\begin{myframe}
+            \begin{figure}[h]
+                \includegraphics[width=0.5\textwidth,  height=0.45\textwidth ]{../img/obesity_uk}
+                \includegraphics[width=0.5\textwidth,  height=0.455\textwidth ]{../img/imagenet}
+            \end{figure}
+    	\end{myframe}
+    }
+    
+     \section{Overall process}
+     
+     \begin{myframe}
+         Roughly copying the procedure of FoodLog \cite{Kitamura2009, Kitamura2008, DeSilva2011, Aizawa2013, Kagaya2014}:
+         \begin{itemize}
+             \item Generate a relevant dataset
+             \item Extract characteristic
+             \item Learn
+             \item For a new picture from a user, classify and estimate intake
+         \end{itemize}
+         Focus on the first three points
+     \end{myframe}
     
     \section{Challenges}
-    
-    \begin{myframe}
-        High intra-class variability
-        Environment
-        Way of taking the picture (zoom in or out)
-        
-        (Example)
-    \end{myframe}
-    
-    \section{Overall process}
-    
-    \begin{myframe}
-        Have a dataset of picture (from user ...)
-        extract characteristic
-        Segmentate
-        Classify (learn)
-        Estimate calory / quality intake
-        Focus on the first three parts
-    \end{myframe}
-    
+    {
+        \author{}
+        \begin{myframe}
+            \begin{columns}
+                \column{0.5\textwidth}
+                \centering
+                High intra-class variability
+                \begin{figure}[h]
+                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/croissant_2}
+                    \vfill
+                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/croissant_3}
+                \end{figure}
+                
+                \column{0.5\textwidth}
+                \centering
+                Low inter-class variability
+                
+                \begin{figure}[h]
+                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/clear_soup}
+                    \vfill
+                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/miso_soup}
+                \end{figure}
+            \end{columns}
+        \end{myframe}
+    }
+
     \section{Dataset}
     
      \begin{myframe}
          \begin{center}
              %\setlength{\tabcolsep}{5pt} % Default value: 6pt
              \renewcommand{\arraystretch}{1.3} % Default value: 1
-             \begin{tabulary}{\textwidth}{|| c | C c C C C||}
+             \begin{tabulary}{\textwidth}{|| c | C C C C C||}
                  \hline
-                 Name & Release date & Size & Type & Number of classes & Multiple food items \\
+                 Name & Release date & Number of pictures & Type of food & Number of classes & Multiple food items \\
                  \hline\hline
                  PFID \cite{Chen2009} & 2009 & 4545 & American fast-food  & 101 & No \\
                  \hline
@@ -98,31 +124,16 @@
                  \hline
              \end{tabulary}
         \end{center}
-         
-         (Available dataset
-         PFID
-         FooDD
-         
-         UECFOOD 100 and 256)
-         
-         Criteria: 
-         
-         Highligth UEC FOOD 256
-         
-         Choose UECFOOD 256: segmentation, 256 classes (challenging)
-         Different international categories ex: Japanese (rice, )
     \end{myframe}
     
     {
-        \setbeamertemplate{footline}{}
-        \setbeamertemplate{headline}{}
-        
+        \author{}
         \subsection{Example of multi-items}
         
         \begin{myframe}
             \begin{figure}[h]
                 \includegraphics[width=0.4\textwidth,  height=0.4\textwidth ]{../img/multiple_food_items_1}
-                \vspace{1cm}
+                \vspace{2cm}
                 \includegraphics[width=0.4\textwidth,  height=0.4\textwidth ]{../img/multiple_food_items_4}
             \end{figure}
         \end{myframe}
@@ -145,17 +156,29 @@
     \subsection{Local binary pattern}
     
     \begin{myframe}
-        content...
+        Use in \cite{Zong2010, Nguyen2014} for texture classification
+        
+        \includegraphics[scale=0.55]{../img/lbp}
     \end{myframe}
     
     \subsection{Color moments and histograms}
     
     \begin{myframe}
-        Mean, variance
-        Hu moment?
-        
-        Color histogram (joint histogram)
-        HSV channel
+        \begin{columns}
+            \column{0.7\textwidth}
+            \centering
+            % Joint histogram:
+            \begin{figure}[h]
+                \includegraphics[scale=0.35]{../img/joint_histogram}
+            \end{figure}
+            
+            \column{0.3\textwidth}
+            \centering
+            Mean:
+            $$ \mu = \frac{1}{n} \sum_{i = 1}^{n} x_i $$
+            Variance:
+            $$ \operatorname {Var} (X)=\sum _{i=1}^{n}p_{i}\cdot (x_{i}-\mu )^{2} $$
+        \end{columns}
     \end{myframe}
     
     \section{Classifiers}
@@ -163,29 +186,37 @@
     \subsection{Tree and random forest}
     
     \begin{myframe}
-        a decision tree recursively partitions the space such that the samples with the same labels are grouped together
-        
-        each recursion, it separates the data in a left and right partition for a feature j and a threshold
-        
-        threshold value is selected as the one that minimize the impurity (using impurity function such as Gini)
-        
-        Continue to split until the impurity can't be reduced or some pre-set stopping rules are met. Alternatively, the data are split as much as possible and then the tree is later pruned.
-        
-        Random forest: randomized decision tree. . The prediction of the ensemble is given as the averaged prediction of the individual classifiers.
+        \centering
+        \includegraphics[scale=0.55]{../img/decision_tree_simple_example}
     \end{myframe}
     
     \subsection{SVM}
     
     \begin{myframe}
-        A Support Vector Machine (SVM) : try to find the set of hyperplanes to separate the different classes
-        a good separation is achieved by the hyper-plane that has the largest distance to the nearest training data points of any class (so-called functional margin), since in general the larger the margin the lower the generalization error of the classifier.
-        Use for classification or regression
-        Linear model: it suppose a hyperplane separate the data
+        \centering
+        \includegraphics[scale=0.45]{../img/svm_linear}
+    \end{myframe}
+    
+    \subsection{SVM and kernel trick}
+    
+    \begin{myframe}
+        %\includegraphics[scale=0.55]{../img/svm_data_2d_to_3d.png}
+        \begin{center}
+            \begin{tikzpicture}
+                \node[anchor=south west,inner sep=0] (image) at (0,0) {
+                    \includegraphics[scale=0.3]{../img/svm_data_2d_to_3d.png}
+                };
+                \onslide*<2->{
+                    \node[align=center, color=black, fill=white, font={\Huge\bfseries}] at (image.center) {
+                        $\chi^2$ kernel : 
+                        $k(x,y) = 1 - \displaystyle\sum_{i=1}^n \frac{(x_i-y_i)^2}{\frac{1}{2}(x_i+y_i)}$
+                    }
+                };
+            \end{tikzpicture}
+        \end{center}
         
-        Kernel trick: Idea : transform the initial space $\mathbb{R}^N$ to a higher dimensional space $\mathbb{R}^M$ (where $M > N$) where a hyperplane can sepearet this data
         
-        Example of kernel: kernel function: 
-        $\chi^2$ kernel: $k(x,y) = 1 - \displaystyle\sum_{i=1}^n \frac{(x_i-y_i)^2}{\frac{1}{2}(x_i+y_i)}$
+        %Example of kernel: kernel function: 
         
     \end{myframe}
     
@@ -271,7 +302,6 @@
         \setbeamertemplate{footline}{} 
         \begin{frame}{Food log analysis - Baptiste NOGARET}{}
             \begin{columns}
-                
                 \column{0.5\textwidth}
                 Segmentation and classfication applied on two reference datasets
                 

@@ -92,23 +92,21 @@
 \def\const@sections{sections}
 
 \defbeamertemplate*{headline}{cranfielduniversity}{
-  \vskip1pt
+  \vskip2pt
   \leavevmode
   \begin{beamercolorbox}
-    [%ignorestructure.bg=true, 
-    %wd=\paperwidth, ht=4ex, dp=1.125ex]{structure.fg}
-    wd=\paperwidth, ht=3ex, dp=1.125ex]{structure.fg}
-    %\ifnum\insertframenumber=1\else
-    \ifx\cu@headline\const@sections
-      \insertsectionnavigationhorizontal{\paperwidth}{}{}
-    \fi%\fi
+    [wd=\paperwidth, ht=4ex, dp=1.125ex]{structure.fg}
+    \ifnum\insertframenumber=1\else
+        \ifx\cu@headline\const@sections
+        \insertsectionnavigationhorizontal{\paperwidth}{}{}
+     \fi\fi
   \end{beamercolorbox}}
 
 \defbeamertemplate*{footline}{cranfielduniversity}
 {
 	\parbox{\linewidth}{
         \hspace{0.5cm}
-        \insertshortauthor
+        % \insertshortauthor
         \hfill
         \insertframenumber / \inserttotalframenumber
         \vspace*{0.5cm}
@@ -128,7 +126,7 @@
 
 \defbeamertemplate*{title page}{cranfielduniversity}
 {
-  \parbox{0.4\textwidth}{
+  \parbox{0.39\textwidth}{
   	\vspace*{-2cm}
   	\hspace*{0.7cm}
   	\pgfuseimage{titleimage}
@@ -180,7 +178,7 @@
   % background
   \setbeamertemplate{background canvas}{}
   % headline/footline
-  \setbeamertemplate{headline}{\vskip1mm}
+  \setbeamertemplate{headline}{\vskip2mm}
   \setbeamertemplate{footline}{}%
   % title page
   \setbeamertemplate{title page}[default]}

@@ -6,6 +6,7 @@
 \usepackage{tabulary}
 \usepackage{hyperref}
 \usepackage{tikz}
+\usetikzlibrary{shapes, arrows, trees, calc}
 \usepackage{mathtools}
 
 \let\oldsection\section
@@ -27,6 +28,7 @@
 
 \author{Baptiste NOGARET}
 \title{Automated food log}
+\date{21\textsuperscript{st} July 2016}
 
 \supervisor{Dr Stefan RÜGER}
 
@@ -53,6 +55,7 @@
         % Disable footline for this frame
         \setbeamertemplate{footline}{}
     	\begin{myframe}
+            \vspace{-0.4cm}
             \begin{figure}[h]
                 \includegraphics[width=0.5\textwidth,  height=0.45\textwidth ]{../img/obesity_uk}
                 \includegraphics[width=0.5\textwidth,  height=0.455\textwidth ]{../img/imagenet}
@@ -77,6 +80,7 @@
     {
         \author{}
         \begin{myframe}
+            \vspace{-0.3cm}
             \begin{columns}
                 \column{0.5\textwidth}
                 \centering
@@ -144,13 +148,11 @@
     \subsection{Bag of visual words}
     
     \begin{myframe}
-        Overall process:
-        \begin{enumerate}
-            \item Keypoints detection (dense grid / SIFT \footfullcite{Lowe2004} / SURF)
-            \item Keypoints description (SIFT or SURF)
-            \item Clustering to get N words (k-means clustering)
-            \item Express each picture by an histogram of visual words
-        \end{enumerate}
+        Common feature descriptor, use in \cite{Chen2009, Hoashi2010a, Bettadapura2015}
+        \vspace{0.5cm}
+        \begin{center}
+            \includegraphics[scale=0.9]{../img/bow.png}
+        \end{center}
     \end{myframe}
     
     \subsection{Local binary pattern}
@@ -158,21 +160,24 @@
     \begin{myframe}
         Use in \cite{Zong2010, Nguyen2014} for texture classification
         
-        \includegraphics[scale=0.55]{../img/lbp}
+        \begin{center}
+            \includegraphics[scale=0.55]{../img/lbp}
+        \end{center}
     \end{myframe}
     
     \subsection{Color moments and histograms}
     
     \begin{myframe}
+        \vspace{-0.5cm}
         \begin{columns}
-            \column{0.7\textwidth}
+            \column{0.6\textwidth}
             \centering
             % Joint histogram:
             \begin{figure}[h]
                 \includegraphics[scale=0.35]{../img/joint_histogram}
             \end{figure}
             
-            \column{0.3\textwidth}
+            \column{0.4\textwidth}
             \centering
             Mean:
             $$ \mu = \frac{1}{n} \sum_{i = 1}^{n} x_i $$
@@ -186,15 +191,18 @@
     \subsection{Tree and random forest}
     
     \begin{myframe}
-        \centering
-        \includegraphics[scale=0.55]{../img/decision_tree_simple_example}
+        \begin{center}
+            \includegraphics[scale=0.50]{../img/decision_tree_simple_example}
+        \end{center}
     \end{myframe}
     
     \subsection{SVM}
     
     \begin{myframe}
-        \centering
-        \includegraphics[scale=0.45]{../img/svm_linear}
+        \vspace{-1cm}
+        \begin{center}
+            \includegraphics[scale=0.5]{../img/svm_linear}
+        \end{center}
     \end{myframe}
     
     \subsection{SVM and kernel trick}
@@ -206,42 +214,57 @@
                 \node[anchor=south west,inner sep=0] (image) at (0,0) {
                     \includegraphics[scale=0.3]{../img/svm_data_2d_to_3d.png}
                 };
-                \onslide*<2->{
-                    \node[align=center, color=black, fill=white, font={\Huge\bfseries}] at (image.center) {
-                        $\chi^2$ kernel : 
-                        $k(x,y) = 1 - \displaystyle\sum_{i=1}^n \frac{(x_i-y_i)^2}{\frac{1}{2}(x_i+y_i)}$
-                    }
-                };
             \end{tikzpicture}
-        \end{center}
-        
-        
-        %Example of kernel: kernel function: 
-        
+        \end{center}        
     \end{myframe}
     
     \subsection{CNN}
-    
-    \begin{myframe}
-        Convolutional Neural Networks are very similar to ordinary Neural Networks from the previous chapter: they are made up of neurons that have learnable weights and biases. Each neuron receives some inputs, performs a dot product and optionally follows it with a non-linearity. The whole network still expresses a single differentiable score function: from the raw image pixels on one end to class scores at the other. And they still have a loss function (e.g. SVM/Softmax) on the last (fully-connected) layer and all the tips/tricks we developed for learning regular Neural Networks still apply.
-        
-        mainly use when the input is an image: neurons arranged in 3 dimensions: width, height, depth
-        
-        Main layer:
-        Convolutional layer
-        Pooling layer
-        Activation layer: mainly relu (rectified linear unit): max(0, x)
-        Fully-connected layer
-    \end{myframe}
-    
-    % \section{Segmentation}
     
     {
         \setbeamertemplate{footline}{}
         \setbeamertemplate{headline}{}
         \begin{myframe}
+            \vspace{-0.35cm}
+            \begin{center}
+                \includegraphics[scale=0.3]{../img/cnn_simple_example.jpeg}
+            \end{center}
+        \end{myframe}
+    }
+    
+    \section{Structure}
+    
+    {
+        \setbeamertemplate{footline}{}
+        \begin{myframe}
+            \vspace{-0.5cm}
             \centering
-            \includegraphics[scale=0.3]{../img/cnn_simple_example.jpeg}
+            \tikzstyle{block} = [rectangle, draw, text width=3cm, text centered, rounded corners,  fill=blue!20]
+            \tikzstyle{line} = [draw,thick, -latex']
+            \tikzstyle{cloud} = [draw, ellipse, text width=3cm, text centered]
+            \tikzstyle{edge from parent}=[->,thick,draw]
+            
+            \begin{tikzpicture}[auto,edge from parent fork down]
+            \tikzstyle{level 1}=[sibling distance=75mm,level distance=10ex]
+            %\tikzstyle{level 2}=[sibling distance=50mm,level distance=10ex]
+            %\tikzstyle{level 3}=[sibling distance=50mm,level distance=10ex]
+            % Place nodes
+            \node [cloud, fill=red!10] (cst) {Dataset}
+            child{node [cloud, fill=green!10] (pmt) {Validation set}
+                child{node [block, fill=blue!10] (opm) {Hyper-parameter optimization}}
+            }
+            child{node [cloud, fill=green!10] (ra) {Train / test sets}
+                child{node [block, fill=blue!10] (cr) {Segmentation}}
+            };
+            \node[below of= cr, block, fill=blue!10](sse){Feature description};
+            \node[below of= sse, block, fill=blue!10](ow){Classification};
+            \node[below of= ow, block, fill=red!10](isse){Result};
+            %% Draw edges
+            \path [line] (cr.south) -- (sse.north);
+            \path [line] (opm.east) -- (cr.west);
+            \path [line] (opm.south) -- (ow.west);
+            \path [line] (sse.south)--(ow.north);
+            \path [line] (ow.south) -- (isse.north);
+            \end{tikzpicture}
         \end{myframe}
     }
     
@@ -250,49 +273,149 @@
     \subsection{Segmentation}
     
     \begin{myframe}
-        Precision, recall, accuracy (+ their definition)
-        
-        Result for UECFOOD 256
-        
-        (Display graph of the accuracy / recall / precision function of the overlaping value)
+        \begin{columns}
+            \column{0.5\textwidth}
+            Using a DCNN pre-trained on \cite{zhang2015SOD} to detect saliency object
+            
+            \vspace{0.5cm}
+            
+            Correcteness metric: As describe in \cite{pascalVoc2012}, must have an intersection over union greater than 50 \%
+            $$IoU = \frac{area(B_p \cap B_{gt})}{area(B_p \cup B_{gt})}$$
+            
+            \column{0.5\textwidth}
+            \begin{center}
+                \renewcommand{\arraystretch}{1.3} % Default value: 1
+                \begin{tabular}{||c | c c||} 
+                    \hline
+                    Metric & My method & DCNN from \cite{Bolanos2016} \\
+                    \hline\hline
+                    Accuracy & \textbf{73 \%} & 60 \% \\ 
+                    \hline
+                    Recall &  \textbf{74 \%} & 80 \% \\
+                    \hline
+                    Precision &  \textbf{79 \%} & 70 \% \\
+                    \hline
+                \end{tabular}
+            \end{center}
+        \end{columns}
     \end{myframe}
     
     \subsection{Classification}
     
     \begin{myframe}
-        Results for :
-        - CNN as feature descriptors
-        - Color histogram
-        - BoW
-        
-        Compare to other results
+          \begin{center}
+              \renewcommand{\arraystretch}{1.3} % Default value: 1
+              \begin{tabulary}{\textwidth}{|| c | C||}
+                  \hline
+                  Method & Average accuracy \\
+                  \hline\hline
+                  CNN as descriptor + RF & \textbf{40 \%} \\ 
+                  \hline
+                  BoW (1000 words)+ SVM with $\chi^2$ & 10 \% \\ % made up!
+                  \hline
+                  LBP + color historams and moments + Decision tree & 5 \% \\ 
+                  \hline
+                  LBP + color historams and moments + SVM & 11 \% \\ % made up!
+                  \hline
+                  LBP + color historams and moments + RF & 16 \% \\ % improved!
+                  \hline
+                  \hline
+                  DCNN from \cite{Bolanos2016} & 63 \%\\
+                  \hline 
+                  DCNN from \cite{Yanai2015} & 67 \%\\
+                  \hline 
+                \end{tabulary}
+            \end{center}
     \end{myframe}
     
-    \subsection{Segmentation followed by classification}
+    \subsection{Segmentation and classification}
     
     \begin{myframe}
-        Combining segmentation and classification:
-        % 256:
-        Overall accuracy: 28 \%
-        74 \% for segmentation
-        38 \% for classification
+        Segmentation: DCNN followed by the classification: CNN as a descriptor and RF
         
-        % 100:
-        Overall accuracy: 33 \%
-        67 \% for segmentation
-        50 \% for classification
-        
-        Compare to other results
-        
-        (Show the 5 best / least classes' accuracy)
-        (Show the most confusing items)
+        \begin{columns}
+            \column{0.5\textwidth}
+            \begin{center}
+                UEC FOOD 256
+                \vspace{0.5cm}
+                
+                \renewcommand{\arraystretch}{1.3} % Default value: 1
+                \begin{tabulary}{\textwidth}{|| c | C C||}
+                    \hline
+                    Accuracy & My method & DCNN from \cite{Bolanos2016} \\
+                    \hline\hline
+                    Overall & \textbf{28 \%} & 36 \% \\ 
+                    \hline
+                    Segmentation &  \textbf{74 \%} & 60 \% \\
+                    \hline
+                    Classification &  \textbf{38 \%} & 60 \% \\
+                    \hline
+                \end{tabulary}
+            \end{center}
+            
+            \column{0.5\textwidth}
+            \begin{center}
+                UEC FOOD 100
+                \vspace{0.5cm}
+                
+                \renewcommand{\arraystretch}{1.3} % Default value: 1
+                \begin{tabulary}{\textwidth}{|| C | C c c||} 
+                    \hline
+                    Accuracy & My method & \cite{Shimoda2015} & \cite{Kawano2014} \\
+                    \hline\hline
+                    Overall & \textbf{33 \%} & - & - \\ 
+                    \hline
+                    Segmentation &  \textbf{67 \%} & 60 \% & - \\
+                    \hline
+                    Classification &  \textbf{50 \%} & -  & 72 \% \\
+                    \hline
+                \end{tabulary}
+            \end{center}
+        \end{columns}
     \end{myframe}
     
-    \section{Future work}
+    \section{Future work and comment}
     
     \begin{myframe}
-        Regroup the classification in 5 big categories
+        \begin{columns}
+            \column{0.5\textwidth}
+            \renewcommand{\baselinestretch}{1.5}\normalsize
+            \begin{itemize}
+                \item Regroup the classification in 5 big categories for food intake as in \cite{Aizawa2013}
+                
+                \item Use a better feature descriptor / classifier
+                
+                \item Segmentation suppose that the food is the main focus of the picture
+            \end{itemize}
+            \column{0.5\textwidth}
+            \centering
+            \includegraphics[scale=0.25]{../img/choosemyplate.jpg}
+        \end{columns}
+        
     \end{myframe}
+    
+    {
+        % Disable footline for this frame
+        % \setbeamertemplate{footline}{}
+        \begin{frame}{Food log analysis - Baptiste NOGARET}{}
+            \begin{columns}
+                \column{0.5\textwidth}
+                Segmentation and classfication applied on two reference datasets
+                
+                \vspace{0.5cm}
+                
+                Obtain better segmentation than the reference
+                
+                \vspace{0.5cm}
+                
+                Overall accuracy of 28 \% (to date, best result is 36 \% in \cite{Bolanos2016}).
+                
+                \column{0.5\textwidth}
+                \centering
+                \includegraphics[scale=0.5]{../img/seg_97_gt}
+            \end{columns}
+        \end{frame}
+    }
     
     \section{References}
     
@@ -301,23 +424,5 @@
     \end{myframe}
     
     \section{Question}
-    
-    {
-        % Disable footline for this frame
-        \setbeamertemplate{footline}{} 
-        \begin{frame}{Food log analysis - Baptiste NOGARET}{}
-            \begin{columns}
-                \column{0.5\textwidth}
-                Segmentation and classfication applied on two reference datasets
-                
-                Obtain better segmentation than the reference
-                
-                Overall accuracy of 28 \% (to date, best result is 36 \% in ...).
-                
-                \column{0.5\textwidth}
-                \includegraphics[width=\textwidth]{../img/seg_97_gt}
-            \end{columns}
-        \end{frame}
-    }
    
 \end{document}

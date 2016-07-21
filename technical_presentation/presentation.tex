@@ -70,39 +70,39 @@
          \begin{itemize}
              \item Generate a relevant dataset
              \item Extract characteristic
-             \item Learn
+             \item Machine learning
              \item For a new picture from a user, classify and estimate intake
          \end{itemize}
-         Focus on the first three points
+         Focus on localization and classification
      \end{myframe}
     
-    \section{Challenges}
-    {
-        \author{}
-        \begin{myframe}
-            \vspace{-0.3cm}
-            \begin{columns}
-                \column{0.5\textwidth}
-                \centering
-                High intra-class variability
-                \begin{figure}[h]
-                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/croissant_2}
-                    \vfill
-                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/croissant_3}
-                \end{figure}
-                
-                \column{0.5\textwidth}
-                \centering
-                Low inter-class variability
-                
-                \begin{figure}[h]
-                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/clear_soup}
-                    \vfill
-                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/miso_soup}
-                \end{figure}
-            \end{columns}
-        \end{myframe}
-    }
+%    \section{Challenges}
+%    {
+%        \author{}
+%        \begin{myframe}
+%            \vspace{-0.3cm}
+%            \begin{columns}
+%                \column{0.5\textwidth}
+%                \centering
+%                High intra-class variability
+%                \begin{figure}[h]
+%                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/croissant_2}
+%                    \vfill
+%                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/croissant_3}
+%                \end{figure}
+%                
+%                \column{0.5\textwidth}
+%                \centering
+%                Low inter-class variability
+%                
+%                \begin{figure}[h]
+%                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/clear_soup}
+%                    \vfill
+%                    \includegraphics[width=0.7\textwidth, height=0.4\textwidth]{../img/miso_soup}
+%                \end{figure}
+%            \end{columns}
+%        \end{myframe}
+%    }
 
     \section{Dataset}
     
@@ -158,7 +158,7 @@
     \subsection{Local binary pattern}
     
     \begin{myframe}
-        Use in \cite{Zong2010, Nguyen2014} for texture classification
+        Use in \cite{Zong2010, Nguyen2014} for texture description
         
         \begin{center}
             \includegraphics[scale=0.55]{../img/lbp}
@@ -188,7 +188,7 @@
     
     \section{Classifiers}
     
-    \subsection{Tree and random forest}
+    \subsection{Decision tree and random forest}
     
     \begin{myframe}
         \begin{center}
@@ -270,7 +270,7 @@
     
     \section{Results}
     
-    \subsection{Segmentation}
+    \subsection{Localization}
     
     \begin{myframe}
         \begin{columns}
@@ -381,11 +381,13 @@
             \column{0.5\textwidth}
             \renewcommand{\baselinestretch}{1.5}\normalsize
             \begin{itemize}
-                \item Regroup the classification in 5 big categories for food intake as in \cite{Aizawa2013}
-                
                 \item Use a better feature descriptor / classifier
                 
-                \item Segmentation suppose that the food is the main focus of the picture
+                \vspace{1cm}
+                
+                \item Regroup the classification in 5 big categories for food intake as in \cite{Aizawa2013}
+
+                % \item Segmentation suppose that the food is the main focus of the picture
             \end{itemize}
             \column{0.5\textwidth}
             \centering
@@ -399,14 +401,14 @@
     {
         % Disable footline for this frame
         % \setbeamertemplate{footline}{}
-        \begin{frame}{Food log analysis - Baptiste NOGARET}{}
+        \begin{frame}{Automated food log - Baptiste NOGARET}{}
             \begin{columns}
                 \column{0.5\textwidth}
                 Segmentation and classfication applied on two reference datasets
                 
                 \vspace{0.5cm}
                 
-                Obtain better segmentation than the reference
+                Obtain great localization results
                 
                 \vspace{0.5cm}
                 

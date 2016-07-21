@@ -42,6 +42,7 @@
     
     \begin{frame}{Table of contents}
         {
+            \vfill
             \renewcommand{\baselinestretch}{1.5}\normalsize
             \begin{multicols}{2}
                 \tableofcontents
@@ -73,7 +74,8 @@
              \item Machine learning
              \item For a new picture from a user, classify and estimate intake
          \end{itemize}
-         Focus on localization and classification
+         \vspace{0.5cm}
+         Focus on localisation and classification
      \end{myframe}
     
 %    \section{Challenges}
@@ -231,7 +233,7 @@
         \end{myframe}
     }
     
-    \section{Structure}
+    \section{Methodology}
     
     {
         \setbeamertemplate{footline}{}
@@ -253,16 +255,16 @@
                 child{node [block, fill=blue!10] (opm) {Hyper-parameter optimization}}
             }
             child{node [cloud, fill=green!10] (ra) {Train / test sets}
-                child{node [block, fill=blue!10] (cr) {Segmentation}}
+                child{node [block, fill=blue!10] (cr) {Localisation}}
             };
-            \node[below of= cr, block, fill=blue!10](sse){Feature description};
-            \node[below of= sse, block, fill=blue!10](ow){Classification};
+            % \node[below of= cr, block, fill=blue!10](sse){Feature description};
+            \node[below of= cr, block, fill=blue!10](ow){Classification};
             \node[below of= ow, block, fill=red!10](isse){Result};
             %% Draw edges
-            \path [line] (cr.south) -- (sse.north);
+            \path [line] (cr.south) -- (ow.north);
             \path [line] (opm.east) -- (cr.west);
             \path [line] (opm.south) -- (ow.west);
-            \path [line] (sse.south)--(ow.north);
+            %\path [line] (sse.south)--(ow.north);
             \path [line] (ow.south) -- (isse.north);
             \end{tikzpicture}
         \end{myframe}
@@ -270,7 +272,7 @@
     
     \section{Results}
     
-    \subsection{Localization}
+    \subsection{Localisation}
     
     \begin{myframe}
         \begin{columns}
@@ -283,6 +285,9 @@
             $$IoU = \frac{area(B_p \cap B_{gt})}{area(B_p \cup B_{gt})}$$
             
             \column{0.5\textwidth}
+            
+            UEC FOOD 256:
+            
             \begin{center}
                 \renewcommand{\arraystretch}{1.3} % Default value: 1
                 \begin{tabular}{||c | c c||} 
@@ -328,10 +333,10 @@
             \end{center}
     \end{myframe}
     
-    \subsection{Segmentation and classification}
+    \subsection{Localisation and classification}
     
     \begin{myframe}
-        Segmentation: DCNN followed by the classification: CNN as a descriptor and RF
+        Localisation: pre-trained DCNN followed by the classification: CNN as a descriptor and RF
         
         \begin{columns}
             \column{0.5\textwidth}
@@ -346,7 +351,7 @@
                     \hline\hline
                     Overall & \textbf{28 \%} & 36 \% \\ 
                     \hline
-                    Segmentation &  \textbf{74 \%} & 60 \% \\
+                    Localisation &  \textbf{74 \%} & 60 \% \\
                     \hline
                     Classification &  \textbf{38 \%} & 60 \% \\
                     \hline
@@ -365,7 +370,7 @@
                     \hline\hline
                     Overall & \textbf{33 \%} & - & - \\ 
                     \hline
-                    Segmentation &  \textbf{67 \%} & 60 \% & - \\
+                    Localisation &  \textbf{67 \%} & 60 \% & - \\
                     \hline
                     Classification &  \textbf{50 \%} & -  & 72 \% \\
                     \hline
@@ -374,7 +379,7 @@
         \end{columns}
     \end{myframe}
     
-    \section{Future work and comment}
+    \section{Future work}
     
     \begin{myframe}
         \begin{columns}
@@ -408,7 +413,7 @@
                 
                 \vspace{0.5cm}
                 
-                Obtain great localization results
+                Obtain great localisation results
                 
                 \vspace{0.5cm}
                 

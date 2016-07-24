@@ -6,6 +6,45 @@ Why do we use a dataset?
 
 Describe how it was build ?
 
+\section{Choice of the datatset}
+
+Numerous datasets are already existing and have been made freely available. I could create my own dataset but it would have been very time consuming and I wouldn't be able to compare my results with previous scientific papers.
+To choose, a couple of criteria were defined:
+\begin{itemize}
+    \item Preferably, it should be a recent dataset
+    \item It must have a decent number of pictures (a few thousand pictures)
+    \item It must be composed of a general kind of food such as worldwide, Western or Asian
+    \item It must contain pictures with multi-food items
+\end{itemize}
+
+As we can see in the table \ref{table:dataset_summary}, UEC FOOD 256 is the dataset that best match our expectations.
+
+\begin{table}
+    %\setlength{\tabcolsep}{5pt} % Default value: 6pt
+    \renewcommand{\arraystretch}{1.1} % Default value: 1
+    \begin{tabulary}{\textwidth}{| c | C | C | C | C | C|}
+        \hline
+        Name & Release date & Number of pictures & Type of food & Number of classes & Multiple food items \\
+        \hline
+        PFID \cite{Chen2009} & 2009 & 4545 & American fast-food  & 101 & No \\
+        \hline
+        UEC FOOD 100 \cite{Matsuda2012a} & 2012 & 14361 & Japanese & 100  & Yes \\
+        \hline
+        FIDS 30 \cite{FIDS30} & 2013 & 971 & Fruit & 30 & No \\
+        \hline
+        ETHZ Food-101 \cite{Bossard2014} & 2014 & 101 000 & European & 100 & No \\
+        \hline
+        FooDD \cite{ParisaPouladzadehAbdulsalamYassine2015} & 2015 & 3000 & Fruit & 23 & Yes \\
+        \hline
+        \textbf{UEC FOOD 256} \cite{Kawano2015} & \textbf{2015} & \textbf{31395} & \textbf{World} & \textbf{256}  & \textbf{Yes} \\ 
+        \hline
+    \end{tabulary}
+    \caption{Summary of some available food datasets according to the criteria}
+    \label{table:dataset_summary}
+\end{table}
+
+\section{UEC FOOD-100 and UEC FOOD-256}
+
 \textbf{UEC FOOD-100} and \textbf{UEC FOOD-256} are datasets used for food localization and recognition.
 
 The UEC FOOD-100 dataset can be found in \footnote{Dataset can be found at \url{http://foodcam.mobi/dataset100.html}}. It was created in 2012 and presented in \cite{Matsuda2012a}.

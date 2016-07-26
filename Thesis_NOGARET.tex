@@ -6,6 +6,8 @@
 \usepackage{graphicx}
 \usepackage{tabulary}
 \usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage[autostyle]{csquotes}
 
 \usepackage{textcomp}                   % For the special character ° and TM
 
@@ -35,6 +37,10 @@
 
 \addbibresource{library.bib}
 \addbibresource{my_references.bib}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Var}{\operatorname{Var}}
 
 \begin{document}
 
@@ -101,9 +107,37 @@
 
 \chapter{Appendix}
 
-This is a sample of thesis text. This is a sample of thesis text. This is a 
-sample of thesis text. This is a sample of thesis text. This is a sample of
-thesis text.
+\section{RGB to HSV}
+
+Assuming the RGB values have been normalised to be in $[0, 1]$, we have:
+
+$$M = \max (R, G, B)$$
+$$m = \min (R, G, B)$$
+$$C = M - m$$
+
+$$
+H =
+\begin{cases}
+0 & \text{if $C = 0$}\\
+60 \times \left[ \frac{G - B}{C} \mod 6\right] & \text{if $M = R$} \\
+60 \times \left[ \frac{B - R}{C} + 2\right] & \text{if $M = G$} \\
+60 \times \left[ \frac{R - G}{C} + 4\right] & \text{if $M = B$} \\
+\end{cases}
+$$
+
+$$
+S =
+\begin{cases}
+0 & \text{if $M = 0$}\\
+\frac{C}{M}& \text{otherwise} \\
+\end{cases}
+$$
+
+$$V = M$$
+
+\section{HSV to RGB}
+
+$C = V \times S$
 
 % References - you can use BiBTeX inside the 'references' environment if you want.
 % For short reference lists, you might find it just as easy to use the bibitem form.

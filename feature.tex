@@ -13,7 +13,7 @@ RGB, gray, HSV
 
 Local binary pattern
 
-Local binary pattern is a visual descriptor for texture composiiton of an image, first presented in .
+Local binary pattern is a visual descriptor for texture composition of an image, first presented in 2002 in \cite{Ojala2002}.
 
 Show an image and its LBP representation
 
@@ -23,8 +23,28 @@ Show an image and its LBP representation
 Color histogram and moments :
 
 mean and variance
+
+Mean:
+$$ \mu = \frac{1}{n} \sum_{i = 1}^{n} x_i $$
+Variance:
+$$ \operatorname{Var} (X)=\sum _{i=1}^{n}p_{i}\cdot (x_{i}-\mu )^{2} $$
+
 Hu moment (+ raw and centralized and normalized moment and their property)
 joint histogram
+
+7 Hu mement, as defined in \cite{Hu1962}:
+
+$$
+I_{1}=\eta _{{20}}+\eta _{{02}}
+I_{2}=(\eta _{{20}}-\eta _{{02}})^{2}+4\eta _{{11}}^{2}
+I_{3}=(\eta _{{30}}-3\eta _{{12}})^{2}+(3\eta _{{21}}-\eta _{{03}})^{2}
+I_{4}=(\eta _{{30}}+\eta _{{12}})^{2}+(\eta _{{21}}+\eta _{{03}})^{2}
+I_{5}=(\eta _{{30}}-3\eta _{{12}})(\eta _{{30}}+\eta _{{12}})[(\eta _{{30}}+\eta _{{12}})^{2}-3(\eta _{{21}}+\eta _{{03}})^{2}]+(3\eta _{{21}}-\eta _{{03}})(\eta _{{21}}+\eta _{{03}})[3(\eta _{{30}}+\eta _{{12}})^{2}-(\eta _{{21}}+\eta _{{03}})^{2}]
+I_{6}=(\eta _{{20}}-\eta _{{02}})[(\eta _{{30}}+\eta _{{12}})^{2}-(\eta _{{21}}+\eta _{{03}})^{2}]+4\eta _{{11}}(\eta _{{30}}+\eta _{{12}})(\eta _{{21}}+\eta _{{03}})
+I_{7}=(3\eta _{{21}}-\eta _{{03}})(\eta _{{30}}+\eta _{{12}})[(\eta _{{30}}+\eta _{{12}})^{2}-3(\eta _{{21}}+\eta _{{03}})^{2}]-(\eta _{{30}}-3\eta _{{12}})(\eta _{{21}}+\eta _{{03}})[3(\eta _{{30}}+\eta _{{12}})^{2}-(\eta _{{21}}+\eta _{{03}})^{2}].
+$$
+
+As demonstrated in the work \cite{Hu1962}, these 7 moments are translation, scale and rotation invariants.
 
 Cite + write formula
 

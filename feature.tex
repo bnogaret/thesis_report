@@ -9,9 +9,9 @@ Learning the parameters of a prediction function and testing it on the same data
 presenting different channel representation
 RGB, gray, HSV
 
-\section{Feature descriptors}
+\chapter{Feature descriptors}
 
-\subsection{Local binary pattern}
+\section{Local binary pattern}
 
 % http://www.pyimagesearch.com/2015/12/07/local-binary-patterns-with-python-opencv/
 
@@ -29,7 +29,7 @@ We adopt the following notation. Given a pixel $c = (x_c, y_c)$, the value of th
 $$LBP_{P, R} (x_c, y_c) = \sum_{p = 0}^{P - 1} s (g_p - g_c) 2^p$$
 where:
 \begin{itemize}
-    \item $p$ is a neighbour pixel of $c$ and the distance from $p$ to $c$ does not exceed $R$. thus, $R$ is the radius of a circle centered in $c$ and $P$ is the numbered of sampled points.
+    \item $p$ is a neighbour pixel of $c$ and the distance from $p$ to $c$ does not exceed $R$. Thus, $R$ is the radius of a circle centered in $c$ and $P$ is the numbered of sampled points.
     \item $g_p$ and $g_c$ are the gray values (intensities) of $p$ and $c$
     \item $s(x)$ is the function defined as:
     \begin{equation}
@@ -49,6 +49,8 @@ Lastly, it’s important that we consider the concept of LBP uniformity. A LBP i
 
 The number of uniform prototypes in a Local Binary Pattern is completely dependent on the number of points p. As the value of p increases, so will the dimensionality of your resulting histogram. Please refer to the original Ojala et al. paper for the full explanation on deriving the number of patterns and uniform patterns based on this value. However, for the time being simply keep in mind that given the number of points p in the LBP there are p + 1 uniform patterns. The final dimensionality of the histogram is thus p + 2, where the added entry tabulates all patterns that are not uniform.
 
+\section{Color descriptor}
+
 \subsection{Color histogram}
 
 HSV channels: Hue, Saturation and Value.
@@ -56,7 +58,7 @@ It has been defined to be closer to the way human represents colours.
 Hue and Saturation corresponds to the chromaticity of the colour, Value to the lightness.
 As value is really dependant of the condition where the picture were taken, we don't use it for color histogram.
 
-\subsubsection{Color moments}
+\subsection{Color moments}
 
 \subsection{The first two moments}
 
@@ -105,10 +107,25 @@ On the base of those Moments, Hu in \cite{Hu1962} introduced 7 Moments which are
     \end{split} \\
 \end{align*}
 
-Bag-of-Words
+\section{Bag-of-Words}
+\subsection{Process}
 
-Bag-of-Words, also called Bag of features, is a 
-derived from text classification
+\textbf{Bag-of-Words} \textit{BoW}, also called Bag of features, is a feature descriptor method inspired by information retrieval from textual documents.
+
+As illustrated in Fig. \ref{fig:bow_process}, the main steps are:
+\begin{itemize}
+    \item On each picture, keypoints are detected (in my case, I use a dense grid).
+    \item For every keypoint, we describe it, SIFT (scale invariant feature transform).
+    \item We generate the fix number of visual words that compose our codebook.
+    \item We express each image as an histogram of these words' appearance.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.9]{img/bow.png}
+    \caption{Illustration of the Bag-Of-Visual-Words model}
+    \label{fig:bow_process}
+\end{figure}
 
 cite who use it first?
 
@@ -126,69 +143,3 @@ Descriptor
 
 clustering
 - k means
-
-Classifier
-
-k-nearest neighborhood
-
-one of the simplest
-
-Tree, random forest
-
-Decision tree: can be used for classification or regression
-It can be represented as a graph and a simple representation is given \ref{fig:decision_tree_simple_example}.
-
-\begin{figure}[h]
-    \includegraphics[scale=0.5]{img/decision_tree_simple_example}
-    \caption{Decision tree of depth 2 for 10 elements belonging to 2 classes}
-    \label{fig:decision_tree_simple_example}
-\end{figure}
-
-
-Naive bayesian
-
-SVM (binary case) + kernel trick + multi-class (one-versus-one or one-versus-all)
-
-The Support Vector Machine (SVM) is a method used for classification and regression. A support vector machine constructs a hyper-plane or set of hyper-planes in a high or infinite dimensional space, which can be used for classification, regression or other tasks. Intuitively, a good separation is achieved by the hyper-plane that has the largest distance to the nearest training data points of any class (so-called functional margin), since in general the larger the margin the lower the generalization error of the classifier.
-
-To generalize SVM to the case of multi-class, multiple approaches are possible:
-\begin{itemize}
-    \item \enquote{one-versus-one}: train a separate classifier for each different pair of labels. This leads to $\frac{N (N - 1)}{2}$ classifiers
-    \item \enquote{one-versus-all}: train a single classifier per class, with the samples of that class as positive samples and all other samples as negatives
-\end{itemize}
-
-Kernel trick:
-to use the linear SVM for non-linear data: project the data in a new feature H space thanks to an application and then reserch for maximum margin hyperplan in H
-to make sure that the new problem has a unique solution, 
-must satisfy the Mercer's condition or simply it must be a positiv-definit matrix
-
-\begin{itemize}
-    \item \textbf{Linear} : $k(x, y) = \langle \vec{x} , \vec{y} \rangle + C = x^T y + C$
-    \item \textbf{Polynomial}: $k(x, y) = (\gamma \cdot \langle \vec{x} , \vec{y} \rangle + C)^d = (\gamma \times x^T y + C)^d$
-    \item \textbf{Radial Basis Function (RBF)}: $k(x, y) = \exp \left( - \gamma \lVert x - y \rVert ^2 \right)$
-    \item \textbf{Chi-Square}: $\displaystyle k(x, y) = 1 - \sum_{i=1}^n \frac{(x_i-y_i)^2}{\frac{1}{2} (x_i+y_i)}$
-    
-    A modified version presented in \cite{Vedaldi2010} of this kernel is the \textbf{Additive Chi-Square} kernel :
-    $\displaystyle k(x, y) = \sum_{i=1}^n \frac{2 (x_i - y_i)}{x_i + y_i} $
-\end{itemize}
-
-The adjustable parameters of these kernels are $d$, $\gamma$, $C$ and must be choosen according to the problem.
-
-SGD classifier + loss function + regularization term% http://scikit-learn.org/stable/modules/sgd.html#mathematical-formulation
-
-CNN
-
-inspired by the neural system composed of different layers and communication shemes
-recent years: use of the adjectiv "deep" to qualify NN: many layers
-
-Different types of layers:
-% http://cs231n.github.io/convolutional-networks/
-% http://caffe.berkeleyvision.org/tutorial/layers.html
-% Vision
-- convolutional (give the name of the type of NN) : The Convolution layer convolves the input image with a set of learnable filters, each producing one feature map in the output image.
-- max pooling
-- normalization layer % http://stats.stackexchange.com/a/161200
-% Loss layer
-- sigmoid
-% Activation / Neuron Layers
-- ReLu

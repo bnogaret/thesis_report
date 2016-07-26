@@ -85,6 +85,8 @@
 
 \include{feature}
 
+\include{classifier}
+
 \include{dataset}
 
 \include{implementation}
@@ -137,7 +139,21 @@ $$V = M$$
 
 \section{HSV to RGB}
 
-$C = V \times S$
+$$C = V \times S$$
+$$X = C \times (1 - \lvert \frac{H}{60} \mod 2 - 1\rvert )$$
+$$
+(R', G', B') = 
+\begin{cases}
+(C, X, 0) & 0 \leq H \leq 60 \\
+(X, C, 0) & 60 \leq H \leq 120 \\
+(0, C, X) & 120 \leq H \leq 180 \\
+(0, X, C) & 180 \leq H \leq 240 \\
+(X, 0, C) & 240 \leq H \leq 300 \\
+(C, 0, X) & 300 \leq H \leq 360 \\
+\end{cases}
+$$
+$$m = V - C$$
+$$ (R, G, B) = (R' + m, G' + m, B' + m)$$
 
 % References - you can use BiBTeX inside the 'references' environment if you want.
 % For short reference lists, you might find it just as easy to use the bibitem form.

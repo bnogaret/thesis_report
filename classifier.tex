@@ -2,27 +2,83 @@
 
 k-nearest neighborhood
 
-one of the simplest
+Naive bayesian
 
 \section{Decision tree and random forest}
 
-Decision tree: can be used for classification or regression
-It can be represented as a graph and a simple representation is given \ref{fig:decision_tree_simple_example}.
+Decision tree is a simple learning method that can be used for classification or regression. The implementation used of decision tree is based on the CART (Classification and Regression Tree) algorithm.
+
+A decision tree is recursively partitioning the space in a left $P_{left}$ and right $P_{right}$ partitions such that the samples with the same labels are grouped together, i.e. the generated sets with the smallest impurity.
+
+It continues to split until the impurity can't be reduced or some pre-set stopping rules are met. Alternatively, the data are split as much as possible and then the tree is later pruned.
+
+Since the set of splitting rules used to segment the predictor space can be summarized in a tree, these types of approaches are known as decision tree methods. The figure  \ref{fig:decision_tree_simple_example} illustrate a toy example of decision tree.
 
 \begin{figure}[h]
     \includegraphics[scale=0.5]{img/decision_tree_simple_example}
-    \caption{Decision tree of depth 2 for 10 elements belonging to 2 classes}
+    \caption[Decision tree of for ten elements belonging to two classes]{Decision tree of depth two for ten elements $(X^1, X^2)$ belonging to the black square and white triangle classes}
     \label{fig:decision_tree_simple_example}
 \end{figure}
 
+The most used impurity measure's functions are:
+\begin{itemize}
+    \item \textbf{Gini}: $$H(X_m) = \sum_k p_{mk} (1 - p_{mk})$$
+    \item \textbf{Cross-entropy}: $$ H(X_m) = - \sum_k p_{mk} \log(p_{mk}) $$
+\end{itemize}
 
-Naive bayesian
+To avoid overfitting, keep the decision tree as simple as possible.
 
-\section{SVM}
+\textbf{Random forest} or Decision forest is build from a number of decision trees. The prediction of the ensemble is given as the averaged prediction of the individual classifiers. Each tree is trained on a random subsets of the training data.
 
-SVM (binary case) + kernel trick + multi-class (one-versus-one or one-versus-all)
+When building these decision trees, each time a split in a tree is considered, a random sample of
+$m$ predictors is chosen as split candidates from the full set of $n$ features. A typical value of $m$ is $m \approx \sqrt{n}$.
 
-The Support Vector Machine (SVM) is a method used for classification and regression. A support vector machine constructs a hyper-plane or set of hyper-planes in a high or infinite dimensional space, which can be used for classification, regression or other tasks. Intuitively, a good separation is achieved by the hyper-plane that has the largest distance to the nearest training data points of any class (so-called functional margin), since in general the larger the margin the lower the generalization error of the classifier.
+\section{Support Vector Machine}
+
+ (binary case) + kernel trick + multi-class (one-versus-one or one-versus-all)
+
+\textbf{Support Vector Machine} \textit{SVM} is a method used for classification and regression.
+
+\subsection{Linear SVM}
+\subsubsection{Hard margin}
+
+A support vector machine constructs a hyper-plane or set of hyper-planes in a high or infinite dimensional space. Intuitively, a good separation is achieved by the hyper-plane that has the largest distance to the nearest training data points of any class (so-called functional margin), since in general the larger the margin the lower the generalization error of the classifier.
+
+For a 2 classes (value represented as $-1$ and $1$), the hyperplane must verify:
+\begin{equation}\label{eq:svm_1}
+    \vec{x_i} \cdot \vec{w} + b \geq + 1 \text{ for } y_i = + 1
+\end{equation}
+\begin{equation}\label{eq:svm_2}
+    \vec{x_i} \cdot \vec{w} + b \leq -1 \text{ for } y_i = - 1
+\end{equation}
+where $\vec{w}$ is the normal to the hyperplane
+
+Combining equation \ref{eq:svm_1} and \ref{eq:svm_2}, we obtain:
+$$ \forall i \in {0, \ldots, n}, ~~ y_i (\vec{x_i} \cdot \vec{w} + b) - 1 \geq 0$$
+where $y_i = f(\vec{x_i}) = {-1, 1}$
+
+Gemetrically, the distance between the two hyperplane from \ref{eq:svm_1} and \ref{eq:svm_2} is $\frac{2}{\vec{w}}$ (equal width to each side).
+
+Thus, to obtain the hyperplane with the highest margin, we want to maximize:
+$$ \underset {\vec{w}, \vec{b}}{\argmax} \frac{2}{\lVert \vec{w} \rVert^2} $$
+which is equivalent to minimize:
+$$ \underset {\vec{w}, \vec{b}}{\argmin} \frac{1}{2} \lVert \vec{w} \rVert^2 $$
+
+Thus, we obtain a constrained optimization problem.
+
+\subsubsection{Soft Margin}
+
+For the case of non-separable training sets, we introduce a penality parameter $C$, $C \leq 0$ and obtain:
+$$
+\underset {\vec{w}, \vec{b} \zeta}{\argmin} \frac{1}{2} \lVert \vec{w} \rVert^2 + C \sum_{i = 1}^{n} \zeta_i
+\text{ subject to } y_i (\vec{x_i} \cdot \vec{w} + b) \geq 1 - \zeta_i, \zeta_i \geq 0, \forall i \in [1, \ldots, n]
+$$
+
+The decision function for new example is:
+$$
+f(\vec{x}) = \sign (\sum_{s_i \in \text{ support vectors}} w_i \vec{s_i} \cdot \vec{x} + b)
+$$
+where the support vectors selected sub-set of the training  examples that define the boundary of the hyperplane separation and hence the classification boundary.
 
 To generalize SVM to the case of multi-class, multiple approaches are possible:
 \begin{itemize}

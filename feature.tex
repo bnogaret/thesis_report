@@ -9,6 +9,17 @@ Learning the parameters of a prediction function and testing it on the same data
 presenting different channel representation
 RGB, gray, HSV
 
+cite who use it first?
+
+Feature detection
+- can use sift or surf
+- dense grid (cite why it is better)
+
+Descriptor
+
+clustering
+- k means
+
 \chapter{Feature descriptors}
 
 \section{Local binary pattern}
@@ -127,19 +138,32 @@ As illustrated in Fig. \ref{fig:bow_process}, the main steps are:
     \label{fig:bow_process}
 \end{figure}
 
-cite who use it first?
+\subsection{SIFT and SURF}
 
-overall process
+\subsection{K-mean clustering}
 
-Sift
+Given a set of observations $(x_1, x_2, …, x_n)$, where each observation is a d-dimensional real vector, k-means clustering aims to partition the $n$ observations into $k$ $(k \leq n)$ sets $S = {S_1, S_2, …, S_k}$ so as to minimize the within-cluster sum of squares (sum of distance functions of each point in the cluster to the K center). In other words, its objective is to find:
 
-Surf
+\begin{equation} \label{eq:kmean_objective}
+    \underset {S}{\operatorname {arg\,min} } \sum _{i=1}^{k} \sum _{x \in S_{i}} \left\| x - \mu_{i} \right\|^{2}
+\end{equation}
 
-Feature detection
-- can use sift or surf
-- dense grid (cite why it is better)
+Problem, the exact solution is a NP hard problem. That's why, we can use Lloyd's heuristic algorithm to compute an estimation.
 
-Descriptor
+It is an iterative method that find a local minima of the Eq. \ref{eq:kmean_objective}:
 
-clustering
-- k means
+\begin{enumerate}
+    \item A set of $k$ initial \enquote{means} is choosen randomly within the data domain $M = \{m_1, m_2, \ldots, m_k \}$
+    
+    \item Then, k clusters are created by associating every observation with the nearest mean.
+    $$ \forall i \in \{ 1, \ldots, k \}, ~~ S_{i}^{(t)}= \big \{ x_{p}:{\big \|}x_{p}-m_{i}^{(t)}{\big \|}^{2}\leq {\big \|}x_{p}-m_{j}^{(t)}{\big \|}^{2} ~ \forall j \in \{ 1, \ldots, k \} \big \}$$
+    
+    \item The centroid of each of the k clusters becomes the new mean.
+    $$ \forall i \in \{ 1, \ldots, k \}, ~~ m_{i}^{(t+1)}=\frac {1}{\lvert S_{i}^{(t)} \rvert } \sum _{x_{j} \in S_{i}^{(t)}} x_{j} $$
+    
+    \item Repeats step 2 and 3 until $M$ not longer changes.
+\end{enumerate}
+
+The centroid results and number of iterations are highly dependant of the initial centroid.
+
+As a result, the computation is often done several times, with different initializations of the centroids. One method to help address this issue is the k-means++ initialization scheme, which has been described in \cite{Arthur2007}. This initializes the centroids to be (generally) distant from each other, leading to provably better results than random initialization, as shown in the reference.

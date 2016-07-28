@@ -113,26 +113,58 @@ For food classification, the chi square kernel is the most used kernel as it is 
 
 \section{Convolutional neural network}
 
-inspired by the neural system composed of different layers and communication shemes
-connected combination of neurons
-powerful, adaptive and noise resilient pattern recognition
+A \textbf{Convolutional Neural Netwrok} \textit{CNN} is a variant of a Neural Network, mainly used for machine learning on pictures. It is inspired by the neural system composed of different layers (made up of multiple neurons) and communication shemes.
 
-input layer, hidden layer, output layer
-recent years: use of the adjectiv "deep" to qualify NN: many layers
+Each neuron receives some inputs, performs a dot product and optionally follows it with a non-linearity function. The whole network still expresses a single differentiable score function (linear or not): from the raw image pixels (the input layer) to class scores (output layer). Hidden layers separates these two layers, as described in \ref{fig:nn_3_layer}.
 
-Different types of layers:
-% http://cs231n.github.io/convolutional-networks/
-% http://caffe.berkeleyvision.org/tutorial/layers.html
-% Vision
-- convolutional (give the name of the type of NN) : The Convolution layer convolves the input image with a set of learnable filters, each producing one feature map in the output image.
-- max pooling
-- normalization layer % http://stats.stackexchange.com/a/161200
-% Loss layer
-- sigmoid
-% Activation / Neuron Layers
-- ReLu
+A CNN (and more generally a NN) is trained by backpropagation, applying gradient descent that will update the weights.
 
-Training by  backpropagation (gradient descent over network wieghts and bias)
+It is a powerful, adaptive and noise resilient pattern recognition. The training phase is rather slow but querying it with an unseen example is fairly fast.
 
-Training a neural network from scratch is slow
-Querying it with a unseen example is fairly fast
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.4]{img/nn_3_layers.jpeg}
+    \caption{A regular 3-layer neural network}
+    \label{fig:nn_3_layer}
+\end{figure}
+
+\begin{figure}[h]
+    \includegraphics[scale=0.35]{img/cnn_simple_example.jpeg}
+    \caption[Example of a 16-layer deep convolutional neural network]{Example of a 16-layer deep convolutional neural network. The input layer is a whole picture, the output layer is the probability for each possible class. It used a succession of Convolutional, ReLU, Pooling layer with a final Fully connected one.}
+    \label{fig:cnn_simple_example}
+\end{figure}
+
+The figure \ref{fig:cnn_simple_example} is a simple CNN based on the VGG-NET structure. It is composed of the 4 most popular layers that can be found in a CNN:
+\begin{itemize}
+    \item \textbf{Convolutional} : layer fiving the name for this type of neural network. It convolves the input image with a set of learnable filters, each producing one feature map in the output image, i.e. it computes a dot product on a neighborhhod of pixels:
+    
+    $$ y_{i, j} = b + \sum_{l=0}^{n - 1} \sum_{m=0}^{n - 1}  w_{l,m} x_{j+l, k+m} $$
+    with:
+    \begin{itemize}
+        \item $x_{i,j}$ the input activation at position $(x, y)$
+        \item $w_{l, m}$ the weights of the neuron
+        \item $n \times n$ is the size of the layer
+        \item $b$ is the bias value
+        \item $y_{i, j}$ the output values of the $j$, $k$th neuron
+    \end{itemize}
+    
+    \item \textbf{Activation layer}: element wise operation.
+    
+    Example of function: the \textbf{Rectified Linear Unit} \textit{ReLU} defines as:
+    $$ f(x) = max(0, x)$$
+   
+    \item \textbf{Pooling} or subsampling layer: down sampling of the input activation size. It reduces the number of values between the input and the output values of this layer to avoid overfitting the data and reduce the computation time of the neural network.
+    
+    The most common downsampling operation is max, giving rise to \textbf{max pooling}, here shown with a stride of 2 in figure \ref{fig:max_pooling}.
+    
+    \begin{figure}[h]
+        \includegraphics[scale=0.5]{img/max_pooling.jpeg}
+        \caption[Illustration of a max pooling layer of stride 2]{Illustration of a max pooling layer of stride 2, i.e. it selects the maximum value from a $2 \times 2$ square}
+        \label{fig:max_pooling}
+    \end{figure}
+    
+    \item \textbf{Fully connected}: compute the class scores. As the name implied, this neuron is connected to all activations from the previous values. For classification, it corresponds to a loss function, a common one is the sigmoid:
+    $$ \sigma (x) = \frac{1}{1 + \exp(-x)}$$
+\end{itemize}
+
+A CNN can also be used as a feature descriptor if we use the output of the last layers.

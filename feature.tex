@@ -1,3 +1,5 @@
+\chapter{Feature descriptors}
+
 General process
 
 - divide the dataset in train and test
@@ -9,18 +11,9 @@ Learning the parameters of a prediction function and testing it on the same data
 presenting different channel representation
 RGB, gray, HSV
 
-cite who use it first?
+The color is one of the key components of a food item, thus it is widely for classification. Color statistics are commonly used,  such as the first and second moment values for different channels. It can be computed for multiple color representations (RGB, HSV, gray, YCrCb or L*a*b* space).
 
-Feature detection
-- can use sift or surf
-- dense grid (cite why it is better)
-
-Descriptor
-
-clustering
-- k means
-
-\chapter{Feature descriptors}
+Another import feature of the food is the tetxure. Numerous texture feature can be used such as Gabor filters. As already presented, the local binary pattern is also applyed.
 
 \section{Local binary pattern}
 
@@ -28,7 +21,9 @@ clustering
 
 Local binary pattern is a visual descriptor for texture composition of an image, first presented in 2002 in \cite{Ojala2002} (although the concept of LBPs were introduced as early as 1993).
 
-The figure \ref{fig:lbp_process} represents an example of the LBP in which the LBP code of the center pixel (in red color and value 20) is used as a local intensity threshold : the neighbour pixels whose intensities are equal or higher than the center pixel’s are labeled as ”1”; otherwise as ”0”. Then, starting always from the same point, we can transform this binary string to decimal. In this example we start at the top-right point and work our way clockwise accumulating the binary string as we go along and obtain the value 24.
+\subsection{Gray-scale LBP}
+
+The figure \ref{fig:lbp_process} represents an example of the LBP in which the LBP code of the center pixel (in red color and value 20) is used as a local intensity threshold : the neighbour pixels whose intensities are equal or higher than the center pixel’s are labeled as ”1”; otherwise as ”0”. Then, starting always from the same point, we can transform this binary string to decimal and is used to describe the central pixel. In this example we start at the top-right point and work our way clockwise accumulating the binary string as we go along and obtain the value 24.
 
 \begin{figure}[h]
     \includegraphics[scale=0.55]{img/lbp}
@@ -56,18 +51,38 @@ In Fig. \ref{fig:lbp_process}, $R$ and $P$ are 1 and 8 respectively.
 
 The number of histograms bins for $LBP_{P, R}$ is $2^P$.
 
-Lastly, it’s important that we consider the concept of LBP uniformity. A LBP is considered to be uniform if it has at most two 0-1 or 1-0 transitions. For example, the pattern 00001000  (2 transitions) and 10000000  (1 transition) are both considered to be uniform patterns since they contain at most two 0-1 and 1-0 transitions. The pattern 01010010 ) on the other hand is not considered a uniform pattern since it has six 0-1 or 1-0 transitions.
+\subsection{Uniform LBP}
 
-The number of uniform prototypes in a Local Binary Pattern is completely dependent on the number of points p. As the value of p increases, so will the dimensionality of your resulting histogram. Please refer to the original Ojala et al. paper for the full explanation on deriving the number of patterns and uniform patterns based on this value. However, for the time being simply keep in mind that given the number of points p in the LBP there are p + 1 uniform patterns. The final dimensionality of the histogram is thus p + 2, where the added entry tabulates all patterns that are not uniform.
+This algorithm has been enhanced to make it rotation invariant. Still in \cite{Ojala2002}, the authors introduce the notion of uniform LBP. A LBP is considered to be uniform if it has at most two bitwise transitions (0 to 1 or 1 to 0 transitions in the binary word). 
+
+For example, the pattern \textit{01000000}  (2 transitions) and \textit{11111110} (1 transition) are both considered to be uniform. For a $LBP_{P, R}$, there is $p + 1$ possible uniforms.
+
+Non-uniform LBP are considered as noise and are assigned the same constant value.
+
+Thus, for uniform LBP, we use the formula:
+
+$$
+LBP_{P, R}^{uni} (x_c, y_c) = 
+\begin{cases} \displaystyle
+\sum_{p = 0}^{P - 1} s (g_p - g_c) 2^p & \text{if uniform} \\
+P + 1 & \text{otherwise} \\
+\end{cases}
+$$
 
 \section{Color descriptor}
-
 \subsection{Color histogram}
 
-HSV channels: Hue, Saturation and Value.
-It has been defined to be closer to the way human represents colours.
-Hue and Saturation corresponds to the chromaticity of the colour, Value to the lightness.
-As value is really dependant of the condition where the picture were taken, we don't use it for color histogram.
+HSV space is composed of:
+\begin{itemize}
+    \item \textbf{Hue} channel: represents the dominant spectral component—color in its pure form, as in green, red, or yellow
+    \item \textbf{Saturation} channel: represents the white added to the pure color (the Hue)
+    \item \textbf{Value} channel: represents the brightness of the color
+\end{itemize}
+
+Hue and Saturation corresponds to the chromaticity of the colour. For the joint histogram (2D histogram), the H and S channels are used as value is dependant of the condition where the picture were taken, thus is not interesting.
+
+The coordinate system is cylindrical, and is often represented by a subspace defined by a six-sided inverted pyramid. The top of the pyramid corresponds to, with the “white” at the center. The hue is measured by the angle around the vertical axis, with red corresponding to 0. The saturation
+ranges from 0 at the center to 1 on the surface of the pyramid. An inverted cone is also used to denote the subspace instead of the pyramid.
 
 \subsection{Color moments}
 
@@ -84,8 +99,8 @@ For a discrete random variable $X$, the first two moments are defined as:
 \subsubsection{Raw moments}
 
 For a two-dimensional continuous function f(x,y) the moment (sometimes called \enquote{raw moment}) of (p + q)th order is defined as: 
-$$M_{pq}=\int \limits _{-\infty }^{\infty }\int \limits _{-\infty }^{\infty }x^{p}y^{q}f(x,y) dx dy $$
-for $p$ and $q \in \N $
+$$ M_{pq}=\int \limits _{-\infty }^{\infty }\int \limits _{-\infty }^{\infty }x^{p}y^{q}f(x,y) dx dy $$
+for $p$ and $q \in \N $.
 
 \subsubsection{Central moments}
 
@@ -96,8 +111,8 @@ with $\bar{x}=\frac{M_{10}}{M_{00}}$ and $\bar{y}=\frac{M_{01}}{M_{00}}$
 \subsubsection{Normalized central moments}
 
 The normalized central moments are:
-$$\eta_{ij}=\frac{\mu _{ij}}{\mu_{00}^{\gamma}}$$
-where $\gamma = 1 + \frac{I + j}{2}$ for $i + j \geq 2$
+$$ \eta_{ij}=\frac{\mu _{ij}}{\mu_{00}^{\gamma}} $$
+where $\gamma = 1 + \frac{I + j}{2}$ for $i + j \geq 2$.
 
 \subsubsection{Definition of the Hu moments}
 
@@ -125,11 +140,13 @@ On the base of those Moments, Hu in \cite{Hu1962} introduced 7 Moments which are
 
 As illustrated in Fig. \ref{fig:bow_process}, the main steps are:
 \begin{itemize}
-    \item On each picture, keypoints are detected (in my case, I use a dense grid).
-    \item For every keypoint, we describe it, SIFT (scale invariant feature transform).
+    \item On each picture, keypoints are detected. In my case, I use a dense grid of evenly spaced points at a fixed scale and orientation.
+    \item For every keypoint, a feature vector  is generated. we describe it, SIFT (scale invariant feature transform).
     \item We generate the fix number of visual words that compose our codebook.
     \item We express each image as an histogram of these words' appearance.
 \end{itemize}
+
+The combination of a dense grid and SIFT is commonly called dense SIFT. It has been showed to have greater accuracy than using SIFT for keypoint detection and description.
 
 \begin{figure}
     \centering
@@ -138,7 +155,16 @@ As illustrated in Fig. \ref{fig:bow_process}, the main steps are:
     \label{fig:bow_process}
 \end{figure}
 
-\subsection{SIFT and SURF}
+\subsection{SIFT descriptor}
+
+A SIFT descriptor of a local region (keypoint) is a 3-D spatial histogram of the image gradients as presented in the figure \ref{fig:sift_descriptor}. The gradient at each pixel is regarded as a sample of a three-dimensional elementary feature vector, formed by the pixel location and the gradient orientation. Samples are weighed by the gradient norm and accumulated in a 3-D histogram h, which (up to normalization and clamping) forms the SIFT descriptor of the region. An additional Gaussian weighting function is applied to give less importance to gradients farther away from the keypoint center.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{img/sift_descriptor.jpg}
+    \caption{Illustration of SIFT as a local image descriptor}
+    \label{fig:sift_descriptor}
+\end{figure}
 
 \subsection{K-mean clustering}
 
@@ -166,4 +192,4 @@ It is an iterative method that find a local minima of the Eq. \ref{eq:kmean_obje
 
 The centroid results and number of iterations are highly dependant of the initial centroid.
 
-As a result, the computation is often done several times, with different initializations of the centroids. One method to help address this issue is the k-means++ initialization scheme, which has been described in \cite{Arthur2007}. This initializes the centroids to be (generally) distant from each other, leading to provably better results than random initialization, as shown in the reference.
+As a result, the computation is often done several times, with different initializations of the centroids. One method to help address this issue is the k-means++ initialization scheme, which has been described in \cite{Arthur2007}. This initializes the centroids to be (generally) distant from each other, leading to provably better results than random initialization.

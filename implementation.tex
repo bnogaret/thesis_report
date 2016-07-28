@@ -1,26 +1,25 @@
-\chapter{Implementation}
+\chapter{Methodology}
 \section{Classification}
-\subsection{Color histogram}
+
+\subsection{Histograms and moments}
 
 For each picture:
 \begin{enumerate}
     \item extract the sub-image delimited by the bounding box
     \item resize this sub-image to $224 \times 224$ pixels
-    \item extract the histogram of local binary pattern
+    \item extract the histogram of local binary pattern on the grayscale image
     \item extract the joint color histogram for the channel $H$ and $s$ of the HSV (hue, saturation and value) representation
-    \item extract the 7 hu-moment: invariant feature for translation, rotation and scale change (as stated in \cite{Hu1962})
+    \item extract the first two moments on the R, G, B, H, S and Gray channels
+    \item extract the 7 hu-moment
 \end{enumerate}
 
-Normalized the data to have all features centered around zero (mean of 0) and have unit variance(variance equal to 1).
+The feature vectors are then normalized to have all features centered around zero (mean equal to 0) and have unit variance (equal to 1).
 
-Then, apply multiple famous classifiers:
+Then, apply multiple classifiers:
 \begin{itemize}
     \item decision tree
-    \item random forest
-    \item AdaBoost with decision tree
-    \item k-nearest neighborhood
+    \item random forest (made up of 500 trees)
     \item SVM
-    \item SGD Classifier
 \end{itemize}
 
 hyperparameter optimization: using a grid

@@ -4,6 +4,8 @@ k-nearest neighborhood
 
 Naive bayesian
 
+SGD classifier + loss function + regularization term% http://scikit-learn.org/stable/modules/sgd.html#mathematical-formulation
+
 \section{Decision tree and random forest}
 
 Decision tree is a simple learning method that can be used for classification or regression. The implementation used of decision tree is based on the CART (Classification and Regression Tree) algorithm.
@@ -86,8 +88,12 @@ To generalize SVM to the case of multi-class, multiple approaches are possible:
     \item \enquote{one-versus-all}: train a single classifier per class, with the samples of that class as positive samples and all other samples as negatives
 \end{itemize}
 
-Kernel trick:
-to use the linear SVM for non-linear data: project the data in a new feature H space thanks to an application and then reserch for maximum margin hyperplan in H
+\subsubsection{Non-linear SVM and kernel trick}
+
+The idea of the kernel trick is to transform the initial space to a higher dimensional space where a hyperplane can separate this data.
+Kernel trick: use kernel function to implicitly transform datasets to a higher-dimensional using no extra memory, and with a minimal effect on computation time: realise just a dot product.
+
+To use the linear SVM for non-linear data: project the data in a new feature H space thanks to an application and then reserch for maximum margin hyperplan in H
 to make sure that the new problem has a unique solution, 
 must satisfy the Mercer's condition or simply it must be a positiv-definit matrix
 
@@ -103,11 +109,15 @@ must satisfy the Mercer's condition or simply it must be a positiv-definit matri
 
 The adjustable parameters of these kernels are $d$, $\gamma$, $C$ and must be choosen according to the problem.
 
-SGD classifier + loss function + regularization term% http://scikit-learn.org/stable/modules/sgd.html#mathematical-formulation
+For food classification, the chi square kernel is the most used kernel as it is often combined with histograms. !!CITE!!
 
-\section{CNN}
+\section{Convolutional neural network}
 
 inspired by the neural system composed of different layers and communication shemes
+connected combination of neurons
+powerful, adaptive and noise resilient pattern recognition
+
+input layer, hidden layer, output layer
 recent years: use of the adjectiv "deep" to qualify NN: many layers
 
 Different types of layers:
@@ -121,3 +131,8 @@ Different types of layers:
 - sigmoid
 % Activation / Neuron Layers
 - ReLu
+
+Training by  backpropagation (gradient descent over network wieghts and bias)
+
+Training a neural network from scratch is slow
+Querying it with a unseen example is fairly fast

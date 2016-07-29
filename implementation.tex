@@ -1,4 +1,50 @@
 \chapter{Methodology}
+
+As illustrated in Fig. \ref{fig:tikz_methodology}, we have our initial dataset that we split in :
+\begin{itemize}
+    \item a \textbf{validation set} (10 \% of the dataset) used for hyper-parameter optimization or model selection for localisation and classification
+    \item a \textbf{train / test set} (remaining dataset) used for the localisation and classification
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \tikzstyle{block} = [rectangle, draw, text width=3cm, text centered, rounded corners,  fill=blue!20]
+    \tikzstyle{line} = [draw,thick, -latex']
+    \tikzstyle{cloud} = [draw, ellipse, text width=3cm, text centered]
+    \tikzstyle{edge from parent}=[->,thick,draw]
+    \begin{tikzpicture}[auto, edge from parent fork down]
+        % Distance between node
+        \tikzstyle{level 1}=[sibling distance=80mm,level distance=10ex]
+        
+        % Place nodes
+        \node [cloud, fill=red!10] (base) {Dataset}
+        child{node [cloud, fill=green!10] (validation) {Validation set}
+            child{node [block, fill=blue!10] (hyperparameter) {Hyper-parameter optimization}}
+        }
+        child{node [cloud, fill=green!10] (train_test) {Train / test sets}
+            child{node [block, fill=blue!10] (localisation) {Localisation}
+                child {node[block, fill=blue!10](feature){Feature description}
+                    child {node[block, fill=blue!10](classification){Classification}
+                        child {node[block, fill=red!10](result){Result}
+                        }
+                    }
+                }
+            }
+        };
+        % Draw edges
+        \path [line] (hyperparameter.east) -- (localisation.west);
+        \path [line] (hyperparameter.south) -- (classification.west);
+    \end{tikzpicture}
+    \caption{General process of the localisation and classification}
+    \label{fig:tikz_methodology}
+\end{figure}
+
+\section{Hyperparameter optimization}
+
+There are numerous parameters that are part of the machine learning but are not learnt. Typical example include which kernel function used (if any) or the value of the penalty parameter $C$ for SVM, the number of $k$ of neighborhoods for kNN.
+
+We use the exhaustive grid search method to select the parameters that have the highest performance score through 10 fold cross validation. It generates all the possible combination of parameters value and train / test the classifier.
+
 \section{Classification}
 
 \subsection{Histograms and moments}

@@ -1,9 +1,9 @@
-\chapter{Methodology}
+\chapter{Methodology} \label{sec:methodology}
 
 As illustrated in Fig. \ref{fig:tikz_methodology}, we have our initial dataset that we split in :
 \begin{itemize}
     \item a \textbf{validation set} (10 \% of the dataset) used for hyper-parameter optimization or model selection for localisation and classification
-    \item a \textbf{train / test set} (remaining dataset) used for the localisation and classification
+    \item a \textbf{train / test set} (remaining dataset) used for the localisation and classification. The train set is used to learn the parameters of a classifer that is then evaluated on the test set (using the same dataset for learning and testing would be a methodological mistake as it would overfit the dataset)
 \end{itemize}
 
 \begin{figure}[h]
@@ -49,7 +49,7 @@ We use the exhaustive grid search method to select the parameters that have the 
 
 For localisation, a different approach from the litterature has been used. The usual way is to detect area of food and non food in a picture. Yet, it was noticed that the food items of UEC FOOD 256 and 100 tends to be in the middle and stands out. Moreover, demanding the user to take pictures that follow these charastetics is reasonnable.
 
-That's why a pre-trained CNN used for saliency detection has been used. It has been pre-trained in \cite{zhang2015SOD} on multiple datasets (Multi-Salient-Object, ). It is available \footnote{\url{https://gist.github.com/jimmie33/339fd0a938ed026692267a60b44c0c58}}.
+That's why a pre-trained CNN used for saliency detection has been used. It has been pre-trained in \cite{zhang2015SOD} on multiple datasets (Multi-Salient-Object, ILSVRC14). It is available \footnote{\url{https://gist.github.com/jimmie33/339fd0a938ed026692267a60b44c0c58}}.
 
 The CNN structure is a copy of \enquote{GoogleNet} model \cite{Szegedy2015}, i.e. it is composed of 22 layers, corresponding to a succession of convolutional, max pooling and activation layers, the last one being a sigmoid funciton.
 
@@ -62,8 +62,7 @@ The CNN has been pre-trained to detect the likelihood to belong to one of the 10
 \end{figure}
 
 
-\section{Classification}
-
+\section{Food recognition}
 \subsection{Histograms and moments}
 
 The first feature descriptor used combined histograms of LBP and Color with color moments for each picture:
@@ -89,41 +88,35 @@ Talk in result: show the best amelioration with hyperparemeter (but in general i
 
 \subsection{Bag of words}
 
-The first feature descriptor used combined histograms of LBP and Color with color moments for each picture:
 \begin{enumerate}
     \item detection of keypoints using a dense grid (4 spaces)
     \item descriptors: Root SIFT. Root SIFT is a simple variant of SIFT, presented in \cite{Arandjelovic2012}. When the SIFT descriptors as been computed for each keypoints, we apply an element wise square root of the L1 normalized SIFT vectors
 \end{enumerate}
 
-Then these feature vectors are clustered using using the k-means algorithm to obtain a 1000-word codebook.
+Then these feature vectors are clustered using the k-means algorithm to obtain a 1000-word codebook.
 
-For each picture:
-compute the histogram of occurence counts of visual words
+For each picture, we compute the histogram of occurence counts of visual words.
 
-Kernel trick: use of a variant of the $\chi^2$ kernel named additive $\chi$-squared kernel presented in \cite{Vedaldi2010}
-
-Then we apply the SVM classifier.
+This descriptor is used with the SVM classifier and additive $\chi$-squared kernel
 
 \subsection{CNN as a Descriptor}
 
-A pre-trained CNN used for image recognition on ImageNet Challenge 2014.
+As described in section \ref{sec:classifier}, a CNN can be used as a feature descriptor. The pre-trained CNN was used for image recognition on ImageNet Challenge 2014 and presented in  \cite{Simonyan2014}. It is available \footnote{\url{https://gist.github.com/ksimonyan/3785162f95cd2d5fee77/}}.
 
-\cite{Simonyan2014}
+The model is an improved version of the 19-layer model used by the VGG team in the ILSVRC-2014 competition. As the CNN used for segmentation, it takes a $224 \times 224$ RGB picture.
 
-it is available \footnote{\url{https://gist.github.com/ksimonyan/3785162f95cd2d5fee77/}}.
-
-The model is an improved version of the 19-layer model used by the VGG team in the ILSVRC-2014 competition.
+The output of the layer just before the FC is used as a descriptor. Thus, each picture is described by a 4096 feature vectors.
 
 \section{Code}
 
 The code is freely available on Github\footnote{\url{https://github.com/bnogaret/food_log}}.
 
-I'm using python 3.5.2 and its scientific stack bas on scipy \cite{Oliphant2007}:
+I'm using python 3.5.2 and its scientific stack bas on Scipy \cite{Oliphant2007}:
 \begin{itemize}
-    \item numpy \cite{VanDerWalt2011} for N-dimensional array
-    \item pandas \cite{McKinney2010} for the data structure
-    \item scikit-image \cite{VanderWalt2014} and opencv 3 \cite{Bradski2000} for some of the image processing algortihms
-    \item scikit-learn \cite{Pedregosa2012} for most of the machine learning and caffe \cite{Jia2014a}  for the CNN
-    \item matplotlib \cite{Hunter2007} for 2D graph generation
-    \item sphinx for the documentation
+    \item Numpy \cite{VanDerWalt2011} for N-dimensional array
+    \item Pandas \cite{McKinney2010} for the data structure
+    \item Scikit-image \cite{VanderWalt2014} and opencv 3 \cite{Bradski2000} for some of the image processing algortihms
+    \item Scikit-learn \cite{Pedregosa2012} for most of the machine learning and Caffe \cite{Jia2014a}  for the CNN
+    \item Matplotlib \cite{Hunter2007} for 2D graph generation
+    \item Sphinx for the documentation
 \end{itemize}

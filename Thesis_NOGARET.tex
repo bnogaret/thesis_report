@@ -98,79 +98,10 @@
 
 \include{evaluation}
 
-% Have to present the dataset
-% Feature
-% Classification tool (Bag of words, SVM, CNN)
-% cnn: present the layers, inspiration ...
-
 \include{conclusion}
 
 
-%% Back matter
-%
-% This is where we include appendices and references
-%
-\appendix
-
-\chapter{Appendix}
-
-\section{RGB to HSV}
-
-Assuming the RGB values have been normalised to be in $[0, 1]$, we have:
-
-\begin{equation*}
-    M = \max (R, G, B)
-    \qquad
-    m = \min (R, G, B)
-    \qquad
-    C = M - m
-\end{equation*}
-
-$$
-H =
-\begin{cases}
-0 & \text{if $C = 0$}\\
-60 \times \left[ \frac{G - B}{C} \mod 6\right] & \text{if $M = R$} \\
-60 \times \left[ \frac{B - R}{C} + 2\right] & \text{if $M = G$} \\
-60 \times \left[ \frac{R - G}{C} + 4\right] & \text{if $M = B$} \\
-\end{cases}
-$$
-
-$$
-S =
-\begin{cases}
-0 & \text{if $M = 0$}\\
-\frac{C}{M}& \text{otherwise} \\
-\end{cases}
-$$
-
-$$V = M$$
-
-\section{HSV to RGB}
-
-The obtained R, G and B values are in $[0, 1]$ and calculated as such:
-
-\begin{equation*}
-    C = V \times S
-    \qquad
-    X = C \times (1 - \lvert \frac{H}{60} \mod 2 - 1\rvert )
-    \qquad
-    m = V - C
-\end{equation*}
-
-$$
-(R', G', B') = 
-\begin{cases}
-(C, X, 0) & 0 \leq H \leq 60 \\
-(X, C, 0) & 60 \leq H \leq 120 \\
-(0, C, X) & 120 \leq H \leq 180 \\
-(0, X, C) & 180 \leq H \leq 240 \\
-(X, 0, C) & 240 \leq H \leq 300 \\
-(C, 0, X) & 300 \leq H \leq 360 \\
-\end{cases}
-$$
-
-$$ (R, G, B) = (R' + m, G' + m, B' + m)$$
+\include{appendix}
 
 % References - you can use BiBTeX inside the 'references' environment if you want.
 % For short reference lists, you might find it just as easy to use the bibitem form.
@@ -182,7 +113,6 @@ $$ (R, G, B) = (R' + m, G' + m, B' + m)$$
 %        2nd edition,
 %        1994.
 %\end{references}
-
 \printbibliography
 
 \end{document}

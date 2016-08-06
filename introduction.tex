@@ -9,31 +9,18 @@ Over the last few decades, the rate of obesity and overweight people in the Worl
     \label{fig:obesity_uk}
 \end{figure}
 
-Being “overweight” is defined as having a Body Mass Index (BMI) – a person's weight in kilograms divided by the square of his height in meters (kg/$m^2$) – of between 25 and 29.9, and “obese” by a BMI of 30 and above.
+Being \enquote{overweight} is defined as having a Body Mass Index (BMI) – a person's weight in kilograms divided by the square of his height in meters ($ kg / m^2 $) – of between 25 and 29.9, and \enquote{obese} by a BMI of 30 and above.
 
-As stated in \cite{Mokdad2003}), obesity is strongly associated with several major health risk factors such as stroke, high blood pressure, type 2 diabetes and high cholesterol.
+As stated in \cite{Mokdad2003}), obesity is strongly associated with several major health risk factors such as stroke, high blood pressure, type 2 diabetes and high cholesterol. Thus, it has a great human and economic (\cite{Zhang2010} in 2010, 12 \% of the total whorlwide health expenditure is spent on diabetes and will continue to increase) cost for societies.
 
-Diabetes:
-- fast growing (current ... in to ... in) with forecast for ... to be ...
-- lead to high mortality
-- treatment cost. \cite{Zhang2010}: in 2010: 12 \% of the total whorlwide health expenditure is spent on diabetes and will continue to increase.
+Associated with lifestyle changes, recording what we eat is one way to control our eating. Studies such as \cite{Burke2011a} show the benefit of reporting its daily diet to lose weight and improve the quality of its foos intake. And more generally, it can be a way to treat eat disorders
 
-Combination of drugs and food intake control have shown great results
+Yet, manually recording detailed information regarding all meals is a tedious and time consuming task and it is hard for people to adhere to this process for a long time. Moreover, it often needs a trained patient and as presented in \cite{Lichtman1992}, users' log are prone to errors (users tend to underestimate its intake).
 
-Main reason: junk food: easily found, cheap.
+At the same time, classification methods improvement of the classification methods. Imagenet is dataset containing more than 1,2 million images dataset split into 1000 classes. Since 2010, the yearly challenges include localization, classification and detection. Numerous researchers, students, educators or tech companies are participated.
 
-One of the best way to fight it: watch over what we eat. Associated lifestyle changes and lose weight. It can also be used as a prevention tool for population at risk
-
-studies such as \cite{Burke2011a} show the benefit of reporting its daily diet to lose weight and improve the quality of its foos intake
-
-Also a way to ... eat disorders
-
-Currently, manually ... self reporting, using paper diaries : tedious + time consuming + prone to errors (users tend to underestimate its intake as describe in \cite{Lichtman1992}) + need a trained patient
-
-At the same time, improvement of the classification methods. Imagenet, a 1000 classes and more than 1,2 million images dataset example on Image Net results \cite{Russakovsky2015}.
-Every year since 2010
-Numerous institutions (university, tech companies) are participated
-As described in figure \ref{fig:imagenet_results}, the mean error for each class for classification and localization has been greatly reduced between 2010 and 2014
+As described in figure \ref{fig:imagenet_results} and using figures from \cite{Russakovsky2015}, the 
+mean error for each class for classification and localization has been greatly reduced between 2010 and 2014.
 
 \begin{figure}[h]
     \centering
@@ -42,29 +29,35 @@ As described in figure \ref{fig:imagenet_results}, the mean error for each class
     \label{fig:imagenet_results}
 \end{figure}
 
-Recently: proposition automize it. With the widespread use of smartphone, people can easily take pictures of a good quality. People are already taking picture of their food and posting them on website such as Food Gawker, Instagaram, Flickr, Yelp or 
+With the widespread use of smartphone, cameras or wearable devices, people can easily take pictures of a good quality and are already taking photos of their food and posting them on website such as Food Gawker, Instagaram, Flickr or Yelp.
 
-That's why, over the past few years, people ... automated it. Assist patient and their medical personnel
-Extends the reach of care in a cost effective ways and counters some of the previous problem (still pb with the elder / people who don't have access to smartphone). Or using weerable device to automatically take picture
+That's why, it has recently been proposed to automate it and assist patient and their medical personnel. It extends the reach of care in a cost effective ways and counters some of the previous problem of manual report. It's part of the rise of e-healthcare / m-healtchare \cite{Hillestad2005, Menachemi2011}.
 
-Part of the rise of e-healthcare / m-healtchare \cite{Hillestad2005, Menachemi2011}
+Users upload photographs of their daily meals to the application or website, and it constructs their food diary automatically. Using image processing, it determines the dietary composition of the meal and records the information for later viewing in formats such as a figure or a graphical representation.
 
-food recognition: promising applications of image processing and machine learning. Estimate food intake and people's habit
+Food recognition is a promising applications of image processing and machine learning. Its overall process is:
+\begin{itemize}
+    \item Extract key charateristics
+    \item Localise food items if the application allow it
+    \item Recognise the food
+\end{itemize}
 
-Overall process:
-extract characteristic (possible features are invariant of the liminosity, orientation, scale, ...)segmentate, classify, get calorie value or a simplified version (using for example the ... systems), keep log and being able to visualize it over the year
+extract characteristic ( ...)segmentate, classify, get calorie value or a simplified version (using for example the ... systems), keep log and being able to visualize it over the year
 
-Feature description: key to achieve good object detection and image categorization
+Feature description is essential to achieve good object detection and image categorisation. Preferably the method should be invariant of the liminosity, orientation or scale of the picture.
 
-In this thesis: focus on the first two phases
-
-Already have numerous challenges:
-large number of food items
-variation in appearance and shape with numerous transformation can be applied to a same picture (scale, translation, rotation, skewness)
-croped image
-different way to serve it
-environmental condition
---> lead to a high intra-class variability
+In this thesis, we focus on the food recognition. It has already numerous challenges such as:
+\begin{itemize}
+    \item \textbf{high intra-class variability} : we can have high variability between pictures for the same particular kind of food items, due to:
+    \begin{itemize}
+        \item the environmental condition: luminosity
+        \item the way it is served
+        \item variation of the way the pictre is taken: numerous transformation can be applied to a same picture (scale, translation, rotation, skewness)
+    \end{itemize}
+    This is illustrated in figure \ref{fig:intra-class_variability} for pictures of laya toast.
+    
+    \item \textbf{low inter-class variability} : we can have low variability between different type of food such as between clear and miso soup as showed in \ref{fig:inter-class_variability}.
+\end{itemize}
 
 \begin{figure}
     \centering
@@ -78,8 +71,6 @@ environmental condition
     \label{fig:intra-class_variability}
 \end{figure}
 
-low inter-class variability
-
 \begin{figure}
     \centering
     \includegraphics[width=7cm, height=6cm]{img/clear_soup.jpg}
@@ -88,7 +79,4 @@ low inter-class variability
     \label{fig:inter-class_variability}
 \end{figure}
 
-The organization of this thesis is as follow. In section ..., previous work is reviewed. In section ..., I explain and describe the dataset choosen, then the different image descriptors and classifiers used. In the next section, we present and discuss our results. Finally, in section ..., the limitation and possible future work is discussed.
-
-
-% show pictures as examples
+The organization of this thesis is as follow. In section \ref{sec:previous_work}, previous work on food recognition and intake estimation is reviewed. In section \ref{sec:feature_descriptor}, I describe the different image descriptors used, the classifiers in section \ref{sec:classifier} and in section \ref{sec:dataset}. In the next section \ref{sec:evaluation}, we present and discuss our results. Finally, in section \ref{sec:conclusion}, the limitation and possible future work is discussed.

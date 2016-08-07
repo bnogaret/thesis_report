@@ -31,7 +31,7 @@ mean error for each class for classification and localization has been greatly r
 
 With the widespread use of smartphone, cameras or wearable devices, people can easily take pictures of a good quality and are already taking photos of their food and posting them on website such as Food Gawker, Instagaram, Flickr or Yelp.
 
-That's why, it has recently been proposed to automate it and assist patient and their medical personnel. It extends the reach of care in a cost effective ways and counters some of the previous problem of manual report. It's part of the rise of e-healthcare / m-healtchare \cite{Hillestad2005, Menachemi2011}.
+That's why, it has recently been proposed to automate it and assist patient and their medical personnel (nutritionist, psychologist) to understand the patient's behaviour and habits. It extends the reach of care in a cost effective ways and counters some of the previous problem of manual report. It's part of the rise of e-healthcare / m-healtchare \cite{Hillestad2005, Menachemi2011}.
 
 Users upload photographs of their daily meals to the application or website, and it constructs their food diary automatically. Using image processing, it determines the dietary composition of the meal and records the information for later viewing in formats such as a figure or a graphical representation.
 
@@ -50,14 +50,16 @@ In this thesis, we focus on the food recognition. It has already numerous challe
 \begin{itemize}
     \item \textbf{high intra-class variability} : we can have high variability between pictures for the same particular kind of food items, due to:
     \begin{itemize}
-        \item the environmental condition: luminosity
+        \item the environmental condition (e.g. luminosity, quality of the camera)
         \item the way it is served
         \item variation of the way the pictre is taken: numerous transformation can be applied to a same picture (scale, translation, rotation, skewness)
     \end{itemize}
-    This is illustrated in figure \ref{fig:intra-class_variability} for pictures of laya toast.
+    This is illustrated in figure \ref{fig:intra-class_variability} for pictures of kaya toast.
     
     \item \textbf{low inter-class variability} : we can have low variability between different type of food such as between clear and miso soup as showed in \ref{fig:inter-class_variability}.
 \end{itemize}
+
+This makes localisation, classification and retrieval of food images a difficult task for current state-of-the-art techniques, and hence a compelling challenge for image processing and machine learning researchers.
 
 \begin{figure}
     \centering
@@ -79,4 +81,4 @@ In this thesis, we focus on the food recognition. It has already numerous challe
     \label{fig:inter-class_variability}
 \end{figure}
 
-The organization of this thesis is as follow. In section \ref{sec:previous_work}, previous work on food recognition and intake estimation is reviewed. In section \ref{sec:feature_descriptor}, I describe the different image descriptors used, the classifiers in section \ref{sec:classifier} and in section \ref{sec:dataset}. In the next section \ref{sec:evaluation}, we present and discuss our results. Finally, in section \ref{sec:conclusion}, the limitation and possible future work is discussed.
+The organization of this thesis is as follow. In section \ref{sec:previous_work}, previous work on food localisation, recognition and intake estimation is reviewed. Section \ref{sec:feature_descriptor} introduces the different image descriptors used, and in section \ref{sec:classifier} the classifiers are presented. In section \ref{sec:dataset}, the dataset is introduced. Section \ref{sec:evaluation} reports the experimental settings and results. Finally, in section \ref{sec:conclusion}, we draw the conclusion and state the limitation and possible future work.

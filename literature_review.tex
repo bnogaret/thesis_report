@@ -70,22 +70,18 @@ Applied on a dataset composed of 83 labels (79 food classes plus \enquote{utensi
 %% DCNN
 %% 2.3
 
-In \cite{Kawano2014}, the authors use a pre-trained DCNN as a feature descriptor. The DCNN, nammed OverFeat, can be found  \href{http://cilvr.nyu.edu/doku.php?id=code:start}{here} and was trained on ImageNet.
-The authors add more conventional image features to have: 
-\begin{enumerate}
-    \item HOG (more exactly, RootHog that is “an element-wise square root of the L1 normalized HO”) (8 orientations per block of 2 * 2)
-    \item color patches (mean and variance values of  RGB value of pixels from each of 2*2  block)
-    \item Deep convolutional neural network last two layers
-\end{enumerate}
-The three descriptors are then encoded in a fisher vector.
-Using SVM, they obtain 72\% of accuracy for UEC-FOOD 100.
+More recently, people have started to heavily use Convolutional Neural Networks \textit{CNN} with great results.
 
+In \cite{Kawano2014}, the authors use a pre-trained Deep CNN \textit{DCNN} for feature extraction. The DCNN, nammed OverFeat, \footnote{Can be found \url{http://cilvr.nyu.edu/doku.php?id=code:start}} was trained on ImageNet and is composed of 19 layers. The authors add more conventional image features to obtain feature vectors composed of: 
 \begin{enumerate}
-    \item Feature:
-    
-    
-    \item Encoding: Fisher vector
+    \item a variant of the Histogram of Oriented Gradients \textit{HOG} called \enquote{RootHog} that is an element-wise square root of the L1 normalized HOG
+    \item mean and variance values of each channel of the RGB representation value of pixels from each of 2*2  block
+    \item the last two layers of the DCNN
 \end{enumerate}
+The three descriptors are then encoded in a fisher vector. Using SVM, the authors obtain 72\% of accuracy for UEC-FOOD 100.
+
+\cite{Yanai2015} use a fine-tuned DCNN, pre-trained on 2000 classes (including 1000 food classes) from ImageNet. The authors obtain 78 \% accuracy on UEC-FOOD 100 and 68 \% for UEC-FOOD 256. This dataset, presented in \cite{Kawano2015}, is an extension of 256 classes of UEC-FOOD 100 using a so-called \enquote{foodness classifier} and transfer learning on images coming from crowdsourcing.
+In \cite{Bolanos2016}, the authors use a pre-trained DCNN on UEC-FOOD 256.
 
 \section{Food intake estimation}
 
@@ -135,3 +131,5 @@ If the user hasn't eaten everything, the entire must be repeated.
 The drawbacks of this method is the user have to take several pictures, with one's thumb each time and it has been tested with a limited set of simple food types.
 
 %% Food Cam ?
+
+In \cite{Kawano2014a}

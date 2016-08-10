@@ -56,11 +56,18 @@ The CNN structure is a copy of \enquote{GoogleNet} model \cite{Szegedy2015}, i.e
 The CNN has been pre-trained to detect the likelihood to belong to one of the 100 arbitrary bounding boxes as presented in Fig. \ref{fig:seg_100_bboxes}.
 
 \begin{figure}
+    \centering
     \includegraphics[scale=0.5]{img/seg_100_bboxes.jpg}
     \caption{Picture of the 100 possible bounding boxes that the salient CNN will try to recognise}
     \label{fig:seg_100_bboxes}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[height=20cm]{img/seg_97.jpg}
+    \caption[Segmentation result]{Segmentation process with: the bounding boxes (top), the candidate bounding boxes (middle), the proposed bounding boxes after overlapping suppresion (bottom)}
+    \label{fig:seg_97}
+\end{figure}
 
 \section{Food recognition}
 \subsection{Histograms and moments}

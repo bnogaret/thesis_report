@@ -23,16 +23,6 @@ For orange detection, the color segmentation has an higher accuracy. Yet, it is 
 
 An other method for food detection relies on circle detection. Indeed, food items are often served in a round shape container such as a bowl, a pan or a plate.
 
-In \cite{Matsuda2012a}, the authors propose a food recognition system to identify food items of a picture. The first step is to detect potential region with multiple object detection algorithms. Then, for these regions, several feeatures are extracted and used to feed SVM with multiple kernel learning method. To detect candidate regions, the authors use:
-\begin{itemize}
-    \item Felzenszwalb’s deformable part model (DPM): based on Histogram of Oriented Gradients (HOG). Multiple HOGs are
-    \item circle detector: convert the image to a gray-scale image, extracts contour by the Canny Edge Detector and detect circle by the Hough Transform
-    \item JSEG region segmentation: segmente region based on color. Only keep circular regions.
-    \item whole image: for image with one large dish
-\end{itemize}
-Then, it agregates all the candidate region to get bounding box of each food item.
-For evaluation, the authors build a new dataset composed of 100 categories with their associated bouding boxes for a total of 9060 images. For multiple food item images, they obtain 55.8 \% classification rate and 68.9 \% for single food item pictures.
-
 In \cite{Wazumi2011}, the authors desribe their use of the Hough transformation to detect circle (they constitutes the food region).
 
 %% CNN
@@ -131,5 +121,46 @@ If the user hasn't eaten everything, the entire must be repeated.
 The drawbacks of this method is the user have to take several pictures, with one's thumb each time and it has been tested with a limited set of simple food types.
 
 %% Food Cam ?
+%% 6.3
 
-In \cite{Kawano2014a}
+In \cite{Matsuda2012a}, the authors propose a food recognition system named \textbf{FoodCam} to identify food items of a picture. The presented process is used on a mobile application, the user taking a picture that is transferred to a sever, processed and results are displayed.
+
+The first step is to detect potential region with multiple object detection algorithms. Then, for these regions, several feeatures are extracted and used to feed SVM with Multiple Kernel Learning \textit{MKL} method. To detect candidate regions, the authors use:
+\begin{itemize}
+    \item Felzenszwalb’s deformable part model (DPM), based on Histogram of Oriented Gradients (HOG).
+    \item a circle detector: the image is converted to a gray-scale, contour are extracted using the Canny Edge Detector and circles detected by the Hough Transform
+    \item JSEG region segmentation: segmente region based on color. It only keeps circular regions.
+    \item whole image, for picture with one large dish
+\end{itemize}
+Then, it agregates all the candidate regions to get the bounding box of each food item.
+
+For each region, it extarcts multiple common features:
+\begin{itemize}
+    \item Bag of Feature of SIFT and C-SIFT (sift with color invariant charateristics)
+    \item Spatial pyramid representation: object regions are divided by hierarchical grids. In this paper, the three level pyramid is used: $1 \times 1$, $2 \times 2$, $3 \times 3$. For each grid, a BoF vector is extracted
+    \item Histogram of Oriented Gradient (HOG)
+    \item Gabor texture
+\end{itemize}
+
+After extraction of the feature vectors from each candidate region, a linear SVM trained by MKL is used ($\chi^2$ kernel).
+
+For evaluation, the authors build a new dataset composed of 100 categories of traditional Japanese dishes with their associated bouding boxes for a total of 9060 images named \textbf{UEC-FOOD 100}. For multiple food item images, they obtain 55.8 \% classification rate and 68.9 \% for single food item pictures.
+
+In \cite{Kawano2014a}, the authors develop a mobile real-time food recognition system for calorie and nutrition estimation. Contrary to the previous paper, all the calculation are realised on the user smartphone. The recognition takes less than 1 secon thanks to the multi-core architecture of modern smartphones.
+The user takes a picture and draws bounding boxes around food items. Then, the system refine the segmentation based on the users' rough segmentation using Grabcut.
+For each item, it extracts image features and classify the image among the one hundred food classes using a linear SVM. Then, the top five food candidates are shown and the screen and the user can select one of the proposition.
+This recognition is updated every one second, the direction arrow as presented in figure  \ref{fig:food_cam} being displayed to help the user improve the result by changing the camera position and direction. To estimate the most suitable direction, the authors use the Efficient Sub-window Search method, a recent and powerful window search algorithm used in object detection.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{img/foodcam.jpg}
+    \caption{Annoted screenshot of the FoodCam application}
+    \label{fig:food_cam}
+\end{figure}
+
+Two different descriptors are used:
+\begin{itemize}
+    \item bag-of-feature with SURF and color histogram with the $chi^2$ kernel feature map
+    \item HOG and a color patch descriptor (mean and variance of RGB values on a $2 \times 2$ blocks of pixel) encoded using Fisher Victor, a patch encoding strategy using Gaussian mixture models.
+\end{itemize}
+The authors evaluate these two methods on a UEC-FOOD 100. Taking the top 5 classes, they obtain 79 \% classification accuracy for color patches and 68 \% for the other.

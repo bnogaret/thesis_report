@@ -62,6 +62,8 @@ The CNN has been pre-trained to detect the likelihood to belong to one of the 10
     \label{fig:seg_100_bboxes}
 \end{figure}
 
+Bounding boxes with a probability higher than a threshold $T$ are selected as candidate (if no box meet this limit, the boundong box with the maximum value is selected). As can be seen in figure \ref{fig:seg_97}, it generates a lot of overlapping copies. That's why, the final step of the localisation process is to discard small bounding boxes and overlapping ones (overlap higher than 30 \%), keeping the ones with highest probabilities.
+
 \begin{figure}
     \centering
     \includegraphics[height=20cm]{img/seg_97.jpg}

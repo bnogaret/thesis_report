@@ -147,13 +147,14 @@ After extraction of the feature vectors from each candidate region, a linear SVM
 For evaluation, the authors build a new dataset composed of 100 categories of traditional Japanese dishes with their associated bouding boxes for a total of 9060 images named \textbf{UEC-FOOD 100}. For multiple food item images, they obtain 55.8 \% classification rate and 68.9 \% for single food item pictures.
 
 In \cite{Kawano2014a}, the authors develop a mobile real-time food recognition system for calorie and nutrition estimation. Contrary to the previous paper, all the calculation are realised on the user smartphone. The recognition takes less than 1 secon thanks to the multi-core architecture of modern smartphones.
-The user takes a picture and draws bounding boxes around food items. Then, the system refine the segmentation based on the users' rough segmentation using Grabcut.
-For each item, it extracts image features and classify the image among the one hundred food classes using a linear SVM. Then, the top five food candidates are shown and the screen and the user can select one of the proposition.
+The user takes a picture and draws bounding boxes around food items. Then, the system refine the segmentation based on the users' rough demarcation using Grabcut, an iterative method using graph cuts to extract foreground.
+For each item, it extracts image features and classify the image among the one hundred food classes using a linear SVM. Then, the top five food candidates are shown and the user can select one of the proposition.
 This recognition is updated every one second, the direction arrow as presented in figure  \ref{fig:food_cam} being displayed to help the user improve the result by changing the camera position and direction. To estimate the most suitable direction, the authors use the Efficient Sub-window Search method, a recent and powerful window search algorithm used in object detection.
+The mobile application keep records of all the pictures and their approved classification and labeled with the volume estimation. Food intake is estimated thanks to a slider on the bottom-left of the screen.
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{img/foodcam.jpg}
+    \includegraphics[scale=0.6]{img/foodcam.jpg}
     \caption{Annoted screenshot of the FoodCam application}
     \label{fig:food_cam}
 \end{figure}

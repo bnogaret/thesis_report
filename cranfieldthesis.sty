@@ -96,16 +96,22 @@
 
 
 \newenvironment{references}
-{\cleardoublepage\addcontentsline{toc}{chapter}{References}\begin{thebibliography}{999}}
-{\end{thebibliography}\cleardoublepage}
+%{\cleardoublepage\addcontentsline{toc}{chapter}{References}\begin{thebibliography}{999}}
+{\addcontentsline{toc}{chapter}{References}\begin{thebibliography}{999}}
+%{\end{thebibliography}\cleardoublepage}
+{\end{thebibliography}}
 
 
 \setcounter{tocdepth}{1}
 \renewcommand{\bibname}{References}
 
-\newcommand\sstableofcontents{\cleardoublepage\addcontentsline{toc}{chapter}{Table of Contents}\singlespacing\tableofcontents\doublespacing}
-\newcommand\sslistoffigures{\cleardoublepage\addcontentsline{toc}{chapter}{List of Figures}\singlespacing\listoffigures\doublespacing}
-\newcommand\sslistoftables{\cleardoublepage\addcontentsline{toc}{chapter}{List of Tables}\singlespacing\listoftables\doublespacing}
+%\newcommand\sstableofcontents{\cleardoublepage\addcontentsline{toc}{chapter}{Table of Contents}\singlespacing\tableofcontents\doublespacing}
+%\newcommand\sslistoffigures{\cleardoublepage\addcontentsline{toc}{chapter}{List of Figures}\singlespacing\listoffigures\doublespacing}
+%\newcommand\sslistoftables{\cleardoublepage\addcontentsline{toc}{chapter}{List of Tables}\singlespacing\listoftables\doublespacing}
+
+\newcommand\sstableofcontents{\addcontentsline{toc}{chapter}{Table of Contents}\singlespacing\tableofcontents\doublespacing}
+\newcommand\sslistoffigures{\addcontentsline{toc}{chapter}{List of Figures}\singlespacing\listoffigures\doublespacing}
+\newcommand\sslistoftables{\addcontentsline{toc}{chapter}{List of Tables}\singlespacing\listoftables\doublespacing}
 
 \newenvironment{abstract}
 {\chapter{Abstract}}

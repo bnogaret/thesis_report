@@ -2,9 +2,9 @@
 
 For a computer, a picture is represented as a 2-D or 3-D array. To facilitate the classification, feature descriptor extract derived values (the features), calculated to be more informative and invariant to some common picture transformation.
 
-As such, colour is one of the key components of a food item, thus it is widely applied for classification. Color statistics are commonly used, such as the first and second moment values for different channels. It can be computed for multiple color representations (RGB, HSV, gray, YCrCb or L*a*b* space).
+As such, colour is one of the key components of a food item, thus it is widely applied for classification. Colour statistics are commonly used, such as the first and second moment values for different channels. It can be computed for multiple colour representations (RGB, HSV, grey, YCrCb or L*a*b* space).
 
-Another import feature of food is the tetxure. Numerous texture descriptors can be used such as Gabor filters or Local Binary Pattern.
+Another import feature of food is the texturee. Numerous texture descriptors can be used such as Gabor filters or Local Binary Pattern.
 
 \section{Local binary pattern}
 
@@ -14,7 +14,7 @@ Local binary pattern is a visual descriptor for texture composition of an image,
 
 \subsection{Gray-scale LBP}
 
-The figure \ref{fig:lbp_process} represents an example of the LBP in which the LBP code of the center pixel (in red color and value 20) is used as a local intensity threshold : the neighbour pixels whose intensities are equal or higher than the center pixel’s are labeled as ”1”; otherwise as ”0”. Then, starting always from the same point, we can transform this binary string to decimal and is used to describe the central pixel. In this example we start at the top-right point and work our way clockwise accumulating the binary string as we go along and obtain the value 24.
+The figure \ref{fig:lbp_process} represents an example of the LBP in which the LBP code of the centre pixel (in red color and value 20) is used as a local intensity threshold : the neighbour pixels whose intensities are equal or higher than the centre pixel’s are labelled as ”1”; otherwise as ”0”. Then, starting always from the same point, we can transform this binary string to decimal and is used to describe the central pixel. In this example we start at the top-right point and work our way clockwise accumulating the binary string as we go along and obtain the value 24.
 
 \begin{figure}[h]
     \includegraphics[scale=0.55]{img/lbp}
@@ -26,8 +26,8 @@ We adopt the following notation. Given a pixel $c = (x_c, y_c)$, the value of th
 $$LBP_{P, R} (x_c, y_c) = \sum_{p = 0}^{P - 1} s (g_p - g_c) 2^p$$
 where:
 \begin{itemize}
-    \item $p$ is a neighbour pixel of $c$ and the distance from $p$ to $c$ does not exceed $R$. Thus, $R$ is the radius of a circle centered in $c$ and $P$ is the numbered of sampled points.
-    \item $g_p$ and $g_c$ are the gray values (intensities) of $p$ and $c$
+    \item $p$ is a neighbour pixel of $c$ and the distance from $p$ to $c$ does not exceed $R$. Thus, $R$ is the radius of a circle centred in $c$ and $P$ is the numbered of sampled points.
+    \item $g_p$ and $g_c$ are the grey values (intensities) of $p$ and $c$
     \item $s(x)$ is the function defined as:
     \begin{equation}
     s(x) =
@@ -65,15 +65,15 @@ $$
 
 HSV space is composed of:
 \begin{itemize}
-    \item \textbf{Hue} channel: represents the dominant spectral component—color in its pure form, as in green, red, or yellow
+    \item \textbf{Hue} channel: represents the dominant spectral component—colour in its pure form, as in green, red, or yellow
     \item \textbf{Saturation} channel: represents the white added to the pure color (the Hue)
-    \item \textbf{Value} channel: represents the brightness of the color
+    \item \textbf{Value} channel: represents the brightness of the colour
 \end{itemize}
 
 Hue and Saturation corresponds to the chromaticity of the colour. For the joint histogram (2D histogram), the H and S channels are used as value is dependant of the condition where the picture were taken, thus is not interesting.
 
 The coordinate system is cylindrical, and is often represented by a subspace defined by a six-sided inverted pyramid. The top of the pyramid corresponds to, with the “white” at the center. The hue is measured by the angle around the vertical axis, with red corresponding to 0. The saturation
-ranges from 0 at the center to 1 on the surface of the pyramid. An inverted cone is also used to denote the subspace instead of the pyramid.
+ranges from 0 at the centre to 1 on the surface of the pyramid. An inverted cone is also used to denote the subspace instead of the pyramid.
 
 \subsection{Color moments}
 
@@ -148,7 +148,7 @@ The combination of a dense grid and SIFT is commonly called dense SIFT. It has b
 
 \subsection{SIFT descriptor}
 
-A SIFT descriptor of a local region (keypoint) is a 3-D spatial histogram of the image gradients as presented in the figure \ref{fig:sift_descriptor}. The gradient at each pixel is regarded as a sample of a three-dimensional elementary feature vector, formed by the pixel location and the gradient orientation. Samples are weighed by the gradient norm and accumulated in a 3-D histogram h, which (up to normalization and clamping) forms the SIFT descriptor of the region. An additional Gaussian weighting function is applied to give less importance to gradients farther away from the keypoint center.
+A SIFT descriptor of a local region (keypoint) is a 3-D spatial histogram of the image gradients as presented in the figure \ref{fig:sift_descriptor}. The gradient at each pixel is regarded as a sample of a three-dimensional elementary feature vector, formed by the pixel location and the gradient orientation. Samples are weighed by the gradient norm and accumulated in a 3-D histogram h, which (up to normalization and clamping) forms the SIFT descriptor of the region. An additional Gaussian weighting function is applied to give less importance to gradients farther away from the keypoint centrer.
 
 \begin{figure}
     \centering
@@ -159,7 +159,7 @@ A SIFT descriptor of a local region (keypoint) is a 3-D spatial histogram of the
 
 \subsection{K-mean clustering}
 
-Given a set of observations $(x_1, x_2, …, x_n)$, where each observation is a d-dimensional real vector, k-means clustering aims to partition the $n$ observations into $k$ $(k \leq n)$ sets $S = {S_1, S_2, …, S_k}$ so as to minimize the within-cluster sum of squares (sum of distance functions of each point in the cluster to the K center). In other words, its objective is to find:
+Given a set of observations $(x_1, x_2, …, x_n)$, where each observation is a d-dimensional real vector, k-means clustering aims to partition the $n$ observations into $k$ $(k \leq n)$ sets $S = {S_1, S_2, …, S_k}$ so as to minimize the within-cluster sum of squares (sum of distance functions of each point in the cluster to the K centre). In other words, its objective is to find:
 
 \begin{equation} \label{eq:kmean_objective}
     \underset {S}{\argmin} \sum _{i=1}^{k} \sum _{x \in S_{i}} \left\| x - \mu_{i} \right\|^{2}
@@ -170,7 +170,7 @@ Problem, the exact solution is a NP hard problem. That's why, we can use Lloyd's
 It is an iterative method that find a local minima of the Eq. \ref{eq:kmean_objective}:
 
 \begin{enumerate}
-    \item A set of $k$ initial \enquote{means} is choosen randomly within the data domain $M = \{m_1, m_2, \ldots, m_k \}$
+    \item A set of $k$ initial \enquote{means} is chosen randomly within the data domain $M = \{m_1, m_2, \ldots, m_k \}$
     
     \item Then, k clusters are created by associating every observation with the nearest mean.
     $$ \forall i \in \{ 1, \ldots, k \}, ~~ S_{i}^{(t)}= \big \{ x_{p}:{\big \|}x_{p}-m_{i}^{(t)}{\big \|}^{2}\leq {\big \|}x_{p}-m_{j}^{(t)}{\big \|}^{2} ~ \forall j \in \{ 1, \ldots, k \} \big \}$$

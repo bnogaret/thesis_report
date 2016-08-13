@@ -59,7 +59,7 @@ Combining equation \ref{eq:svm_1} and \ref{eq:svm_2}, we obtain:
 $$ \forall i \in {0, \ldots, n}, ~~ y_i (\vec{x_i} \cdot \vec{w} + b) - 1 \geq 0$$
 where $y_i = f(\vec{x_i}) = {-1, 1}$
 
-Gemetrically, the distance between the two hyperplane from \ref{eq:svm_1} and \ref{eq:svm_2} is $\frac{2}{\vec{w}}$ (equal width to each side).
+Geometrically, the distance between the two hyperplanes from \ref{eq:svm_1} and \ref{eq:svm_2} is $\frac{2}{\vec{w}}$ (equal width to each side).
 
 Thus, to obtain the hyperplane with the highest margin, we want to maximize:
 $$ \underset {\vec{w}, \vec{b}}{\argmax} \frac{2}{\lVert \vec{w} \rVert^2} $$
@@ -70,7 +70,7 @@ Thus, we obtain a constrained optimization problem.
 
 \subsubsection{Soft Margin}
 
-For the case of non-separable training sets, we introduce a penality parameter $C$, $C \leq 0$ and obtain:
+For the case of non-separable training sets, we introduce a penalty parameter $C$, $C \leq 0$ and obtain:
 $$
 \underset {\vec{w}, \vec{b} \zeta}{\argmin} \frac{1}{2} \lVert \vec{w} \rVert^2 + C \sum_{i = 1}^{n} \zeta_i
 \text{ subject to } y_i (\vec{x_i} \cdot \vec{w} + b) \geq 1 - \zeta_i, \zeta_i \geq 0, \forall i \in [1, \ldots, n]
@@ -85,7 +85,7 @@ where the support vectors selected sub-set of the training  examples that define
 To generalize SVM to the case of multi-class, multiple approaches are possible:
 \begin{itemize}
     \item \enquote{one-versus-one}: train a separate classifier for each different pair of labels. This leads to $\frac{N (N - 1)}{2}$ classifiers
-    \item \enquote{one-versus-all}: train a single classifier per class, with the samples of that class as positive samples and all other samples as negatives
+    \item \enquote{one-versus-all}: train a single classifier per class, with the samples of that class as positive samples and all others as negatives
 \end{itemize}
 
 \subsection{Non-linear SVM and kernel trick}
@@ -93,9 +93,9 @@ To generalize SVM to the case of multi-class, multiple approaches are possible:
 The idea of the kernel trick is to transform the initial space to a higher dimensional space where a hyperplane can separate this data.
 Kernel trick: use kernel function to implicitly transform datasets to a higher-dimensional using no extra memory, and with a minimal effect on computation time: realise just a dot product.
 
-To use the linear SVM for non-linear data: project the data in a new feature H space thanks to an application and then reserch for maximum margin hyperplan in H
+To use the linear SVM for non-linear data: project the data in a new feature H space thanks to an application and then research for maximum margin hyperplane in H
 to make sure that the new problem has a unique solution, 
-must satisfy the Mercer's condition or simply it must be a positiv-definit matrix
+must satisfy the Mercer's condition or simply it must be a positive definite matrix
 
 \begin{itemize}
     \item \textbf{Linear} : $k(x, y) = \langle \vec{x} , \vec{y} \rangle + C = x^T y + C$
@@ -113,11 +113,11 @@ For food classification, the chi square kernel is the most used kernel as it is 
 
 \section{Convolutional neural network}
 
-A \textbf{Convolutional Neural Netwrok} \textit{CNN} is a variant of a Neural Network, mainly used for machine learning on pictures. It is inspired by the neural system composed of different layers (made up of multiple neurons) and communication shemes.
+A \textbf{Convolutional Neural Network} \textit{CNN} is a variant of a Neural Network, mainly used for machine learning on pictures. It is inspired by the neural system composed of different layers (made up of multiple neurons) and communication scheme.
 
 Each neuron receives some inputs, performs a dot product and optionally follows it with a non-linearity function. The whole network still expresses a single differentiable score function (linear or not): from the raw image pixels (the input layer) to class scores (output layer). Hidden layers separates these two layers, as described in \ref{fig:nn_3_layer}.
 
-A CNN (and more generally a NN) is trained by backpropagation, applying gradient descent that will update the weights.
+A CNN (and more generally a NN) is trained by backward propagation of the errors (backpropagation), applying gradient descent that will update the weights.
 
 It is a powerful, adaptive and noise resilient pattern recognition. The training phase is rather slow but querying it with an unseen example is fairly fast.
 
@@ -136,7 +136,7 @@ It is a powerful, adaptive and noise resilient pattern recognition. The training
 
 The figure \ref{fig:cnn_simple_example} is a simple CNN based on the VGG-NET structure. It is composed of the 4 most popular layers that can be found in a CNN:
 \begin{itemize}
-    \item \textbf{Convolutional} : layer fiving the name for this type of neural network. It convolves the input image with a set of learnable filters, each producing one feature map in the output image, i.e. it computes a dot product on a neighborhhod of pixels:
+    \item \textbf{Convolutional} : layer giving the name for this type of neural network. It convolves the input image with a set of learnable filters, each producing one feature map in the output image, i.e. it computes a dot product on a neighbourhood of pixels:
     
     $$ y_{i, j} = b + \sum_{l=0}^{n - 1} \sum_{m=0}^{n - 1}  w_{l,m} x_{j+l, k+m} $$
     with:

@@ -37,7 +37,7 @@ Note that given the convention from \cite{pascalVoc2012}, if more than one predi
 
 Cross validation is a technique used to assert the generalization to a new dataset of the different metrics used. 
 
-A common type of cross validation is the k-fold cross validation. In this method, the  original sample is randomly split into $k$ partitions of equal sized. Of these generated subsamples, a single split is used for test set, the remaining are used as training data.
+A common type of cross validation is the k-fold cross validation. In this method, the original sample is randomly split into $k$ partitions of equal sized. Of these generated subsamples, a single split is used for test set, the remaining are used as training data.
 This last task is repeated $k$ times, each of the k partitions being used only once for testing. The $k$ results can then be averaged to produce a single estimation (illustrated in figure  \ref{fig:4-fold_cross_validation})
 
 The advantage of this method over repeated random sub-sampling is that all observations are used for both training and testing, each observation being used for testing exactly once. 
@@ -61,7 +61,7 @@ The advantage of this method over repeated random sub-sampling is that all obser
 
 \section{Results}
 
-First, the localisation and classification processes were run independantly (using the ground truth bounding box for classification).
+First, the localisation and classification processes were run independently (using the ground truth bounding box for classification).
 
 \subsection{Food localisation}
 
@@ -85,9 +85,9 @@ First, the localisation and classification processes were run independantly (usi
 
 The table \ref{table:localisation_result} gathers the average accuracy, recall, precision of my localisation method using a DCNN pre-trained on salient object detection. In \cite{Bolanos2016}, the authors use fine-tuned pre-trained Deep Neural Network and obtain around 60 \% of accuracy (using the same IoU over 50 \%).
 
-Compare to the found litterature, my method lead to a higher accuracy. It seems that the assumptions made to switch from a DCNN trained to detect food / non-food detection to salient object detection is founded.
+Compare to the found literature, my method lead to a higher accuracy. It seems that the assumptions made to switch from a DCNN trained to detect food / non-food detection to salient object detection is founded.
 
-For the result of the table \ref{table:localisation_result}, we use an IoU of 50 \%. In Fig \ref{fig:segmentation_overlap}, we can see that the metrics' values are greatly influenced by the threshold choose for correctness (from 73 \% of average accuracy with a threshold at 50 \% to 0 \% of accuracy for a thresholf of 100 \%).
+For the result of the table \ref{table:localisation_result}, we use an IoU of 50 \%. In Fig \ref{fig:segmentation_overlap}, we can see that the metrics' values are greatly influenced by the threshold choose for correctness (from 73 \% of average accuracy with a threshold at 50 \% to 0 \% of accuracy for a threshold of 100 \%).
 
 \begin{figure}
     \centering
@@ -109,30 +109,28 @@ For the result of the table \ref{table:localisation_result}, we use an IoU of 50
         \hline
         BoW (1000 words)+ SVM with $\chi^2$ & 10 \% \\ % made up!
         \hline
-        LBP + color historams and moments + Decision tree & 5 \% \\ 
+        LBP + CHM + Decision tree & 5 \% \\ 
         \hline
-        LBP + color historams and moments + SVM & 11 \% \\ % made up!
+        LBP + CHM + SVM & 11 \% \\ % made up!
         \hline
-        LBP + color historams and moments + RF & 16 \% \\ % improved!
+        LBP + CHM + RF & 16 \% \\ % improved!
         \hline
         DCNN from \cite{Bolanos2016} & 63 \%\\
         \hline 
         DCNN from \cite{Yanai2015} & 67 \%\\
         \hline 
     \end{tabulary}
-    \caption{Average classification accuracy result for UEC FOOD 256}
+    \caption[Average classification accuracy result for UEC FOOD 256]{Average classification accuracy result for UEC FOOD 256. CHM stands for colour histograms and moments}
 \end{table}
 
-In \cite{Bolanos2016}, the authors use fine-tuned pre-trained Deep Neural Network and obtain 63 \% accuracyon UEC FOOD-256.
+In \cite{Bolanos2016}, the authors use a fine-tuned pre-trained Deep Neural Network and obtain 63 \% accuracy on UEC FOOD-256.
 
-In \cite{Yanai2015}, the authors use fine-tuned pre-trained Deep Neural Network and obtain 67 \% accuracyon UEC FOOD-256.
+In \cite{Yanai2015}, the authors use a fine-tuned pre-trained Deep Neural Network and obtain 67 \% accuracy on UEC FOOD-256.
 
 
 \subsection{Segmentation followed by classification}
 
-My classification is slightly less accurate as the bounding box as not as precise as the ground truth.
-
-Using the segmentation and classification method with the highest accuracy, i.e. CNN Segmenter + CNN feature descriptor + RF classifier
+Using the segmentation and classification method with the highest accuracy, i.e. CNN segmenter + CNN feature descriptor + RF classifier
 
 \begin{table}
     \centering
@@ -165,8 +163,8 @@ Using the segmentation and classification method with the highest accuracy, i.e.
 As can been seen in Fig \ref{fig:top_5} and \ref{fig:least_5}, the best performing class is rice and the least one is tanmen. The possible explanations are:
 \begin{itemize}
     \item rice is the most represented food items in the dataset, maximising the size of the training sets (same for miso soup)
-    \item rice has a specific texture and color that is relatively invariant to the condition
-    \item tanmen is a soup containing noodle and various vegetables. Thus, it can occur in different color, shape and size.
+    \item rice has a specific texture and colour that is relatively invariant to the condition
+    \item tanmen is a soup containing noodle and various vegetables. Thus, it can occur in different colour, shape and size.
     \item there are numerous soups in the dataset and tanmen is often confused with them.
 \end{itemize}
 

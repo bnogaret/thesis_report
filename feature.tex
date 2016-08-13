@@ -1,6 +1,6 @@
 \chapter{Feature descriptor} \label{sec:feature_descriptor}
 
-For a computer, a picture is represented as a 2-D or 3-D array. To facilitate the classification, feature descriptor extract derived values (the features), calculated to be more informative and invariant to some common picture transformation.
+For a computer, a picture is represented as a 2-D or 3-D array. To facilitate the classification, feature descriptor extract derived values (the features), calculated to be more informative and invariant to some common picture transformations.
 
 As such, colour is one of the key components of a food item, thus it is widely applied for classification. Colour statistics are commonly used, such as the first and second moment values for different channels. It can be computed for multiple colour representations (RGB, HSV, grey, YCrCb or L*a*b* space).
 
@@ -22,7 +22,7 @@ The figure \ref{fig:lbp_process} represents an example of the LBP in which the L
     \label{fig:lbp_process}
 \end{figure}
 
-We adopt the following notation. Given a pixel $c = (x_c, y_c)$, the value of the $LBP$ code of $c$ is defined as:
+Given a pixel $c = (x_c, y_c)$, the value of the $LBP$ code of $c$ is defined as:
 $$LBP_{P, R} (x_c, y_c) = \sum_{p = 0}^{P - 1} s (g_p - g_c) 2^p$$
 where:
 \begin{itemize}
@@ -70,10 +70,15 @@ HSV space is composed of:
     \item \textbf{Value} channel: represents the brightness of the colour
 \end{itemize}
 
-Hue and Saturation corresponds to the chromaticity of the colour. For the joint histogram (2D histogram), the H and S channels are used as value is dependant of the condition where the picture were taken, thus is not interesting.
+Hue and Saturation corresponds to the chromaticity of the colour. For the joint histogram (2D histogram), the H and S channels are used as value is dependant of the condition where the picture were taken, thus is not interesting. The coordinate system is cylindrical, and is often represented by a six-sided inverted pyramid (see figure \ref{fig:hsv_pyramid}).
 
-The coordinate system is cylindrical, and is often represented by a subspace defined by a six-sided inverted pyramid. The top of the pyramid corresponds to, with the “white” at the center. The hue is measured by the angle around the vertical axis, with red corresponding to 0. The saturation
-ranges from 0 at the centre to 1 on the surface of the pyramid. An inverted cone is also used to denote the subspace instead of the pyramid.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.2]{img/HSV_pyramid.png}
+    \caption{Pyramid representation of the HSV channels}
+    \label{fig:hsv_pyramid}
+\end{figure}
+
 
 \subsection{Color moments}
 
@@ -131,9 +136,9 @@ On the base of those Moments, Hu in \cite{Hu1962} introduced 7 Moments which are
 
 As illustrated in Fig. \ref{fig:bow_process}, the main steps are:
 \begin{itemize}
-    \item On each picture, keypoints are detected. In my case, I use a dense grid of evenly spaced points at a fixed scale and orientation.
-    \item For every keypoint, a feature vector  is generated. we describe it, SIFT (scale invariant feature transform).
-    \item We generate the fix number of visual words that compose our codebook.
+    \item detecting keypoints on each picture. In my case, I use a dense grid of evenly spaced points at a fixed scale and orientation.
+    \item describing each keypoints, i.e. extract a feature vector on a neighbourhood of pixels. SIFT, HOG and SURF are common descriptors.
+    \item Generating a fix number of visual words that compose our codebook.
     \item We express each image as an histogram of these words' appearance.
 \end{itemize}
 
@@ -146,20 +151,68 @@ The combination of a dense grid and SIFT is commonly called dense SIFT. It has b
     \label{fig:bow_process}
 \end{figure}
 
-\subsection{SIFT descriptor}
+\subsection{SIFT and SURF}
 
-A SIFT descriptor of a local region (keypoint) is a 3-D spatial histogram of the image gradients as presented in the figure \ref{fig:sift_descriptor}. The gradient at each pixel is regarded as a sample of a three-dimensional elementary feature vector, formed by the pixel location and the gradient orientation. Samples are weighed by the gradient norm and accumulated in a 3-D histogram h, which (up to normalization and clamping) forms the SIFT descriptor of the region. An additional Gaussian weighting function is applied to give less importance to gradients farther away from the keypoint centrer.
+\textbf{Scale-Invariant Feature Transform} \textit{SIFT} is an algorithm used for detection and description of local feature \cite{Lowe2004}.
 
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.5]{img/sift_descriptor.jpg}
-    \caption{Illustration of SIFT as a local image descriptor}
-    \label{fig:sift_descriptor}
-\end{figure}
+The major stages of the algorithm are:
+\begin{enumerate}
+    \item Scale-space extrema detection: The scale space of an image $L(x, y, \sigma)$ is defined as the product of the convolution of a Gaussian filter $G(x, y, \sigma)$ and an image $I(x, y)$:
+    $$
+    L(x, y, \sigma) = G(x, y, \sigma) * I(x, y)
+    $$
+    where $*$ is the convolution at $(x, y)$ and $G(x, y, \sigma) = \frac{1}{2 \pi \sigma^2} \exp(-(x^2 + y^2) / 2 \sigma^2)$.
+    
+    Laplacian of Gaussian $\sigma^2 \nabla^2 G$ produced the most stable image features but are expensive to compute, thus it is approximated as an Difference of Gaussian (scale-normalized LoG for scale-invariance)
+    $$
+    G(x, y, k \sigma) - G(x, y, \sigma) \approx (k - 1) \sigma^2 \nabla^2 G
+    $$
+    
+    As presented in figure \ref{fig:sift_difference_of_gaussian}, pyramid of DoG for each octave of scale space is computed: the initial image is repeatedly convolved with Gaussian filters for different values of $\sigma$ to produce the set of scale space images shown on the left. Adjacent Gaussian images are subtracted to produce the difference-of-Gaussian.
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.5]{img/sift_difference_of_gaussian.png}
+        \caption{Illustration of the difference of Gaussian over multiple octave}
+        \label{fig:sift_difference_of_gaussian}
+    \end{figure}
+    
+    \item Keypoint localisation: In order to detect the local maxima and minima of $D(x, y,\sigma)$, each sample point is compared to its eight neighbours in the current image and nine neighbours in the scale above and below. Low contrast and edge keypoints are filtered.
+    
+    \item Orientation and magnitude assignment: by assigning a consistent orientation to each keypoint based on local image properties, the keypoint descriptor can be represented relative to this orientation and therefore achieve invariance to image rotation.
+    
+    The magnitude and orientation are defined as:
+    $$
+    m(x, y) = \sqrt{ \left( L(x +1, y) - L(x -1, y)  \right)^2 + \left( L(x, y + 1) - L(x, y - 1) \right)^2}
+    $$
+    $$
+    \theta(x, y) =\tan^{-1} ( \frac{L(x, y + 1) - L(x, y - 1 )}{L(x + 1, y) - L(x - 1, y)} )
+    $$
+    
+    \item Keypoint descriptor: the local image gradients of a keypoint as presented in figure \ref{fig:sift_descriptor} are computed and accumulated in a histogram. An additional Gaussian weighting function is applied to give less importance to gradients farther away from the keypoint centrer. Once a keypoint candidate has been found by comparing a pixel to its neighbours, the next step is to perform a detailed fit to the nearby data for location, scale, and ratio of principal curvatures. This information allows points to be rejected that have low contrast (and are therefore sensitive to noise) or are poorly localized along an edge.
+    
+    Usually, SIFT is evaluated at 8 orientation planes over a 4 × 4 neighbourhood giving a
+    128-dimension feature vector
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.5]{img/sift_descriptor.jpg}
+        \caption{Illustration of SIFT as a local image descriptor}
+        \label{fig:sift_descriptor}
+    \end{figure}
+\end{enumerate}
+
+As proven in \cite{Lowe2004}, this method is invariant to translation, scaling and rotation of the picture and is robust to illumination changes, addition of noise, change in the 3-D viewpoint and local geometric distortion.
+
+Multiple variant of SIFT exists. Colour SIFT computes the SIFT in the same manner than the grey scale, except that it does it for each channel independently. Root SIFT is a simple variant of SIFT, presented in \cite{Arandjelovic2012}. When the SIFT descriptors as been computed for each keypoints, we apply an element wise square root of the L1 normalized SIFT vectors
+
+
+However the SIFT algorithm is quite slow method. That's why in \cite{Bay2006}, the authors present a faster algorithm base on the SIFT approach - \textbf{Speeded Up Robust Features} \textit{SURF}. 
+The key is to approximate the LoG with the Box Filter which is the other approximation but of DoG. Using them, the integral image can be constructed and used, which speeds up the whole process since there is no need to iteratively apply those filters one by one (it can be even parallelized). This approach is eagerly applied in the real-time object recognition tasks.
 
 \subsection{K-mean clustering}
 
-Given a set of observations $(x_1, x_2, …, x_n)$, where each observation is a d-dimensional real vector, k-means clustering aims to partition the $n$ observations into $k$ $(k \leq n)$ sets $S = {S_1, S_2, …, S_k}$ so as to minimize the within-cluster sum of squares (sum of distance functions of each point in the cluster to the K centre). In other words, its objective is to find:
+Given a set of observations $(x_1, x_2, …, x_n)$, where each observation is a real vector, $k$-means clustering aims to partition the $n$ observations into $k$ $(k \leq n)$ sets $S = {S_1, S_2, …, S_k}$ so as to minimize the within-cluster sum of squares (sum of distance functions of each point in the cluster to its closest centre K). In other words, its objective is to find:
 
 \begin{equation} \label{eq:kmean_objective}
     \underset {S}{\argmin} \sum _{i=1}^{k} \sum _{x \in S_{i}} \left\| x - \mu_{i} \right\|^{2}
@@ -181,6 +234,6 @@ It is an iterative method that find a local minima of the Eq. \ref{eq:kmean_obje
     \item Repeats step 2 and 3 until $M$ not longer changes.
 \end{enumerate}
 
-The centroid results and number of iterations are highly dependant of the initial centroid.
+The centroid results and number of iterations are highly dependant of the initial centroid. As a result, the computation is often done several times, with different initialisations.
 
-As a result, the computation is often done several times, with different initializations of the centroids. One method to help address this issue is the k-means++ initialization scheme, which has been described in \cite{Arthur2007}. This initializes the centroids to be (generally) distant from each other, leading to provably better results than random initialization.
+To help to overcome this issue, the \enquote{kmeans++} initialisation scheme is often used, which has been described in \cite{Arthur2007}. This method initializes the centroids to be (generally) distant from each other, leading to provably better results than random initialization.

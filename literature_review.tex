@@ -28,6 +28,23 @@ In \cite{Wazumi2011}, the authors describe their use of the Hough transformation
 %% CNN
 %% DCNN: * ? + 9.1 (in food intake)
 
+A more recent development is the used of convolutional neural network.
+
+In \cite{Shimoda2015}, the authors presents their segmentation process based on a pre-trained deep CNN.
+
+The proposed pipeline is composed of 6 main steps:
+\begin{enumerate}
+    \item detect all the possible bounding box (maximum 2000 per image) using selective search
+    \item cluster the bounding box, using the ration of intersection over union (IOU, also call overlap ratio) to obtain 20 at most.
+    \item a Deep CNN for all the selected bounding box to get a saliency map. The DCNN is modelled on AlexNet CNN, was pre-trained on the Salient Object Subitizing (14 000 everyday pictures) dataset and fine-tuned on UEC FOOD 100.
+    \item use the GrabCut algorithm to extract the foreground region from the food area. 
+    \item In case of overlapped bounding box, the authors proposed to apply the non-maximum suppression (NMS) algorithm.
+\end{enumerate}
+
+The authors apply this process on the UEC-FOOD 100 dataset and PASCAL VOC 2007. The latter is used for object detection and recognition of 20 common classes (train, tv, cat, human ...)). These two datasets use bounding box to spot items. A segmentation is correct if the overlap ratio exceeds 50\% between the predicted and the ground truth bounding box.
+
+For UEC-FOOD 100, the authors obtain 49.9 \% mean average accuracy and 58.7 \% for PASCAL VOC 2007.
+
 \section{Food recognition}
 
 Food recognition
@@ -40,22 +57,6 @@ Colour and texture description:
 Spatial pyramid:
 
 Mix of several features:
-
-In \cite{Zhu2015}, the authors develop a mobile application to keep food records of a user that is taking pictures of one's meal. Their method can detect multiple food items in one picture. They use a colour marker as an illumination and size indicator.
-
-When the user upload a picture, it is segmented, then classified by a back-end server. The estimation are sent back to the user for confirmation.
-
-Their method is named "multiple hypotheses segmentation and classification (MHSC)". It is an iterative method composed of a segmentation, description (extraction of features) and classification step.
-
-For segmentation, the authors first detect salient region, using Canny edge and colour distribution to reject background. Then, they apply a multi-scale segmentation using normalized cut. Small segmented regions are discarded.
-
-On the selected region, the authors used a mixed of global descriptors (first and second moment of each channel for RGB, YCbCr, L*a*b*, and HSV colour spaces, first and second moment of the entropy in RGB, predominant colour descriptor, entropy and two first moments of the Gradient Orientation Spatial-Dependence Matrix, entropy categorization and fractal dimension estimation and estimation of the fractal dimension of the response of different Gabor filter) with local feature (multi Bag-Of-Words using SIFT for RGB, SURF for RGB, SIFT for each channel of the RGB representation and steerable filters).
-
-Each of the 12 descriptor, global and local, is classified independently and assigned a confidence score. A late fusion function (either maximum confidence score or majority vote) is used  to decide the final class. For classification, the authors use K-NN and SVM.
-
-If the total score is inferior to a certain threshold, the overall process is repeated. The confidence score of the previous step is used to improve the segmentation.
-
-Applied on a dataset composed of 83 labels (79 food classes plus \enquote{utensils}, \enquote{glasses}, \enquote{plates}, and \enquote{plastic cups} classes), each class having at least 30 images, they obtain a top-8 accuracy of 75 \%, using K-NN with the maximum confidence score.
 
 %% DCNN
 %% 2.3
@@ -81,7 +82,7 @@ FoodLog \footnote{\url{http://www.foodlog.jp}} is a website that enables the use
 
 In \cite{Kitamura2008}, the images containing food items are identified by exploiting features related to the HSV and RGB colour domains, as well as the shape of the plate. A SVM classifier is trained to detect food images. More specifically, the images are divided in 300 blocks and each block is classified as \enquote{non-food} (discarded block) or one of the nutritional categories described in the \enquote{MyPyramid} model \footnote{\url{http://www.mypyramid.gov}}.
 
-MyPyramid \cite{MyPyramid} was designed by the United State Departement of Agriculture \textit{USDA} in 2005 and was replaced in 2011 by \enquote{MyPlate} \footnote{\url{http://www.choosemyplate.gov}} \cite{MyPlate}. This dietary model is composed of 5 kinds of food: grains, vegetable, meals and beans, milk and fruit. For each group, a recommended intake per day is associated, Fig. \ref{fig:my_pyramid}. Quantity is categorized by \enquote{servings} \textit{SV}, making it simpler to compute and keep log.
+MyPyramid \cite{MyPyramid} was designed by the United State Department of Agriculture \textit{USDA} in 2005 and was replaced in 2011 by \enquote{MyPlate} \footnote{\url{http://www.choosemyplate.gov}} \cite{MyPlate}. This dietary model is composed of 5 kinds of food: grains, vegetable, meals and beans, milk and fruit. For each group, a recommended intake per day is associated, Fig. \ref{fig:my_pyramid}. Quantity is categorized by \enquote{servings} \textit{SV}, making it simpler to compute and keep log.
 
 \begin{figure}
     \centering
@@ -120,7 +121,37 @@ The process to show the intake is:
 If the user has not eaten everything, the entire must be repeated.
 The drawbacks of this method is the user have to take several pictures, with one's thumb each time and it has been tested with a limited set of simple food types.
 
-%% Food Cam ?
+%
+% Zhu
+%
+
+In \cite{Zhu2010}, the authors develop a mobile application to keep food records of a user that is taking pictures of one's meal. Their method can detect multiple food items in one picture. They use a colour marker (color chequerboard) as an illumination and size indicator.
+As in \cite{Almaghrabi2012a}, images obtained before and after foods are eaten are used to estimate the amount of food consumed.
+
+When the user upload a picture, it is segmented, then classified by a back-end server. The estimation (labelled image with food type and volume) are sent back to the user for confirmation.
+
+For segmentation, the authors use connected component analysis, active contours, and normalized cuts. Then, colour and texture features are extracted to feed a SVM classifier. The authors use:
+\begin{itemize}
+    \item Gabor filters. Gabor filters describe properties related to the local power spectrum of a signal and have been used for texture analysis
+    \item 2-D colour histograms of the a* and b* channels of the CIELaB representation. Values are corrected using the colour marker
+\end{itemize}
+For the volume estimation, the authors use a 3-D volume reconstruction process. The food area is partitioned and assigned to \enquote{geometric classes}, each with their own sets of parameters.
+
+They evaluate their segmentation and classification methods on a very small dataset composed of 63 images and 19 classes. The authors obtain an average accuracy of 89 \%.
+
+In \cite{Zhu2015}, their method is named \enquote{multiple hypotheses segmentation and classification} \textit{MHSC}. It is an iterative algorithm composed of a segmentation, description (extraction of features) and classification steps.
+
+For segmentation, the authors first detect salient region, using Canny edge and colour distribution to reject background. Then, they apply a multi-scale segmentation using normalized cut. Small segmented regions are discarded.
+
+On the selected region, the authors used a mixed of global descriptors (first and second moment of each channel for RGB, YCbCr, L*a*b*, and HSV colour spaces, first and second moment of the entropy in RGB, predominant colour descriptor, entropy and two first moments of the Gradient Orientation Spatial-Dependence Matrix, entropy categorization and fractal dimension estimation and estimation of the fractal dimension of the response of different Gabor filter) with local feature (multi Bag-Of-Words using SIFT for RGB, SURF for RGB, SIFT for each channel of the RGB representation and steerable filters).
+
+Each of the 12 descriptor, global and local, is classified independently and assigned a confidence score. A late fusion function (either maximum confidence score or majority vote) is used  to decide the final class. For classification, the authors use K-NN and SVM.
+
+If the total score is inferior to a certain threshold, the overall process is repeated. The confidence score of the previous step is used to improve the segmentation.
+
+Applied on a dataset composed of 83 labels (79 food classes plus \enquote{utensils}, \enquote{glasses}, \enquote{plates}, and \enquote{plastic cups} classes), each class having at least 30 images, they obtain a top-8 accuracy of 75 \%, using K-NN with the maximum confidence score.
+
+%% Food Cam
 %% 6.3
 
 In \cite{Matsuda2012a}, the authors propose a food recognition system named \textbf{FoodCam} to identify food items of a picture. The presented process is used on a mobile application, the user taking a picture that is transferred to a sever, processed and results are displayed.
@@ -161,7 +192,7 @@ The mobile application keep records of all the pictures and their approved class
 
 Two different descriptors are used:
 \begin{itemize}
-    \item bag-of-feature with SURF and colour histogram with the $chi^2$ kernel feature map
+    \item bag-of-feature, SURF for detection and description, and colour histogram with the $chi^2$ kernel feature map
     \item HOG and a colour patch descriptor (mean and variance of RGB values on a $2 \times 2$ blocks of pixel) encoded using Fisher Victor, a patch encoding strategy using Gaussian mixture models.
 \end{itemize}
 The authors evaluate these two methods on UEC-FOOD 100. Taking the top 5 classes, they obtain 79 \% classification accuracy for colour patches and 68 \% for the other.

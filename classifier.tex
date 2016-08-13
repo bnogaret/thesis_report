@@ -37,14 +37,14 @@ $m$ predictors is chosen as split candidates from the full set of $n$ features. 
 
 \section{Support Vector Machine}
 
- (binary case) + kernel trick + multi-class (one-versus-one or one-versus-all)
+% Add citation?
 
-\textbf{Support Vector Machine} \textit{SVM} is a method used for classification and regression.
+\textbf{Support Vector Machine} \textit{SVM} is a widely used method for classification and regression.
 
 \subsection{Linear SVM}
 \subsubsection{Hard margin}
 
-A support vector machine constructs a hyper-plane or set of hyper-planes in a high or infinite dimensional space. Intuitively, a good separation is achieved by the hyper-plane that has the largest distance to the nearest training data points of any class (so-called functional margin), since in general the larger the margin the lower the generalization error of the classifier.
+A support vector machine constructs a hyper-plane or a set of hyper-planes in a high or infinite dimensional space. Intuitively, a good separation is achieved by the hyper-plane that has the largest distance to the nearest training data points of any class (so-called functional margin), since in general the larger the margin the lower the generalization error of the classifier.
 
 For a 2 classes (value represented as $-1$ and $1$), the hyperplane must verify:
 \begin{equation}\label{eq:svm_1}

@@ -1,0 +1,56 @@
+\section{\href{http://link.springer.com/chapter/10.1007/978-3-319-10599-4_29}{Food-101 - Mining discriminative components with random forests}}
+
+In \cite{Bossard2014}, the author use the Random forest clustering algorithm to create superpixels (selecting only the discriminative one). On these superpixels, a dense SURF and L*a*b* color value is computed and encoded with improved fisher vectors (IFV) with Gaussian mixture model (GMM) of 64 Gaussians.
+Then, they use PCA to reduce the size of the vector and the machine learning method is structured-output multi-class SVM. They use their method on Food-101 (50.76\% accuracy) and MIT-indoor (58\% of accuracy on the full dataset) and compare it against several previous implementations.
+
+Method:
+\begin{enumerate}
+    \item Feature: SURF and L*a*b* color
+    \item Coding: fisher vector with GMM of 64 modes (reduced size with PCA)
+    \item Machine learning: multi-class SVM
+\end{enumerate}
+
+\section{\href{http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6316741}{Auto-Recognition of Food Images Using SPIN Feature for Food-Log System}}
+
+In this paper \cite{Wazumi2011}, the authors mainly describe its new feature. They use the Hough transformation to detect circle (they constitutes the food region). Then, they use their new rotation invariant feature named SPIN:
+Segment the circle in multiple rings (16 rings for their experiment) 
+Extract the HSV color for each ring (experiment: 40 bins for channel H (hue), 10 bins for channel S (saturation) and V (value))
+Concatenate the results
+Then, use a multi-class SVM for food recognition on their internal dataset.
+They obtain an average accuracy of 62\% per category.
+
+Dataset:
+
+Internal. 10 categories, 30 images per category
+
+Method:
+
+For learning, they use a multi-class SVM.
+
+Comment:
+
+It makes the assumption that the food is inside a round container (plate, glasses …).
+It uses a limited dataset that I don’t have access to.
+
+\section{\href{http://dx.doi.org/10.1145/2638728.2641339}{Food Image Recognition with Deep Convolutional Features}}
+
+In \cite{Kawano2014}, the authors state first that using DCNN alone (letting the algorithm find what to feature is optimized) is not applicable as it is a too small dataset (less than 100 pictures per category for the experimental dataset).
+That’s why they are using a pre-trained DCNN (that can be found \href{http://cilvr.nyu.edu/doku.php?id=code:start}{here}) and reuse its two last layers as features. Moreover, they add conventional image features: HOG and color patches encoding in Fisher vector.
+Coupling the 3 features, they obtain 72\% of accuracy for UEC-FOOD 100.
+
+Dataset: UEC-FOOD 100
+
+Methods:
+
+\begin{enumerate}
+    \item Feature:
+    \begin{enumerate}
+        \item HOG (more exactly, RootHog that is “an element-wise square root of the L1 normalized HO”) (8 orientations per block of 2 * 2)
+        \item color patches (mean and variance values of  RGB value of pixels from each of 2*2  block)
+        \item Deep convolutional neural network last two layers
+    \end{enumerate}
+    
+    \item Encoding: Fisher vector
+    
+    \item Machine learning: either linear SVM or Adaptive Regularization of Weights (\href{https://github.com/tetsuok/arowpp}{implementation})
+\end{enumerate}

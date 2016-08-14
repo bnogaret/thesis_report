@@ -1,0 +1,74 @@
+\section{\href{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=7169757}{Recipe recognition with large multimodal food dataset}}
+
+In \cite{Wang2015}, the authors created a new dataset named UMPC Food-101 ("twin dataset" of ETHZ Food 101) combining text and visual information for recipes. As a proof of concept, they develop a search application for recipe recognition. The user send a query (a food image) and as a result, the three best recipes (categories) are displayed.
+
+For the image recognition model, they use textual, visual or mix of both features:
+\begin{itemize}
+    \item visual feature:
+        \begin{itemize}
+            \item Bag-of-Words:
+            spatial pyramid of 3 levels
+            dense SIFT (window size: 4, step size: 8), 1024 words, soft coding (using probability to be this word).
+            They obtain an  average accuracy of 23.96 \%.
+            
+            \item Use an improved version of the Bag-ofWords: BossaNova only modify the pooling system. Instead of keeping the closest cluster of a SIFT descriptor, it represents it by keep distances between the descriptor and the words in the codebook.
+            Average accuracy of 28.59 \%.
+            
+            \item Use deep CNN features: 7th layer of a pre-trained CNN ("OverFeat"). 
+            Average accuracy of 33.91 \%.
+            
+            \item Use vvery deep CNN features: 19th weight layers ("vgg-verydeep-19" from MatConvNet)
+            Average accuracy of 40.21 \%.
+        \end{itemize}
+    \item text-feature: tf-idf and get 82.06\% accuracy
+    
+    \item fusion of textual and visual feature (very deep CNN features): get 85.10 \% accuracy
+\end{itemize}
+
+As a classifier, a linear SVM is used.
+
+They develop their own dataset that is freely available (UPC Food-101, see section dataset for more information): 101 categories, 1000 images per categorie. Each picture has an associated text (the recipe).  Each picture have been extracted from Google image search engine with the same 101 labels as ETHZ Food 101 dataset \cite{Bossard2014}.
+
+\section{\href{http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6229581}{A novel method for measuring nutrition intake based on food image}}
+
+\cite{Almaghrabi2012a} presents a novel food recognition system that is able to estimate of the nutrition intake. Moreover, they develop a mobile application to easily take pictures and keep track of the user's diet.
+To measure the food intake, authors compare before and after eating pictures and use the thumb as the calibration system (it supposes a one-time calibration to know the size of the thumb of the user).
+
+The process to show the intake is:
+\begin{enumerate}
+    \item user take food pictures
+    \item get the contour of each picture
+    \item recognition of the food using color, shape and size features with SVM.
+    \item volume calculation, that is computed in two steps:
+        \begin{enumerate}
+            \item user takes a picture from above. Then, the food shape is divided into known shape (rectangle, circle, triangle ...) to compute the area.
+            \item user takes a second picture from the side. This is used to compute the height of the food and calculate the overall volume.
+        \end{enumerate}
+    The system assumes that the plate is white and round.
+    \item using a nutrition databe to get the result
+\end{enumerate}
+
+If the user hasn't eaten everything, the entire process is repeated.
+
+For performance evaluation, they have their in-house dataset composed of 100 pictures that they describe as "simple". They get 89 \% accuracy for the food recognition part. Yet, the authors don't state how many food categories have been used. On this dataset, the average error for the food intake estimation is equal to 4.22 \%.
+
+The drawbacks of this method is the user have to take several pictures, with one's thumb each time and it has been tested with a limited set of simple food types.
+
+\section{\href{http://dl.acm.org/citation.cfm?doid=2407746.2407775}{Automatic Chinese food identification and quantity estimation}}
+
+\cite{Chen2012} present a method to automatically identify food and estimate the quantity. They develop a mobile application for food classification. Measuring the quantity of food is only available for non-transparent food (not for cooked rice or water) and it assumes the use of a depth camera to get depth information.
+
+Features use:
+\begin{itemize}
+    \item Bag-Of-Word, using SIFT as descriptor
+    \item Local binary pattern: LBP histograms of 59 bins on a 3-level pyramid and construct a codebook of 2048 words
+    sparse coding: sift and local binary pattern for texture description
+    \item color histograms: divide the image into $4 \times 4$ blocks and a 96-bin RGB color histogram is computed for each block
+    \item gabor texture: divide the image into $4 \times 4$ blocks and each block is convolved with Gabor filters (keep the mean, variance of the Gabor magnitude).
+\end{itemize}
+
+They train a SVM classifier for each category, then fuse them with the multi-class AdaBoost algorithm.
+
+For depth estimation, the area of the food container (bowl, plate) and the depth value of the contained food is computed to obtain the food volume. This technique is still limited as it can't detect some food item such as water or cooked rice and force the user to have a depth camera (such as Kinect).
+
+A dataset has been created and release for experimentation. It only covers the food recognition part. It has 50 categories (mainly Chinese food), 100 images per category. Authors get an overall accuracy of 68.3 \%. If we keep the top-3 results, the accuracy is even 90.9 \%.

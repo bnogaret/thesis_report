@@ -1,0 +1,67 @@
+\section{\href{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6115809}{Combining global and local features for food identification in dietary assessment}}
+
+In \cite{Bosch2011}, the authors use local and global features to identify and quantify the food consumed.
+For the global features, they use:
+\begin{itemize}
+    \item color properties: color, entropy and predominant color statistics (selecting the 4 dominants colors) of the whole picture.
+    \item texture information: Gabor filter
+\end{itemize}
+
+For the local features, they use the \textbf{Bag of features} approach:
+\begin{itemize}
+    \item point of interest detection with Difference of Gaussian method
+    \item local descriptors around a $M \times M$ neighborhood of a point of interest (\textit{local color, local entropy color, Tamura perceptual features, Gabor filters, SIFT descriptor, Haar wavelets based on the SURF descriptor, Steerable filters, and DAISY descriptor} in this paper).
+    \item vocabulary construction: using the K-means clustering to obtain a codebook of N words
+    \item supervised selection
+\end{itemize}
+
+To classify, they use SVM (using the Radial Basis function kernel).
+
+They build 3 datasets composed of hand segmented images (one picture can contain several categories)
+\begin{enumerate}
+    \item 19 food items and 63 images in total. 98 \% average accuracy for all the features combined (half of the data for training and half for testing)
+    \item 28 different foods and 116 images. 97 \% accuracy
+    \item combined 1 and 2. 86 \% accuracy
+\end{enumerate}
+
+Comments:
+
+I find interesting to combine local and global feature. Many features are used without any description.
+
+\section{\href{http://dl.acm.org/citation.cfm?doid=2647868.2654970}{Food Detection and Recognition Using Convolutional Neural Network}}
+
+In \cite{Kagaya2014}, the authors detail the use of convolutional neural network for food recognition. CNN is a multilayer neural network composed of convolution and pooling layers. It has some hyper parameters (number of middle layers, size of the convolution kernel and the active function) that are tunned for their experiments.
+
+They build their own dataset for food recognition. It is based on data from FoodLog. They choose the 10 most frequent food items and select all the available images 2 months after the release of the website.
+
+They compare their results with three existing techniques (using 6-fold cross validation to measure the average accuracy):
+\begin{itemize}
+    \item spatial pyramid matching (SPM) using a color histogram and SVM. Average accuracy: 54\%
+    \item GIST feature and SVM. Average accuracy: 52\%
+    \item Bag of Words (SIFT detector) and SVM. Average accuracy: 60\%
+\end{itemize}
+
+The best parametrized CNN reaches a 73\% average accuracy.
+
+\section{\href{http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=7026055}{Classifying food images represented as Bag of Textons}}
+
+In \cite{Farinella2014}, they use texture feature for food recognition.
+
+They rely on the bag of visual words model (BoW) that is composed of 4 main steps:
+\begin{itemize}
+    \item feature detection 
+    \item feature description (SIFT, Textons): for each image, we create a small list of Textons that are collected to form a global dictionary
+    \item codebook generation (using K-means clustering to obtain a visual vocabulary of size K)
+    \item image representation: study the distribution of Textons among the images. Each image is represented as a visual word distribution.
+\end{itemize}
+
+Then, the image representation is used to feed a SVM classifier.
+
+
+The test image are represented by the pre-learned Textons vocabulary and classified by the pre-trained SVM methods.
+
+Images are pre-processed with the Maximum Response Filter Banks (MR) (composed by Gaussian, first and second derivative of Gaussian and Laplacian of Gaussian filters) to obtain an orientation and scale invariance. The intensity of each image is normalized (zero mean and unit standard deviation on each color channel) to achieve global invariance of the illumination intensity.
+
+The described technique is used on Pittsburgh Fast-Food Image Dataset (61 categories, 1098 images). They also regroup the 61 categories in 7 super-categories.
+
+The bag of Textons has 31.3\% average accuracy (using a 3-fold cross-validation with 2/3 for training and 1/3 for testing) for the 61 categories and 79\% for the 7 major classes.

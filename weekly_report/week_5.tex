@@ -1,0 +1,69 @@
+\section{\href{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=891642}{A unified image segmentation approach with application to bread recognition}}
+
+In \cite{Pishva2000} and \cite{Pishva2000a}, the authors create an application to automatically identify hand-made breads for a cash register system to display their price.
+
+The classification is based on the shape, size, texture and color ditribution of the images.
+
+The authors build a dataset of 73 kinds of breads at three different orientations.
+
+The steps are:
+\begin{enumerate}
+    \item preprecessing: color, background, hightlight and $\gamma$ correction, color balancing, transformation from RGB to HSI
+    \item thresholding (binarization of the image)
+    \item size and shape feature:
+    \begin{itemize}
+        \item area
+        \item elongation
+        \item MBR (minimum bounding rectangle) ratio
+    \end{itemize}
+    At this step, the authors are able to group breads in circular, square, rectangular and elliptical group.
+    \item texture analysis
+    \item color analysis: histogram of the hue component (with 14 bins) for the entire image and for  bread parts. Matrices of the bin areas are computed and normalized (substract the mean and divide by the standard deviation).
+\end{enumerate}
+
+\section{\href{http://portal.acm.org/citation.cfm?doid=1459359.1459548}{Food log by analyzing food images}}
+
+In \cite{Kitamura2008}, the authors create a food log system that can recognize food from image and analyze the food balance to provide useful advice / graphs of the log.
+
+The food balance is based on the recommendation of \cite{MyPyramid} (it was replaced by MyPlate in 2011 \cite{MyPlate}). This dietary model is composed of 5 kinds of food: grains, vegetable, meals and beans, milk and fruit. For each group, a recommended intake per day is associated. Quantity is categorized by "serving", making it simpler to compute and keep log.
+
+For the food detection, a shape recognition of circles and rectangles is used to detect food area. The user can correct these detections.
+The features are:
+\begin{itemize}
+    \item average and standard deviation values of RGB and HSV for the whole image
+    \item each image is divided in 300 block to compute the color histogram and DCT coefficients for each block. 
+\end{itemize}
+Every block is associated to one of the "MyPyramid" food group or "non-food" group using SVM.
+
+Finaly, a histogram of the 5 ingredients is formed to determine the food balance (using SVM).
+
+To check the validity of their model, the authors have two dataset:
+\begin{itemize}
+    \item for the food detection: 600 images, half from FLickr websites and half from authors' own capture. Half of these images are food pictures. They obtain 88\% accuracy.
+    \item for the food balance: 100 food images where each food category is represented. The accuracy is 73\%.
+\end{itemize}
+
+\section{\href{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6298369}{Recognition of multiple-food images by detecting candidate regions}}
+
+In \cite{Matsuda2012a}, the authors propose a food recognition system to identify food items of a picture. The first step is to detect potential region with multiple object detection algorithms. Then, for these regions, several feeatures are extracted and used to feed SVM with multiple kernel learning method.
+
+To detect candidate regions, the authors use:
+\begin{itemize}
+    \item Felzenszwalb’s deformable part model (DPM): based on Histogram of Oriented Gradients (HOG). Multiple HOGs are
+    \item circle detector: convert the image to a gray-scale image, extracts contour by the Canny Edge Detector and detect circle by the Hough Transform
+    \item JSEG region segmentation: segmente region based on color. Only keep circular regions.
+    \item whole image: for image with one large dish
+\end{itemize}
+Then, it agregates all the candidate region to get bounding box of each food item.
+
+For each region, the image features used are:
+\begin{itemize}
+    \item Bag of Feature of SIFT and CSIFT (sift with color invariant charateristics)
+    \item Spatial pyramid representation: object regions are divided by hierarchical grids. In this paper, the three level pyramid is used: $1 \times 1$, $2 \times 2$, $3 \times 3$. For each grid, a BoF vector is extracted
+    \item Histogram of Oriented Gradient (HOG)
+    \item Gabor texture
+\end{itemize}
+
+After extraction of the feature vectors from each candidate region, Support Vector Machine trained by Multiple Kernel learning is used ($\chi^2$ kernel).
+
+For evaluation, the authors build a new dataset composed of 100 categories with their associated bouding boxes for a total of 9060 images. For multiple food item images, they obtain 55.8 \% classification rate and 68.9 \% for signle food item pictures.

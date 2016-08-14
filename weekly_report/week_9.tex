@@ -1,0 +1,74 @@
+\section{\href{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6733271}{Multiple hypotheses image segmentation and classification with application to dietary assessment}}
+
+In \cite{Zhu2015}, the authors develop a mobile application to keep food records of a user that is taking pictures of one's meal. Their method can detect multiple food items in one picture. They use a color marker as an illumination and size indicator
+
+They have a backend server to do the calculation. When the image has been classified, it is sent back to the user for confimation and review.
+
+Their method is  named "multiple hypotheses segmentation and classification (MHSC)". It is an iterativ method composed of a segmentation, description (extraction of features) and classification step.
+At the end of the classification step, a confidence score is assigned. 
+If the total score is inferior to a certain threshold, the overral process is repeated. The previous step confidence score and classification label is used to improve the segmentation.
+
+Segmentation:
+\begin{enumerate}
+    \item salient region detection: reject background
+    \item multiscale segmentation using normalized cut
+    \item fast rejection: remove too small segmented regions
+\end{enumerate}
+
+Description: using different features to describe the sub-image (on the whole segmented region or neighborhoods of pixelx)
+\begin{itemize}
+    \item color (global descriptors):
+    \begin{itemize}
+        \item first and second moment of each channel for RGB, YCbCr, L*a*b*, and HSV color spaces
+        \item first and second moment of the entropy in RGB
+        \item predominant color describtor
+    \end{itemize}
+    
+    \item texture (global descriptors):
+    \begin{itemize}
+        \item statistics (entropy, moment) extracted from the Gradient Orientation Spatial-Dependence Matrix
+        \item entropy categorization and fractal dimension estimation
+        \item estimate the fractal dimension of the response of different gabor filter
+    \end{itemize}
+    
+    \item local feature (for each one, use of Bag-of-Words to form a visual vocabulary):
+    \begin{itemize}
+        \item SIFT descriptors for RGB
+        \item SURF for RGB
+        \item SIFT descriptors for each channel of the RGB representation
+        \item steerable filters
+    \end{itemize}
+\end{itemize}
+
+Classfication: classify each of the 12 descriptors independantly and use a late fusion function (either maximum confidence score or majority vote) to decide the final class. K-NN and SVM classifiers are used.
+
+The dataset is composed of 83 classes (79 food classes and utensils, glasses, plates, and plastic cups), each class has at least 30 images.
+
+The best descriptors is global color statistics. It obtains 68 \% with KNN and 62 \% with SVM.
+
+Regrouping all the descriptors, the best accuracy is 75 \%, using K-NN with the maximum confidence score (selecting for each kind of descriptors the top 8 classes)
+
+\section{\href{http://www.sciencedirect.com/science/article/pii/S0925231214004317}{Food image classification using local appearance and global structural information}}
+
+In \cite{Nguyen2014}, the authors propos a food classification method using local appearance and global structural information of food objects.
+
+Feature:
+\begin{itemize}
+    \item texture features: encode the local texture with two methods:
+    \begin{itemize}
+        \item local binary pattern (LBP)
+        \item non-redundant LBP (NRLBP)
+    \end{itemize}
+    \item structural information: shape context descriptor between the interests points detected by SIFT
+\end{itemize}
+
+
+For the classification, they use the $\chi^2$ distance between two histograms to pick the class. They have two methods to obtain the histogram:
+\begin{itemize}
+    \item Create a codebook of LBP / NRLBP histograms, the points of interest being detected by SIFT. It is cluster using the K-means algorithm.
+    AN image is represented by a bag-of-feature: describe the picture by the histogram of visual word frequency.
+    \item each class of food has an individual codebook associated (filtering out the most frequent codewords)
+\end{itemize}
+
+Dataset: PFID: they obtain 0.68 \% average accuracy for the method 1 and NRLBP, O.69 \% for the method 2 and NRLBP.
+new dataset: 290 images, 5 categories (cakes, carrots, custards, pasta and pizza): 0.55 \% for the method 1 and NRLBP, 0.63 \% for the method 2 and NRLBP

@@ -1,0 +1,51 @@
+\section{Color histogram}
+
+For each picture:
+\begin{enumerate}
+    \item extract the sub-image delimited by the bounding box
+    \item resize this sub-image to $224 \times 224$ pixels
+    \item extract the histogram of local binary pattern
+    \item extract the joint color histogram for the channel $H$ and $s$ of the HSV (hue, saturation and value) representation
+    \item extract the 7 hu-moment: invariant feature for translation, rotation and scale change (as stated in \cite{Hu1962})
+\end{enumerate}
+
+Normalized the data to have all features centered around zero (mean of 0) and have unit variance(variance equal to 1).
+
+Then, apply multiple famous classifiers:
+\begin{itemize}
+    \item decision tree
+    \item random forest
+    \item k-nearest neighborhood
+    \item SVM
+\end{itemize}
+
+\section{Results}
+
+using 5 fold cross validation
+
+using LBP (40 bins) + HS (10 * 10 bins) + Hu-moments
+\begin{itemize}
+    \item decision tree: 16\% (500 trees, gini)
+    \item random forest: 6.6 \% (gini)
+    \item k-nearest neighborhood: (k=10, distance metric: minkowski, weights of each neighborhood point: uniform): 9\%
+    \item SGD classifier:  5.6 \%
+\end{itemize}
+
+\section{Bag of words}
+
+For each picture:
+\begin{enumerate}
+    \item extract the sub-image delimited by the bounding box
+    \item resize this sub-image to $224 \times 224$ pixels
+    \item detection of keypoints: use of a dense grid
+    \item descriptors: Root SIFT. Root SIFT is a simple variant of SIFT, presented in \cite{Arandjelovic2012}. When the SIFT descriptors as been computed for each keypoints, we apply an element wise square root of the L1 normalized SIFT vectors
+\end{enumerate}
+
+clustering: using the k-means algorithm to obtain a 1000-word codebook.
+
+For each picture:
+compute the histogram of occurence counts of visual words
+
+Kernel trick: use of a variant of the $\chi^2$ kernel named additive $\chi$-squared kernel presented in \cite{Vedaldi2010}
+
+Then we apply the SVM classifier.

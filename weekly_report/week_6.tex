@@ -1,0 +1,37 @@
+\section{\href{http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5202718}{Fast food recognition from videos of eating for calorie estimation}}
+
+In \cite{Wen2009}, the authors are using the videos of people eating provided by PFID to estimate calory intake.
+
+For the features, it is using SIFT detectors and descriptors with some geometric criterion to determine the foods (can have multiple items per video). Then, thanks to the available nutrition information provided by the Fasst Food restaurant, they compute the calorie intake.
+
+It does not take into account the food portions, nor the remaining quantity.
+
+\section{\href{http://cisjournal.org/archive/vol1no1/vol1no1_12.pdf}{Fruit Recognition using Color and Texture Features}}
+
+In \cite{Arivazhagan2010}, the authors develop a method to recognize food items, using the supermarket produce dataset. Their novel approach is to use color and texture featues.
+
+They use the HSV (hue, saturation and value) representation and compute a few key features to summarize the color and texture of the picture.
+The V component is used to extract texture features. It is decomposed using Discrete Wavelet Transform and a co-occurence matrix is constructed from the approximation sub-band by estimating the pair wise statistics of pixel intensity. From this matrix, contrast, energy, local homogeneity, cluster shade and cluster are computed.
+From the H and S components, they extract 4 statistical featues: mean, standard deviation, skewness (third standardized moment) and Kurtosis (fourth standardized moment).
+
+Thus, they obtain 13 features (8 for the color, 5 for the texture).
+
+The minimum distance classifier is used to recognize the food.
+
+They are using the supermarket produce dataset. It contains 2635 images for 15 different fruits (Plum, Agata Potato, Asterix Potato, Cashew, Onion , Orange , Taiti Lime , Kiwi , Fuji Apple, Granny-Smith Apple , Watermelon, Honeydew Melon, Nectarine, Williams Pear and Diamond Peach).
+
+
+\section{\href{http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6046629}{Multilevel segmentation for food classification in dietary assessment}}
+
+In \cite{Zhu2011}, the authors are classifying multiple food items from an image. They are first segmented the image and then identifying non-background part.
+
+The process is:
+\begin{enumerate}
+    \item segmentation: predict the class of each pixel (background pixel are ignored in the next step)
+    \item feature extraction: see \cite{Bosch2011}
+    \item classification: they are using SVM with the RBF (radial basis function) kernel.
+\end{enumerate}
+
+They are using an in-house database, build from nutritional studies. It has 200 images, each picture containing 6 - 7 food items. There are 32 food categories.
+
+The average classification accuracy for the food classes is 44 \%.

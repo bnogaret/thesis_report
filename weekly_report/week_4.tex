@@ -1,0 +1,77 @@
+\section{\href{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5413400}{A food image recognition system with Multiple Kernel Learning}}
+
+In \cite{TaichiJoutou2009}, a food image recognition system with Multiple Kernel Learning (MKL) is built. The MKL method is used to integrate several image features (color, texture SIFT) and estimate the optimal weights of each features. The learning tool is a SVM classifier.
+They obtain an accuracy of 61.34 \% on their dataset.
+
+They use phones to take photos to recognize food. They took 166 food photos (users were not instructed how to "properly" take a photo) and obtained a 37.55\% accuracy.
+
+\begin{itemize}
+    \item Image features:
+    \begin{itemize}
+        \item Bag of words:
+        \begin{enumerate}
+            \item A set of local image points is sampled by an interest point detector (example: Difference of Gaussian), randomly or grid-based and visual descriptors are extracted on each point (example of descriptors: SIFT)
+            \item Based on the distribution of SIFT descriptors on all the images, a codeword is generated, using the K-means clustering methods. Only a certain number of visual words is kept (example: codebook size of 1000 or 2000 visual words)
+            \item The resulting distribution of visual descriptors is used to characterize the image.
+        \end{enumerate}
+        \item Color histogram: divide the image into $2 \times 2$ blocks and extract a 64-bin RGB color histogram from each block with dividing the space into $4 \times 4 \times 4$ bins. Thus, it extracts a 256-dim color feature vector from each image.
+        \item Gabor texture feature: divide the image into $3 \times 3$ or $4 \times 4$ blocks. On each block, 24 Gabor filters with 4 kinds of scale and 6 kinds of orientation is applied (the filter response is average within the block) to obtain a 24-dim vectors per block. Thus, it extracts a 216-dim or 384-dim vector from each image.
+    \end{itemize}
+    \item Classification: using MKL (each image feature is assigned to one kernel) - SVM (one vs all strategy) with the $\chi^2$ kernel.
+    
+    \item Evaluation: 5-fold cross validation, classification rate (average value of diagonal elements of the confusion matrix) + recall rate ((the number of correctly classified images) / (the number of all the image in the category)).
+\end{itemize}
+
+Dataset: internal, composed of 50 categories, 100 images per category (picked from Internet)
+
+\section{\href{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5539907}{Food Recognition Using Statistics of Pairwise Local Features}}
+
+In \cite{Yang2010}, the authors use a novel feature, named PFD (pairwise local feature distribution) for food recognition and SVM. Then, they apply it on the Pittsburgh fast-food image dataset (PFID) dataset.
+
+The different steps of this method are:
+\begin{enumerate}
+    \item classify each pixel in one of the categories (common categories for fast food):
+        \begin{itemize}
+            \item beef
+            \item chicken
+            \item pork
+            \item bread
+            \item vegetable
+            \item tomato/tomato sauce
+            \item cheese/butter
+            \item egg/other
+            \item background
+        \end{itemize}
+    It's a soft labeling as the likelihood that a pixel belongs to each categories is kept.
+    For classification, they use the Semantic Texton Forest, method based on local characteristics. It was previously trained on 16 manually-labeled pictures.
+    
+    \item Global ingredient representation (GIR): for the 8 food categories, it sum up the soft label of all the ingredient pixel and normalize by the number 
+    Problem: no spatial relationship between ingredients
+    
+    \item PFD: geometric pairwise feature on N ingredient pixels (picked randomly, thus N / 2 pairs):
+        \begin{itemize}
+            \item log of the distance
+            \item orientation
+            \item soft label of the midpoint
+            \item soft label of each pixel along the line connecting the pair of pixels
+            \item joint feature (a mixed of the above characteristics)
+        \end{itemize}
+    Accumulate the pairwise values into a distribution (using a multi-dimensional histogram of either 8 or 12 bins), weighted by the soft labels of the two pixels. Each pixel is mapped to its closest bin in the histogram.
+    Then, normalization of the histogram.
+\end{enumerate}
+
+For the PFID dataset, they obtain an accuracy between 19\% and 28\% for each of the 61 categories.
+When they pick the 7 major types of food, they get almost 80\% of accuracy.
+
+\section{\href{http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5693842}{On the combination of local texture and global structure for food classification}}
+
+In \cite{Zong2010}, the authors use a local texture feature and their spatial distribution to classify food images from the Pittsburgh fast-food image dataset (PFID).
+
+The author use the Bag Of Words method. They use the SIFT detector to find points of interest in every image. For each point, they compute the Local Binary Pattern (LBP). It is a  texture feature: for each pixel, thresholding the neighborhood of each pixel with the value of the center pixel and considers the result as a binary number (0 if the value is smaller, 1 otherwise).  Only the most discriminative words are kept. The K-means algorithm is used to cluster to the nearest visual words.
+
+The shape context algorithm is used to keep the spatial relationship between codewords (for each image, compute the histogram of one word compared to the others / then mean of the histograms).
+
+For the classification, the authors pick the smallest cost between an image and a food category. For each interest points found with SIFT in the image, we associate a similarity between the point and each visual words of the codebook. The similarity function is based on the Bhattacharyya distance. Then, the shape context between the point of interests and the visual word is calculated and a cost is deduced for each food category. The category with the smallest cost is chosen.
+
+
+

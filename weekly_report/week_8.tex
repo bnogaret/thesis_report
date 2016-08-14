@@ -1,0 +1,60 @@
+\section{\href{http://link.springer.com/chapter/10.1007/978-3-319-23222-5_55}{CNN-based food image segmentation without pixel-wise annotation}}
+
+In \cite{Shimoda2015}, the authors presents their segmentation process for the UEC-FOOD100 dataset.
+
+The proposed pipeline is composed of 6 main steps:
+\begin{enumerate}
+    \item detect all the possible bounding box (maximum 2000 per image) using selective search
+    \item cluster the bounding box, using the ration of intersection over union (IOU, also call overlap ratio) to obtain 20 at most.
+    \item Deep CNN for all the selected bounding box to get a saliency map (using AlexNet CNN, pre-trained on the Salient Object Subitizing (SOS) dataset, fine-tuned with the UEC-FOOD100 one)
+    \item use the GrabCut algorithm to extract the foreground region from the food area. 
+    \item In case of overlapped bounding box, the authors proposed to apply the non-maximum suppresion (NMS) algorithm.
+\end{enumerate}
+
+The authors apply this process on the UEC-FOOD100 dataset and PASCAL VOC 2007 (use for detecting bounding box around 20 common classes (train, tv, cat, human ...)).
+A segmentation is correct if theoverlap ratio exceeds 50\% between the detected bounding box and the ground truth bounding box.
+
+For the first one, they obtain 49.9 \% mean average precion.
+For the second one, they obtain 58.7 \% precision.
+
+\section{\href{http://link.springer.com/chapter/10.1007/978-3-319-23222-5_54}{FooDD: Food Detection Dataset for Calorie Measurement Using Food Images}}
+
+In \cite{ParisaPouladzadehAbdulsalamYassine2015}, the authors present their food recognition system on their new dataset called FooDD.
+They develop a smartphone application to take new photos and send it to the server. On the server-side, these pictures are pre-processed (mainly resized the picture to the standard size $970 \times 720$ pixels), segmented, classified and the calories are estimated.
+
+FooDD is a food detection dataset composed of 3000 images of 23 categories. To respect the dataset condition, the user has to take picture with one's thumb (calibration to estimate the colume of food) and a white round plate. The plate can include several food items. The pictures are taken from a mix of conditions (3 different cameras, lighting, shooting angle).
+
+They use several methods for the segmentation:
+\begin{itemize}
+    \item color-texture 
+    \item graph-cut and color-texture segmentation
+    \item deep neural network
+\end{itemize}
+
+They obtain an astonishing 100 \% accuracy for the DNN, 95 \% for the GC and color-texture and 92 \% for the color-texture only (combined with SVM).
+
+\section{\href{http://link.springer.com/10.1007/978-3-319-23222-5_56}{Food Recognition for Dietary Assessment Using Deep Convolutional Neural Networks Stergios}}
+
+In \cite{Christodoulidis2015} is presented a Deep Convolutional neural network based approach to classify pictures containing one / several food items.
+
+They apply their method on a dataset: composed of a 246 images with 573 food items divided into 7 food categories. For each picture, they extract patches from the inside of each food item (size $32 \times 32$ or $16 \times 16$). As there is a limited number of picture, the amount of patches is artificially increased by applying rotation, flip or both transformation on each patch.
+
+
+The convolutional neural network is only used to classify food patches using the Caffe framework \cite{jia2014caffe}.
+
+Several configuration were tested to select the one giving the best average F-score for the patches
+the best one is composed of 6 layers:
+\begin{enumerate}
+    \item 32-kernel convolutional ($5 \times 5$ kernel) followed by a $3 \times 3$ pooling region
+    \item same
+    \item same
+    \item 64-kernel convolutional-pooling
+    \item 128 fully-connected
+    \item 7 fully-connected
+\end{enumerate}
+
+The activation function used for each convolutional layer is the rectified linear unit (ReLU). For the last two layers, the dropout method is applied to avoid the CNN to overfit (some node are randomly ignored (dropout probability of 0.5)).
+
+Then, to classify the overall item, they compare multiple voting scheme. The most accurate one use a max-voting method with patches of $16 \times 16$ pixels.
+
+Using a 5-fold cross validation, they obtain 84.9 \% accuracy. A color histograms and multi-scale LBP features fed to an SVM with a Gaussian kernel pipeline obtains 82.2 \%.

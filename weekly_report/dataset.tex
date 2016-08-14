@@ -1,0 +1,56 @@
+I have found a couple of datasets:
+
+\begin{itemize}
+     \item ETHZ Food-101 \footnote{Dataset can be found at  \url{https://www.vision.ee.ethz.ch/datasets_extra/food-101/}} : presented in \cite{Bossard2014}, it is composed of 101 categories, 1000 images per category (250 pictures manually reviewed, used for the test set and 750 with noises for the training test). Pictures were extracted from the website \href{http://www.foodspotting.com/}{foodspotting.com}. The top 101 most popular dishes from this social sharing food images defined the categories.
+     
+     The authors obtain 56 \% of accuracy with random forests.
+     
+     \item UMPC Food-101 \footnote{Dataset can be found at \url{http://visiir.lip6.fr/}}: presented in \cite{Wang2015}, it is composed of the same 101 categories as ETHZ food-101 dataset, with 1000 images per category. Yet, the pictures have been crawled from Google image, researching for recipes. Thus, images are associated with a text.
+     
+     The authors obtain 85.10 \% of accuracy, using both textual (with Tf-Idf) and visual (using CNN pre-trained on huge datasets) features.
+     
+    \item UEC FOOD 100 \footnote{Dataset can be found at \url{http://foodcam.mobi/dataset100.html}} : created for \cite{Matsuda2012a}, it conatins 100 types of food, mainly Japanese food. Each food picture has a bounding box indicating the location of food items. The authors get 55.8 \% accuracy.
+    
+    In \cite{Kawano2014}, the authors obtain 72.26\% accuracy by using DCNN (Deep Convolutional Neural Network) features trained by the ILSVRC2010 dataset. 
+    
+    \item UEC FOOD 256 \footnote{Dataset can be found at \url{http://foodcam.mobi/dataset256.html}} : presented in \cite{Kawano2015}, it has 256 kinds of food. As for FOOD 100, every food photo has a bounding box indicating the location of the food item.
+    
+    \item Chinese food \footnote{Dataset can be found at \url{http://www.cmlab.csie.ntu.edu.tw/project/food/}} : in \cite{Chen2012}, the authors build a dataset composed of 50 Chinese foods with 100 picture each category.
+    
+    In this paper, the authors obtain an average accuracy of 68.3 \%.
+    
+    \item FIDS 30 \footnote{Dataset can be found at \url{http://www.vicos.si/Downloads/FIDS30}} (Fruit Image Data set): this dataset \cite{FIDS30} is composed of 30 fruit categories, each including at least 32 different images. A picture can contain one to dozens of the same fruit.
+    
+    \item FooDD \footnote{Dataset can be found at \url{http://www.site.uottawa.ca/~shervin/food/}} (Food detection dataset): in \cite{ParisaPouladzadehAbdulsalamYassine2015}, the authors constructs a dataset of 3000 images of 23 food categories. They highlight the use of different cameras and conditions (lighting, shooting angle, white plate, thumb) to take the pictures. An image can include one or several food item.
+    
+    \item PFID (stands for Pittsburgh fast-food image dataset) \footnote{Dataset can be found at \url{http://pfid.rit.albany.edu/}}: presented in \cite{Chen2009} in summer 2008 from the collaboration of Intel Labs Pitssburgh, Columbia and Carnegie Mellon universitie. It is one of the first mature datasets released for food recognition.
+    
+    It contains 101 meals (categories) from 11 popular fast food chains with images and videos captured in both restaurant conditions and controlled lab setting. It contains foods such as chickens, sandwiches, salads, burgers and drinks from :
+    \begin{itemize}
+        \item Arby's
+        \item Bruggers Bagels
+        \item Dunkin Donuts
+        \item KFC
+        \item McDonalds
+        \item Panera
+        \item Pizza hut
+        \item Quiznos
+        \item Subway
+        \item Taco Bell
+        \item Wendy's
+    \end{itemize}
+    
+    The authors provide two food classification baseline methods:
+    \begin{itemize}
+        \item Colour histogram + SVM classifier. They obtain a mean accuracy of around 12\%.
+        \item Bag of SIFT features + SVM classifier. They obtain a mean accuracy of around 25 \%.
+    \end{itemize}
+    
+    In \cite{Zong2010}, the author use a bag of LBP descriptor with the shape context method.
+    
+    Moreover, Fast foods, as they are standardized and have nutrition information available online, can easily be used to measure the calories. In \cite{Wen2009}, the authors are using the PFID's videos to estimate energy intake of a meal.
+    
+    \item Supermarket produce dataset \footcite{Dataset can be found at \url{http://www.ic.unicamp.br/~rocha/pub/communications.html}}: in \cite{Rocha2008}, the authors describe their new contribution named supermarket produce dataset. This dataset is composed of 2635 images divided into 11 fruit categories from a local shop: plum (264), agata potato (113), cashew (210), kiwi (171), fuji apple (212), granny-smith apple (155), watermelon (192), honeydew melon (145), nectarine (247), williams pear (159), and diamon peach (211). Pictures were taken with different illumination conditions and can contains several items for a same category.
+    
+     % \item FOODLOG \cite{Kitamura2008} \cite{Kitamura2009}
+\end{itemize}

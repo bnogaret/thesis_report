@@ -1,0 +1,55 @@
+\section{\href{http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6949884}{A comparative analysis of edge and color based segmentation for orange fruit recognition}}
+
+In \cite{Thendral2014a}, the authors describes and compare two segmentation method to localize an orange in a picture. The first method is based on edge segmentation, the second one on colour. These two algoriths are then applied on a small dataset of 20 pictures.
+
+In more details, the methods are:
+\begin{itemize}
+    \item edge based segmentation
+    \begin{enumerate}
+        \item canny edge segmentation
+        \item non-maximum suppression to suppress non-maxima pixels
+        \item classfication of each pixels
+    \end{enumerate}
+    \item colour based segmentation
+    \begin{enumerate}
+        \item gaussian low pass filter to normalize the lightning condition
+        \item convert the image from RGB representation to $L * a * b$
+        \item take the a channel 'a' to get a bunary image
+        \item remove small object
+        \item fill the binary image regions and holes
+    \end{enumerate}
+\end{itemize}
+
+As already stated, the dataset is composed of 20 orange images (only one orange per image), with different lighting conditions and backgrounds (pictures are taken from the Internet).
+
+Applying these processes, the authors get 85 \% accuracy (17 out of 20) for the color segmentation, the edge detection method "was not successful" (impossible to detect only the orange edges among the background).
+
+\section{\href{http://www.vbettadapura.com/egocentric/food/}{Leveraging context to support automated food recognition in restaurants}}
+
+In \cite{Bettadapura2015}, the authors develop an application to recognize food items from an image taken by the user in a restaurant. It uses some contextual data (the geo-localization) to improve the classification.
+Indeed, they use geo-localization to get the menu from internet and interrogate Google Search to get images (extract the top 50 pictures) of 15 dishes from the menu. These images are used as weakly-labeled training images.
+
+The first step is the segmentation to localize the food and ignore the background through hierachical segmentation.
+
+The feature descriptions are:
+\begin{itemize}
+    \item color moment invariants
+    \item hue histograms
+    \item SIFT
+    \item RGB SIFT: SIFT component for each RGB channel
+    \item C-SIFT: a color invariant SIFT
+    \item Opponent-SIFT: SIFT on colour-opponent channels
+\end{itemize}
+
+For the 4 SIFT representations: they build a codebooks of 100 000 visual words (using k-means clustering, k = 1000) to build Bag-of-Word histogram.
+
+Then, for the image classification, they adopt the SMO-MKL (Sequential minimal optimization - Multiple kernel learning) multi-class SVM (Support-vector machine, $\chi^2$ kernel) framework
+
+It is applied on these two datasets:
+\begin{itemize}
+    \item PFID to compare to other recognition system (baseline provided directly by the PFID in \cite{Chen2009}). Their method obtain 48.5 \% accuracy.
+    
+    \item image from 10 restaurants (divided in 5 different types of food: American, Indian, Italian, Mexican and Thai). It is composed of 600 pictures, 300 taken with a smartphone, 300 with Google glass.
+    
+    The overall average accuracy is 63.33\%, only 15.67\% without localization.
+\end{itemize}

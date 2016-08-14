@@ -1,0 +1,72 @@
+\section{\href{http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6548059}{Food Balance Estimation by Using Personal Dietary Tendencies in a Multimedia Food Log}}
+
+In this paper \cite{Aizawa2013}, the authors use a Bayesian Framework to improve a deterministic method (use the same feature extraction with a SVM classifier) on the FoodLog dataset. The BF takes into account the likelihood, the prior distribution and the mealtime category (breakfast, lunch and dinner). The prior distribution is updated each time the user adds a new photo.
+
+As stated above, the dataset used is FoodLog.
+
+For the methods, they use:
+\begin{enumerate}
+    \item Feature extraction:
+    \begin{enumerate}
+        \item Color features (RDB mean and variance / HSV mean and variance …)
+        \item Circle features (Hough transform to detect it)
+        \item Bag-Of-Feature using SIFT (Scale-invariant feature transform)
+    \end{enumerate}
+    \item Bayesian framework: based on the Gaussian Naive Bayesian (suppose independence between every pair of features + the likelihood of the features is assumed to be normally distributed)
+\end{enumerate}
+
+Comment:
+
+It supposes to have some extra information (mealtime) and to have incremental data. It can’t be used on static dataset such as UEC food 100.
+
+
+\section{\href{http://link.springer.com/article/10.1007\%2Fs10586-015-0468-2}{A virtualization mechanism for real-time multimedia-assisted mobile food recognition application in cloud computing}}
+
+In this article \cite{Pouladzadeh2015a}, the authors present their mobile application for the Android platform: run on the smartphone with communication with an emulated Android phone on the Cloud. Most of the work is done on the cloud, synchronization between the device used the VNC (virtual network computing) protocol.
+
+They use their own dataset composed of:
+\begin{enumerate}
+    \item Positive image (labelled image of food): the data set comprises of 40 different categories of food and fruits
+    \item Negative image (do not contain the relevant object)
+\end{enumerate}
+
+The used methods are just cited, not even presented: 
+\begin{enumerate}
+    \item Graph cut segmentation
+    \item Deep convolutional neural networks
+\end{enumerate}
+
+Comment:
+Mainly technical aspect of the mobile application. No presentation of the segmentation / machine learning.
+
+For another technical presentation: see \href{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6890665}{this}. 
+
+\section{\href{http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5693856}{Image Recognition of 85 Food Categories by Feature Fusion}}
+
+In \cite{Hoashi2010a}, authors developed a system for image recognition of 85 kinds of food (such as omelet, hamburger …). They use several image feature extractors (described in methods) with the MKL algorithm as a feature fusion. They use SVM to learn. 
+Then, they compare the different features.
+
+Dataset: 85 food categories with 100 “relevant” images per category. I could not find it.
+
+Used methods:
+\begin{enumerate}
+    \item Image features:
+    \begin{enumerate}
+        \item Bag of feature: three methods of point-sampling (DoG (DIfference of gaussian), random and grid) using SIFT descriptor. Codebook of 1000 or 2000 words.
+        \item Color histogram
+        \item Gabor texture feature
+        \item Gradient histogram
+    \end{enumerate}
+
+    \item Multiple kernel learning (using the  \href{https://cs.anu.edu.au/few/KSikka_EmotiW.pdf}{Shogun} toolbox written in C++) to fusion the features
+    
+    \item Classification : SVM with the $\chi^2 $ kernel (justification: “is commonly used in object recognition tasks”) and one-vs-all classification strategy.
+    
+    \item Evaluation:
+    \begin{enumerate}
+        \item 5-fold cross validation
+        \item used the classification rate (= average value of diagonal elements of the confusion matrix)
+        \item used the recall rate [= (the number of correctly classified images)/(the number of all the image in the category)]
+    \end{enumerate}
+\end{enumerate}
+Overall accuracy: 62 \%

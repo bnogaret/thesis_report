@@ -189,7 +189,7 @@ The major stages of the algorithm are:
     \theta(x, y) =\tan^{-1} ( \frac{L(x, y + 1) - L(x, y - 1 )}{L(x + 1, y) - L(x - 1, y)} )
     $$
     
-    \item Keypoint descriptor: the local image gradients of a keypoint as presented in figure \ref{fig:sift_descriptor} are computed and accumulated in a histogram. An additional Gaussian weighting function is applied to give less importance to gradients farther away from the keypoint centrer. Once a keypoint candidate has been found by comparing a pixel to its neighbours, the next step is to perform a detailed fit to the nearby data for location, scale, and ratio of principal curvatures. This information allows points to be rejected that have low contrast (and are therefore sensitive to noise) or are poorly localized along an edge.
+    \item Keypoint descriptor: the local image gradients of a keypoint as presented in figure \ref{fig:sift_descriptor} are computed and accumulated in a histogram. An additional Gaussian weighting function is applied to give less importance to gradients farther away from the keypoint centrer. Once a keypoint candidate has been found by comparing a pixel to its neighbours, the next step is to perform a detailed fit to the nearby data for location, scale, and ratio of principal curvatures. This information allows points to be rejected that have low contrast (and are therefore sensitive to noise) or are poorly localised along an edge.
     
     Usually, SIFT is evaluated at 8 orientation planes over a 4 × 4 neighbourhood giving a
     128-dimension feature vector

@@ -8,7 +8,7 @@ The system is separated in login nodes and compute nodes. There are two \enquote
 
 \section{Segmentation metrics}
 
-To measure the precision of the localization / segmentation algorithm, we use the metrics as defined in \cite{pascalVoc2012} \footnote{Information on the evaluation system can be found at  \url{http://host.robots.ox.ac.uk/pascal/VOC/voc2012/devkit_doc.pdf}}.
+To measure the precision of the localisation / segmentation algorithm, we use the metrics as defined in \cite{pascalVoc2012} \footnote{Information on the evaluation system can be found at  \url{http://host.robots.ox.ac.uk/pascal/VOC/voc2012/devkit_doc.pdf}}.
 
 To be considered a correct detection, the \textbf{Intersection over Union} $IoU$ between the predicted bounding box $B_p$ and ground truth bounding box $B_{gt}$ must exceed 50\% by the formula:
 
@@ -26,7 +26,7 @@ $$ A = \frac{T_p}{T_p + F_n + F_p} $$
 
 with:
 \begin{itemize}
-   \item $T_p$ the number of true positives (the bounding boxes correctly localized)
+   \item $T_p$ the number of true positives (the bounding boxes correctly localised)
    \item $F_p$ the number of false positives (the predicted bounding boxes incorrectly localized)
    \item $F_n$ the number of false negative (the ground truth bounding boxes not localized)
 \end{itemize}

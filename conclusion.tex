@@ -1,7 +1,9 @@
 \chapter{Future work} \label{sec:conclusion}
 
-In this thesis, a localisation and classification method was proposed and it can be used to detect food items of a picture. The localisation process use a novel approach with a pre-trained convolutional neural network to detect salient objects and it currently outperforms the previous works.
+In this thesis, the problem of food image analysis has been taken into account.
 
-One of the possible future area of work is using a more accurate feature descriptor and / or classifier. Compared to the literature, my food recognition is rather inaccurate. Using a pre-trained DCNN for food recognition seems really promising.
+After a review of the literature a localisation and classification method was proposed to detect multiple food items of a picture. The localisation process use a novel approach with a pre-trained convolutional neural network to detect salient objects and it currently outperforms the previous works on the UEC FOOD 256 and 100 datasets with respectively 74 \% and 60 \% for localisation only and 28 \% and 33 \% for the whole process.
 
-Then, it can be added the estimation part that includes a calorie evaluation or a simplified version based on MyPyramid or MyPlate and an application to take pictures and visualize user's record.
+One of the possible future area of work is using a more accurate feature descriptor and / or classifier. Compared to the literature, my food recognition accuracy is rather low. Exploring the use of new descriptors or the combination of local and global methods would be really likely to improve the recognition process. Especially, using a fine-tuned pre-trained deep convolutional neural network for food recognition seems really promising.
+
+A different level of classification could be another area of studies. Then, the food intake estimation part could be added. It would include a calorie and nutrient evaluation or a simplified version based on \enquote{MyPyramid} or \enquote{MyPlate}. This could then easily  an application to take pictures and visualize user's record. Yet, using these intake representations is far from allowing the system to totally replace the human.

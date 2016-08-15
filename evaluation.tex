@@ -130,7 +130,9 @@ In \cite{Yanai2015}, the authors use a fine-tuned pre-trained Deep Neural Networ
 
 \subsection{Segmentation followed by classification}
 
-Using the segmentation and classification method with the highest accuracy, i.e. CNN segmenter + CNN feature descriptor + RF classifier
+Using the segmentation and classification method with the highest accuracy, i.e. saliency detection DCNN segmenter with DCNN as a feature descriptor and random forest classifier.
+
+The results are presented in the table \ref{table:uecfood100_results}.
 
 \begin{table}
     \centering
@@ -147,6 +149,7 @@ Using the segmentation and classification method with the highest accuracy, i.e.
         \hline
     \end{tabulary}
     \caption{Average accuracy result for UEC FOOD 256}
+    \label{table:uecfodd256_results}
 \end{table}
 
 \begin{figure}
@@ -165,7 +168,7 @@ As can been seen in Fig \ref{fig:top_5} and \ref{fig:least_5}, the best performi
     \item rice is the most represented food items in the dataset, maximising the size of the training sets (same for miso soup)
     \item rice has a specific texture and colour that is relatively invariant to the condition
     \item tanmen is a soup containing noodle and various vegetables. Thus, it can occur in different colour, shape and size.
-    \item there are numerous soups in the dataset and tanmen is often confused with them.
+    \item there are numerous soups in the dataset and tanmen is often confused with them. Figure \ref{fig:confusing_3} show the most class couples that are the most confused and it shows that clear  and miso soup are often mixed up by the method.
 \end{itemize}
 
 %14 roll bread 0.905660291919
@@ -212,6 +215,8 @@ As can been seen in Fig \ref{fig:top_5} and \ref{fig:least_5}, the best performi
 %238 11 kaya toast || toast 0.43434339047
 %135 35 yudofu || miso soup 0.431192620992
 
+I also run the segmentation and classification on UEC FOOD 100. The results are presented in table \ref{table:uecfood100_results}. As UEC FOOD 256, it can be seen that the localisation is better than the previous work with 67 \% accuracy (the result is slightly lower than UEC FOOD 256 as it has a higher proportion of multiple food item picture). The overall accuracy is 33 \%.
+
 \begin{table}
     \centering
     \renewcommand{\arraystretch}{1.2}
@@ -227,4 +232,5 @@ As can been seen in Fig \ref{fig:top_5} and \ref{fig:least_5}, the best performi
         \hline
     \end{tabulary}
     \caption{Average accuracy result for UEC FOOD 100}
+    \label{table:uecfood100_results}
 \end{table}

@@ -2,7 +2,7 @@
 
 As illustrated in Fig. \ref{fig:tikz_methodology}, we have our initial dataset that we split in :
 \begin{itemize}
-    \item a \textbf{validation set} (10 \% of the dataset) used for hyper-parameter optimization or model selection for localisation and classification
+    \item a \textbf{validation set} (10\% of the dataset) used for hyper-parameter optimization or model selection for localisation and classification
     \item a \textbf{train / test set} (remaining dataset) used for the localisation and classification. The train set is used to learn the parameters of a classifier that is then evaluated on the test set (using the same dataset for learning and testing would lead to overfit the dataset and will not represent the capacity of the method to recognise new unknown element)
 \end{itemize}
 
@@ -62,7 +62,7 @@ The CNN has been pre-trained to detect the likelihood to belong to one of the 10
     \label{fig:seg_100_bboxes}
 \end{figure}
 
-Bounding boxes with a probability higher than a threshold $T$ are selected as candidate (if no box meet this limit, the bounding box with the maximum value is selected). As can be seen in figure \ref{fig:seg_97}, it generates a lot of overlapping copies. That's why, the final step of the localisation process is to discard small bounding boxes and overlapping ones (overlap higher than 30 \%), keeping the ones with highest probabilities.
+Bounding boxes with a probability higher than a threshold $T$ are selected as candidate (if no box meet this limit, the bounding box with the maximum value is selected). As can be seen in figure \ref{fig:seg_97}, it generates a lot of overlapping copies. That's why, the final step of the localisation process is to discard small bounding boxes and overlapping ones (overlap higher than 30\%), keeping the ones with highest probabilities.
 
 \begin{figure}
     \centering
@@ -78,7 +78,7 @@ The first feature descriptor used a combination of LBP histogram with colour mom
 \begin{enumerate}
     %\item extract the sub-image delimited by the bounding box
     %\item resize this sub-image to $224 \times 224$ pixels
-    \item extract a 100-bin histogram of local binary pattern on the greyscale image
+    \item extract a 100-bin histogram of local binary pattern on the grey scale image
     \item extract a 30-by-30-bin joint colour histogram for the channel $H$ and $s$ of the HSV  representation
     \item extract the first two moments of the R, G, B, H, S and Gray channels
     \item extract the 7 Hu moments
@@ -123,7 +123,7 @@ I'm using python 3.5.2 and its scientific stack based on Scipy \cite{Oliphant200
     \item Numpy \cite{VanDerWalt2011} for N-dimensional array
     \item Pandas \cite{McKinney2010} for the data structure
     \item Scikit-image \cite{VanderWalt2014} and OpenCV 3 \cite{Bradski2000} for some of the image processing algorithms
-    \item Scikit-learn \cite{Pedregosa2012} for most of the machine learning and Caffe \cite{Jia2014a}  for the CNN
+    \item Scikit-learn \cite{Pedregosa2012} for most of the machine learning and Caffe \cite{Jia2014a} for the convolutional neural netzork framework
     \item Matplotlib \cite{Hunter2007} for 2D graph generation
     \item Sphinx for the documentation
 \end{itemize}

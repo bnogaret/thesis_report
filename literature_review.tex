@@ -1,4 +1,7 @@
 \chapter{Previous work} \label{sec:previous_work}
+
+A profusion of techniques 
+
 \section{Food localisation}
 
 %% Color and edge segmentation
@@ -6,7 +9,7 @@
 
 A way to localize food is based on edge detection and colour segmentation.
 
-In \cite{Thendral2014a}, the authors describes and compare these two methods to localise an orange in a picture. It applied these methods on a small dataset of 20 orange images (only one orange per image), with different lighting conditions and backgrounds (pictures are taken from the Internet).
+In \cite{Thendral2014a}, Thendral et al. describes and compare these two methods to localise an orange in a picture. It applied these methods on a small dataset of 20 orange images (only one orange per image), with different lighting conditions and backgrounds (pictures are taken from the Internet).
 In more details, the edge-based segmentation apply the canny-edge segmentation, then apply non-maximum suppression to eliminate noises. Then, each pixels are classified.
 The colour-based segmentation normalised the lightning condition with a Gaussian low-pass filter, convert the RGB image into a $L * a * b$
 \begin{enumerate}
@@ -47,9 +50,9 @@ The authors apply this process on the UEC-FOOD 100 dataset and PASCAL VOC 2007. 
 
 UEC FOOD 100 \footnote{Dataset can be found at \url{http://foodcam.mobi/dataset100.html}} is a dataset created in \cite{Matsuda2012a} containing 100 types of food, mainly Japanese food, and is composed of 9060 pictures. Thus, an image can contain multiple dishes. That's why each food picture has is associated with the bounding box coordinates indicating the food localisation.
 
-For UEC-FOOD 100, the authors obtain 49.9 \% mean average accuracy and 58.7 \% for PASCAL VOC 2007.
+For UEC-FOOD 100, the authors obtain 49.9\% mean average accuracy and 58.7\% for PASCAL VOC 2007.
 
-In \cite{Bolanos2016}, the authors use a pre-trained DCNN to classify each pixel as food or non-food. The DCNN is exactly the same structure as \enquote{GoogleNet}, a neural network composed of 22 layers and first used on ILSVRC14 (ImageNet Large Scale Visual Recognition Competition 2014). On UEC-FOOD 256, the authors obtain 60 \% of accuracy.
+In \cite{Bolanos2016}, the authors use a pre-trained DCNN to classify each pixel as food or non-food. The DCNN is exactly the same structure as \enquote{GoogleNet}, a neural network composed of 22 layers and first used on ILSVRC14 (ImageNet Large Scale Visual Recognition Competition 2014). On UEC-FOOD 256, the authors obtain 60\% of accuracy.
 
 UEC FOOD 256 \footnote{Dataset can be found at \url{http://foodcam.mobi/dataset256.html}} is presented in \cite{Kawano2015} and it is an extension of UEC FOOD 100 (same creators' team). It adds 156 kinds of food from all the over the world (French, Italian, Vietnamese, American, ...). As for FOOD 100, every food photo has a bounding box indicating the food location.
 
@@ -73,7 +76,7 @@ It contains 101 meals (categories) from 11 popular fast food chains found in the
 The authors provide :
 \begin{itemize}
     \item Colour histogram and SVM classifier. They obtain a mean accuracy of around 12\%.
-    \item Bag of SIFT features and SVM classifier. They obtain a mean accuracy of around 25 \%.
+    \item Bag of SIFT features and SVM classifier. They obtain a mean accuracy of around 25\%.
 \end{itemize}
 
 In \cite{Zong2010}, the authors use a local texture feature and their spatial distribution to classify food images from the PFID.
@@ -82,13 +85,13 @@ The author use the Bag-Of-Word method; SIFT for detection of the keypoints and L
 
 For the classification, the authors pick the smallest cost between an image and a food category. For each interest points found with SIFT in the image, we associate a similarity between the point and each visual words of the codebook. The similarity function is based on the Bhattacharyya distance. Then, the shape context between the point of interests and the visual word is calculated and a cost is deduced for each food category. The category with the smallest cost is chosen.
 
-Regrouping the different pictures in 6 main groups the PFI dataset (sandwiches and wraps, meat, salads, donuts, hamburger and miscellaneous), they obtain an average accuracy of 66 \%.
+Regrouping the different pictures in 6 main groups the PFI dataset (sandwiches and wraps, meat, salads, donuts, hamburger and miscellaneous), they obtain an average accuracy of 66\%.
 
 Moreover, Fast foods, as they are standardized and have nutrition information available online, can easily be used to measure the calories. In \cite{Wen2009}, the authors are using the PFID's videos to estimate energy intake of a meal.
 
 In \cite{Bosch2011}, the authors use local and global features to identify the food consumed.
 For the global features, they use colour properties (entropy, histogram and moments) with texture information provided by Gabor filters. They add local features with the Bag-Of-Features, using SIFT for detection and SIFT, steerable filters and DAISY descriptors. To classify, they use SVM (using the Radial Basis function kernel).
-On a in-house dataset (28 classes, 179 images), the authors obtain 86 \% of accuracy.
+On a in-house dataset (28 classes, 179 images), the authors obtain 86\% of accuracy.
 
 % 4.3 (PFID)
 
@@ -132,7 +135,7 @@ ETHZ Food-101 \footnote{Dataset can be found at  \url{https://www.vision.ee.ethz
 \end{itemize}
 
 They train a SVM classifier for each category, then fuse them with the multi-class AdaBoost algorithm. AdaBoost, or \enquote{Adaptive boosting} is a meta-algorithm that combine into a weighted sum multiple classifiers to improve their final performance.
-The authors get an overall accuracy of 68.3 \%. If we keep the top-3 results, the accuracy is even 90.9 \%.
+The authors get an overall accuracy of 68.3\%. If we keep the top-3 results, the accuracy is even 90.9\%.
 
 
 %% DCNN
@@ -150,18 +153,18 @@ For the image recognition model, they use textual, visual or a mix of both featu
 \begin{itemize}
     \item visual feature (all feeding a SVM):
     \begin{itemize}
-        \item Bag-of-Words using a dense SIFT and a codebook of size 1024 on a 3-level spatial pyramid. They obtain an average accuracy of 23.96 \%.
+        \item Bag-of-Words using a dense SIFT and a codebook of size 1024 on a 3-level spatial pyramid. They obtain an average accuracy of 23.96\%.
         
-        \item Use an improved version of the Bag-of-Words named \enquote{BossaNova}. It modifies the pooling system; instead of keeping the closest cluster of a SIFT descriptor, it represents it by keeping distances between the descriptor and all the codebook words. Average accuracy of 28.59 \%.
+        \item Use an improved version of the Bag-of-Words named \enquote{BossaNova}. It modifies the pooling system; instead of keeping the closest cluster of a SIFT descriptor, it represents it by keeping distances between the descriptor and all the codebook words. Average accuracy of 28.59\%.
         
-        \item Use a deep CNN as a feature descriptor, using the 7th layer of a pre-trained CNN ("OverFeat"). Average accuracy of 33.91 \%.
+        \item Use a deep CNN as a feature descriptor, using the 7th layer of a pre-trained CNN ("OverFeat"). Average accuracy of 33.91\%.
         
-        \item Use a very deep CNN as a feature descriptor, using th 19th layers ("vgg-verydeep-19"). Average accuracy of 40.21 \%.
+        \item Use a very deep CNN as a feature descriptor, using th 19th layers ("vgg-verydeep-19"). Average accuracy of 40.21\%.
     \end{itemize}
     
     \item text-feature: use the term frequency - inverse document frequency \textit{tf-idf} method and get 82.06\% accuracy
     
-    \item fusion of textual and visual feature: they obtain at most 85.10 \% of accuracy, combining the very deep CNN descriptors and tf-idf.
+    \item fusion of textual and visual feature: they obtain at most 85.10\% of accuracy, combining the very deep CNN descriptors and tf-idf.
 \end{itemize}
 
 %% UEC FOOD
@@ -177,9 +180,9 @@ The three descriptors are then encoded in a fisher vector. Using SVM, the author
 
 %% UEC FOOD 256
 
-In \cite{Yanai2015}, the authors use a fine-tuned pre-trained DCNN with the large-scale ImageNet dataset for food recognition. The authors obtain 79 \% average accuracy for UEC FOOD 100 and 67 \% for UEC FOOD-256.
+In \cite{Yanai2015}, the authors use a fine-tuned pre-trained DCNN with the large-scale ImageNet dataset for food recognition. The authors obtain 79\% average accuracy for UEC FOOD 100 and 67\% for UEC FOOD-256.
 
-In \cite{Bolanos2016}, the authors also use a fine-tuned pre-trained Deep Neural Network and obtain 63 \% accuracy on UEC FOOD-256. Their neural network is fine-tuned on multiple food datasets (UEC FOOD 256, Food 101 and EgocentricFood).
+In \cite{Bolanos2016}, the authors also use a fine-tuned pre-trained Deep Neural Network and obtain 63\% accuracy on UEC FOOD-256. Their neural network is fine-tuned on multiple food datasets (UEC FOOD 256, Food 101 and EgocentricFood).
 
 \section{Food intake estimation}
 
@@ -194,7 +197,7 @@ MyPyramid \cite{MyPyramid} was designed by the United State Department of Agricu
 \begin{figure}
     \centering
     \includegraphics[scale=0.7]{img/my_pyramid.jpg}
-    \caption{USDA MyPyramid original logo}
+    \caption[USDA MyPyramid original logo]{USDA MyPyramid original logo. Source \href{https://en.wikipedia.org/wiki/Food_pyramid_(nutrition)}{Wikipedia}.}
     \label{fig:my_pyramid}
 \end{figure}
 
@@ -244,7 +247,7 @@ For segmentation, the authors use connected component analysis, active contours,
 \end{itemize}
 For the volume estimation, the authors use a 3-D volume reconstruction process. The food area is partitioned and assigned to \enquote{geometric classes}, each with their own sets of parameters.
 
-They evaluate their segmentation and classification methods on a very small dataset composed of 63 images and 19 classes. The authors obtain an average accuracy of 89 \%.
+They evaluate their segmentation and classification methods on a very small dataset composed of 63 images and 19 classes. The authors obtain an average accuracy of 89\%.
 
 In \cite{Zhu2015}, their method is named \enquote{multiple hypotheses segmentation and classification} \textit{MHSC}. It is an iterative algorithm composed of a segmentation, description (extraction of features) and classification steps.
 
@@ -256,7 +259,7 @@ Each of the 12 descriptor, global and local, is classified independently and ass
 
 If the total score is inferior to a certain threshold, the overall process is repeated. The confidence score of the previous step is used to improve the segmentation.
 
-Applied on a dataset composed of 83 labels (79 food classes plus \enquote{utensils}, \enquote{glasses}, \enquote{plates}, and \enquote{plastic cups} classes), each class having at least 30 images, they obtain a top-8 accuracy of 75 \%, using K-NN with the maximum confidence score.
+Applied on a dataset composed of 83 labels (79 food classes plus \enquote{utensils}, \enquote{glasses}, \enquote{plates}, and \enquote{plastic cups} classes), each class having at least 30 images, they obtain a top-8 accuracy of 75\%, using K-NN with the maximum confidence score.
 
 %% Food Cam
 %% 6.3
@@ -280,20 +283,20 @@ For each region, it extracts multiple common features:
     \item Gabor texture
 \end{itemize}
 
-After extraction of the feature vectors from each candidate region, a linear SVM trained by MKL is used ($\chi^2$ kernel). Their methods were evaluated on UEC-FOOD 100. For multiple food item images, they obtain 55.8 \% classification rate and 68.9 \% for single food item pictures.
+After extraction of the feature vectors from each candidate region, a linear SVM trained by MKL is used ($\chi^2$ kernel). Their methods were evaluated on UEC-FOOD 100. For multiple food item images, they obtain 55.8\% classification rate and 68.9\% for single food item pictures.
 
 %% 
 
 In \cite{Kawano2014a}, the authors develop a mobile real-time food recognition system for calorie and nutrition estimation. Contrary to the previous paper, all the calculation are realised on the user smartphone. The recognition takes less than 1 second thanks to the multi-core architecture of modern smartphones.
 The user takes a picture and draws bounding boxes around food items. Then, the system refine the segmentation based on the users' rough demarcation using Grabcut.
 For each item, it extracts image features and classify the image among the one hundred food classes using a linear SVM. Then, the top five food candidates are shown and the user can select one of the proposition.
-This recognition is updated every one second, the direction arrow as presented in figure  \ref{fig:food_cam} being displayed to help the user improve the result by changing the camera position and direction. To estimate the most suitable direction, the authors use the Efficient Sub-window Search method, a recent and powerful window search algorithm used in object detection.
-The mobile application keep records of all the pictures and their approved classification and labeled with the volume estimation. Food intake is estimated thanks to a slider on the bottom-left of the screen.
+This recognition is updated every one second, the direction arrow as presented in Fig. \ref{fig:food_cam} being displayed to help the user improve the result by changing the camera position and direction. To estimate the most suitable direction, the authors use the Efficient Sub-window Search method, a recent and powerful window search algorithm used in object detection.
+The mobile application keep records of all the pictures and their approved classification and labelled with the volume estimation. Food intake is estimated thanks to a slider on the bottom-left of the screen.
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.6]{img/foodcam.jpg}
-    \caption{Annotated screenshot of the FoodCam application}
+    \caption[Annotated screenshot of the FoodCam application]{Annotated screenshot of the FoodCam application. Source \cite{Kawano2014a}.}
     \label{fig:food_cam}
 \end{figure}
 
@@ -302,7 +305,7 @@ Two different descriptors are used:
     \item bag-of-feature, SURF for detection and description, and colour histogram with the $chi^2$ kernel feature map
     \item HOG and a colour patch descriptor (mean and variance of RGB values on a $2 \times 2$ blocks of pixel) encoded using Fisher Victor, a patch encoding strategy using Gaussian mixture models.
 \end{itemize}
-The authors evaluate these two methods on UEC-FOOD 100. Taking the top 5 classes, they obtain 79 \% classification accuracy for colour patches and 68 \% for the other.
+The authors evaluate these two methods on UEC-FOOD 100. Taking the top 5 classes, they obtain 79\% classification accuracy for colour patches and 68\% for the other.
 
 %% 11.2
 
@@ -314,7 +317,7 @@ Then, for the image classification, they adopt the SMO-MKL (Sequential minimal o
 
 It is applied on these two datasets:
 \begin{itemize}
-    \item PFID to compare to existing recognition systems. Their method obtain 48.5 \% accuracy.
+    \item PFID to compare to existing recognition systems. Their method obtain 48.5\% accuracy.
     
     \item in-house dataset consisting of images from 10 restaurants (divided in 5 different types of food: American, Indian, Italian, Mexican and Thai). It is made up of 600 pictures, 300 taken with a smartphone, 300 with Google glasses. The overall average accuracy is 63.33\%, only 15.67\% without localization.
 \end{itemize}

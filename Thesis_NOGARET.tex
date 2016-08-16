@@ -1,5 +1,6 @@
 \documentclass[12pt]{book}
 
+
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -8,24 +9,14 @@
 \usepackage{mathtools}
 \usepackage{amsfonts}
 \usepackage[autostyle]{csquotes}
-
 \usepackage{textcomp}                   % For the special character ° and TM
-
-\usepackage{cranfieldthesis}            % Use the custom "cranfieldthesis" LaTeX style file. 
-
 \usepackage[sorting=none, backend=biber, style=numeric]{biblatex}
 \usepackage[colorlinks=false]{hyperref}
-
 \usepackage{tikz}
 \usetikzlibrary{shapes, arrows, trees, calc}
 
-% By default, LaTeX uses a serif font - these are traditionally thought to be
-% easier to read.   If you'd prefer sans-serif, please uncomment the 
-% following line.
-%\renewcommand{\familydefault}{\sfdefault}
+\usepackage{cranfieldthesis}            % Use the custom "cranfieldthesis" LaTeX style file. 
 
-\newcommand{\TM}{\textsuperscript{TM}~}
-% \newcommand{\source}[1]{\caption*{\hfill Source: {#1}} }
 
 % Example parameters for a typical taught MSc course
 \title{Automated food log analysis}
@@ -38,8 +29,10 @@
 \supervisor{Dr RÜGER Stefan}
 \copyrightyear{2016}
 
+
 \addbibresource{library.bib}
 \addbibresource{my_references.bib}
+
 
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\N}{\mathbb{N}}
@@ -47,6 +40,9 @@
 \newcommand{\argmin}{\operatorname {arg\,min} }
 \newcommand{\argmax}{\operatorname {arg\,max} }
 \newcommand{\sign}{\operatorname {sign} }
+\newcommand{\TM}{\textsuperscript{TM}~}
+% \newcommand{\source}[1]{\caption*{\hfill Source: {#1}} }
+
 
 \begin{document}
 
@@ -113,6 +109,7 @@
 %        2nd edition,
 %        1994.
 %\end{references}
+
 \printbibliography
 
 \end{document}

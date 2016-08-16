@@ -1,24 +1,30 @@
 \chapter{Feature descriptor} \label{sec:feature_descriptor}
 
-For a computer, a picture is represented as a 2-D or 3-D array. To facilitate the classification, feature descriptor extract derived values (the features), calculated to be more informative and invariant to some common picture transformations.
+Image classification studies algorithms to regroup related data into a finite set of categories. It can be based on a priori knowledge (supervised learning) or on clustering algorithms to automatically separate the training data into categories (unsupervised learning).
+
+Supervised classification typically employs two phases of processing: training and testing. In the training phase, characteristics are extracted to find rules to distinguish classes (the group of each set of data is already known). In the subsequent phase, these rules are used to classify the data.
+
+A common representation of the data is to use a feature vector $(x_1, x_2, \ldots, x_n)$, i.e. a list of $n$ values corresponding to a point. Each vector is associated a label $y$ that we try to predict. Thus, the goal of the classifier is to find a mapping, a function to pass from the feature vector to the label. Usually, the function is an approximation that minimize the error.
+
+Thus, the description is extremely important. For a computer, a picture is represented as a 2-D or 3-D array. To facilitate the classification, feature descriptor extract derived values (the features), calculated to be more informative and invariant to some common picture transformations.
 
 As such, colour is one of the key components of a food item, thus it is widely applied for classification. Colour statistics are commonly used, such as the first and second moment values for different channels. It can be computed for multiple colour representations (RGB, HSV, grey, YCrCb or L*a*b* space).
 
-Another import feature of food is the texturee. Numerous texture descriptors can be used such as Gabor filters or Local Binary Pattern.
+Another import feature of food is the texture. Numerous texture descriptors can be used such as Gabor filters or Local Binary Pattern.
 
 \section{Local binary pattern}
 
 % http://www.pyimagesearch.com/2015/12/07/local-binary-patterns-with-python-opencv/
 
-Local binary pattern is a visual descriptor for texture composition of an image, first presented in 2002 in \cite{Ojala2002} (although the concept of LBPs were introduced as early as 1993).
+Local binary pattern is a visual descriptor for texture composition of an image, first presented in 2002 in \cite{Ojala2002} by  (although the concept of LBPs were introduced as early as 1993).
 
 \subsection{Gray-scale LBP}
 
-The figure \ref{fig:lbp_process} represents an example of the LBP in which the LBP code of the centre pixel (in red color and value 20) is used as a local intensity threshold : the neighbour pixels whose intensities are equal or higher than the centre pixel’s are labelled as ”1”; otherwise as ”0”. Then, starting always from the same point, we can transform this binary string to decimal and is used to describe the central pixel. In this example we start at the top-right point and work our way clockwise accumulating the binary string as we go along and obtain the value 24.
+The Fig. \ref{fig:lbp_process} represents an example of the LBP in which the LBP code of the centre pixel (in red color and value 20) is used as a local intensity threshold : the neighbour pixels whose intensities are equal or higher than the centre pixel’s are labelled as ”1”; otherwise as ”0”. Then, starting always from the same point, we can transform this binary string to decimal and is used to describe the central pixel. In this example we start at the top-right point and work our way clockwise accumulating the binary string as we go along and obtain the value 24.
 
 \begin{figure}[h]
     \includegraphics[scale=0.55]{img/lbp}
-    \caption{Illustration of the LBP descriptor's process}
+    \caption[Illustration of the LBP descriptor's process]{Illustration of the LBP descriptor's process. Source \cite{Ojala2002}}
     \label{fig:lbp_process}
 \end{figure}
 
@@ -75,7 +81,7 @@ Hue and Saturation corresponds to the chromaticity of the colour. For the joint 
 \begin{figure}
     \centering
     \includegraphics[scale=0.2]{img/HSV_pyramid.png}
-    \caption{Pyramid representation of the HSV channels}
+    \caption[Pyramid representation of the HSV channels]{Pyramid representation of the HSV channels. Source \href{https://en.wikipedia.org/wiki/HSL_and_HSV}{wikipedia}}
     \label{fig:hsv_pyramid}
 \end{figure}
 
@@ -147,13 +153,13 @@ The combination of a dense grid and SIFT is commonly called dense SIFT. It has b
 \begin{figure}
     \centering
     \includegraphics[scale=0.9]{img/bow.png}
-    \caption{Illustration of the Bag-Of-Visual-Words model}
+    \caption[Illustration of the Bag-Of-Visual-Words model]{Illustration of the Bag-Of-Visual-Words model. Source \href{http://uk.mathworks.com/help/vision/ug/image-classification-with-bag-of-visual-words.html}{MathWorks}}
     \label{fig:bow_process}
 \end{figure}
 
 \subsection{SIFT and SURF}
 
-\textbf{Scale-Invariant Feature Transform} \textit{SIFT} is an algorithm used for detection and description of local feature \cite{Lowe2004}.
+\textbf{Scale-Invariant Feature Transform} \textit{SIFT} is an algorithm used for detection and description of local feature created by Lowe in 2004 \cite{Lowe2004}.
 
 The major stages of the algorithm are:
 \begin{enumerate}
@@ -173,7 +179,7 @@ The major stages of the algorithm are:
     \begin{figure}[h]
         \centering
         \includegraphics[scale=0.5]{img/sift_difference_of_gaussian.png}
-        \caption{Illustration of the difference of Gaussian over multiple octave}
+        \caption[Illustration of the difference of Gaussian over multiple octave]{Illustration of the difference of Gaussian over multiple octave. Source \cite{Lowe2004}}
         \label{fig:sift_difference_of_gaussian}
     \end{figure}
     
@@ -197,7 +203,7 @@ The major stages of the algorithm are:
     \begin{figure}[h]
         \centering
         \includegraphics[scale=0.5]{img/sift_descriptor.jpg}
-        \caption{Illustration of SIFT as a local image descriptor}
+        \caption[Illustration of SIFT as a local image descriptor]{Illustration of SIFT as a local image descriptor. Source \cite{Lowe2004}}
         \label{fig:sift_descriptor}
     \end{figure}
 \end{enumerate}

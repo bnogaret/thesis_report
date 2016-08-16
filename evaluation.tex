@@ -72,22 +72,22 @@ First, the localisation and classification processes were run independently (usi
         \hline
         Metric (average) & My method & DCNN from \cite{Bolanos2016} \\
         \hline
-        Accuracy & \textbf{73 \%} & 60 \% \\ 
+        Accuracy & \textbf{74\%} & 60\% \\ 
         \hline
-        Recall &  \textbf{74 \%} & 80 \% \\
+        Recall &  \textbf{74\%} & 80\% \\
         \hline
-        Precision &  \textbf{79 \%} & 70 \% \\
+        Precision &  \textbf{79\%} & 70\% \\
         \hline
     \end{tabular}
     \caption{Average localisation accuracy result for UEC FOOD 256}
     \label{table:localisation_result}
 \end{table}
 
-The table \ref{table:localisation_result} gathers the average accuracy, recall, precision of my localisation method using a DCNN pre-trained on salient object detection. In \cite{Bolanos2016}, the authors use fine-tuned pre-trained Deep Neural Network and obtain around 60 \% of accuracy (using the same IoU over 50 \%).
+The table \ref{table:localisation_result} gathers the average accuracy, recall, precision of my localisation method using a DCNN pre-trained on salient object detection. In \cite{Bolanos2016}, Bolanos use a fine-tuned pre-trained Deep Neural Network and obtain around 60\% of accuracy (using the same IoU over 50\%). It was fine-tuned to detect bounding boxes containing food on multiple datasets.
 
-Compare to the found literature, my method lead to a higher accuracy. It seems that the assumptions made to switch from a DCNN trained to detect food / non-food detection to salient object detection is founded.
+Compare to the found literature, my method lead to a higher accuracy. It seems that the assumptions made to switch from a DCNN trained to detect food / non-food detection to salient object detection is founded. Moreover, a higher accuracy is not to the detriment of the recall or precision.
 
-For the result of the table \ref{table:localisation_result}, we use an IoU of 50 \%. In Fig \ref{fig:segmentation_overlap}, we can see that the metrics' values are greatly influenced by the threshold choose for correctness (from 73 \% of average accuracy with a threshold at 50 \% to 0 \% of accuracy for a threshold of 100 \%).
+For the result of the table \ref{table:localisation_result}, we use an IoU of 50\%. In Fig \ref{fig:segmentation_overlap}, we can see that the metrics' values are greatly influenced by the threshold choose for correctness (from 73\% of average accuracy with a threshold at 50\% to 0\% of accuracy for a threshold of 100\%).
 
 \begin{figure}
     \centering
@@ -105,34 +105,32 @@ For the result of the table \ref{table:localisation_result}, we use an IoU of 50
         \hline
         Method & Average accuracy \\
         \hline
-        CNN as descriptor + RF & \textbf{40 \%} \\ 
+        CNN as descriptor + RF & \textbf{40\%} \\ 
         \hline
-        BoW (1000 words)+ SVM with $\chi^2$ & 10 \% \\ % made up!
+        BoW (1000 words)+ SVM with $\chi^2$ & 10\% \\ % made up!
         \hline
-        LBP + CHM + Decision tree & 5 \% \\ 
+        LBP + CHM + Decision tree & 5\% \\ 
         \hline
-        LBP + CHM + SVM & 11 \% \\ % made up!
+        LBP + CHM + SVM & 11\% \\ % made up!
         \hline
-        LBP + CHM + RF & 16 \% \\ % improved!
+        LBP + CHM + RF & 16\% \\ % improved!
         \hline
-        DCNN from \cite{Bolanos2016} & 63 \%\\
+        DCNN from \cite{Bolanos2016} & 63\%\\
         \hline 
-        DCNN from \cite{Yanai2015} & 67 \%\\
+        DCNN from \cite{Yanai2015} & 67\%\\
         \hline 
     \end{tabulary}
     \caption[Average classification accuracy result for UEC FOOD 256]{Average classification accuracy result for UEC FOOD 256. CHM stands for colour histograms and moments}
 \end{table}
 
-In \cite{Bolanos2016}, the authors use a fine-tuned pre-trained Deep Neural Network and obtain 63 \% accuracy on UEC FOOD-256.
+In \cite{Bolanos2016}, the authors use a fine-tuned pre-trained Deep Neural Network and obtain 63\% accuracy on UEC FOOD-256.
 
-In \cite{Yanai2015}, the authors use a fine-tuned pre-trained Deep Neural Network and obtain 67 \% accuracy on UEC FOOD-256.
+In \cite{Yanai2015}, the authors use a fine-tuned pre-trained Deep Neural Network and obtain 67\% accuracy on UEC FOOD-256.
 
 
 \subsection{Localisation and classification}
 
-Using the segmentation and classification method with the highest accuracy, i.e. saliency detection DCNN segmenter with DCNN as a feature descriptor and random forest classifier.
-
-The results are presented in the table \ref{table:uecfood100_results}.
+Using the segmentation and classification method with the highest accuracy, i.e. saliency detection DCNN segmenter with DCNN as a feature descriptor and random forest classifier, we present the final results fixing the IoU threshold to 50\% in table \ref{table:uecfood100_results}. The total accuracy is 28\% that is 9 points below the method presented by Bolanos et al. in 2016 \cite{Bolanos2016}. The localisation process is able to find most of the items in a picture.
 
 \begin{table}
     \centering
@@ -141,14 +139,14 @@ The results are presented in the table \ref{table:uecfood100_results}.
         \hline
         Process & My method & DCNN from \cite{Bolanos2016} \\
         \hline
-        Overall & \textbf{28 \%} & 37 \% \\ 
+        Overall & \textbf{28\%} & 37\% \\ 
         \hline
-        Localisation &  \textbf{74 \%} & 60 \% \\
+        Localisation &  \textbf{74\%} & 60\% \\
         \hline
-        Classification &  \textbf{38 \%} & 60 \% \\
+        Classification &  \textbf{38\%} & 60\% \\
         \hline
     \end{tabulary}
-    \caption{Average accuracy result for UEC FOOD 256}
+    \caption{Average accuracy result for simultaneous localisation and recognition on UEC-FOOD 256}
     \label{table:uecfodd256_results}
 \end{table}
 
@@ -159,7 +157,7 @@ The results are presented in the table \ref{table:uecfood100_results}.
     \includegraphics[height=2.5cm, width=2.5cm]{img/top_grilled_pacific_saury.jpg}
     \includegraphics[height=2.5cm, width=2.5cm]{img/top_hamburger.jpg}
     \includegraphics[height=2.5cm, width=2.5cm]{img/top_roll_bread.jpg}
-    \caption[Classes having the highest accuracy]{The five classes having the highest accuracy with (from the left to the right, starting from the highest accuracy) rice (98 \%), miso soup (95 \%), grilles pacific saury (94 \%), hamburger (93 \%), roll bread (90 \%)}
+    \caption[Classes having the highest accuracy]{The five classes having the highest accuracy with (from the left to the right, starting from the highest accuracy) rice (98\%), miso soup (95\%), grilles pacific saury (94\%), hamburger (93\%), roll bread (90\%)}
     \label{fig:top_5}
 \end{figure}
 
@@ -168,7 +166,7 @@ As can been seen in Fig \ref{fig:top_5} and \ref{fig:least_5}, the best performi
     \item rice is the most represented food items in the dataset, maximising the size of the training sets (same for miso soup)
     \item rice has a specific texture and colour that is relatively invariant to the condition
     \item tanmen is a soup containing noodle and various vegetables. Thus, it can occur in different colour, shape and size.
-    \item there are numerous soups in the dataset and tanmen is often confused with them. Figure \ref{fig:confusing_3} show the most class couples that are the most confused and it shows that clear  and miso soup are often mixed up by the method.
+    \item there are numerous soups in the dataset and tanmen is often confused with them. Figure \ref{fig:confusing_4} show the most class couples that are the most confused and it shows that clear  and miso soup are often mixed up by the method.
 \end{itemize}
 
 %14 roll bread 0.905660291919
@@ -184,7 +182,7 @@ As can been seen in Fig \ref{fig:top_5} and \ref{fig:least_5}, the best performi
     \includegraphics[height=2.5cm, width=2.5cm]{img/least_clear_soup.jpg}
     \includegraphics[height=2.5cm, width=2.5cm]{img/least_yellow_curry.jpg}
     \includegraphics[height=2.5cm, width=2.5cm]{img/least_grilled_eggplant.jpg}
-    \caption[Classes having the lowest accuracy]{The five classes having the lowest accuracy with (from the left to the right, starting from the lowest accuracy) tanmen (0 \%), Pork with lemon (0 \%), clear soup (1 \%), yellow curry (1 \%), grilles eggplant (1 \%)}
+    \caption[Classes having the lowest accuracy]{The five classes having the lowest accuracy with (from the left to the right, starting from the lowest accuracy) tanmen (0\%), Pork with lemon (0\%), clear soup (1\%), yellow curry (1\%), grilles eggplant (1\%)}
     \label{fig:least_5}
 \end{figure}
 
@@ -200,8 +198,8 @@ As can been seen in Fig \ref{fig:top_5} and \ref{fig:least_5}, the best performi
     \includegraphics[height=5cm, width=5cm]{img/confusing_miso_soup.jpg}
     \includegraphics[height=5cm, width=5cm]{img/confusing_chicken_rice.jpg}
     \includegraphics[height=5cm, width=5cm]{img/confusing_fried_rice.jpg}
-    \caption[Most confused classes]{The six most confused classes (with from the left to the right, starting from the lowest accuracy) clear soup and miso soup (83 \%), chicken rice and fried rice (54 \%)}
-    \label{fig:confusing_3}
+    \caption[Most confused classes]{The four most confused classes (with from the left to the right, starting from the lowest accuracy) clear soup and miso soup (83\%), chicken rice and fried rice (54\%)}
+    \label{fig:confusing_4}
 \end{figure}
 
 %134 35 clear soup || miso soup 0.838095158277
@@ -215,7 +213,7 @@ As can been seen in Fig \ref{fig:top_5} and \ref{fig:least_5}, the best performi
 %238 11 kaya toast || toast 0.43434339047
 %135 35 yudofu || miso soup 0.431192620992
 
-I also run the segmentation and classification on UEC FOOD 100. The results are presented in table \ref{table:uecfood100_results}. As UEC FOOD 256, it can be seen that the localisation is better than the previous work with 67 \% accuracy (the result is slightly lower than UEC FOOD 256 as it has a higher proportion of multiple food item picture). The overall accuracy is 33 \%.
+The method were also run the segmentation and classification on UEC FOOD 100. The results are presented in table \ref{table:uecfood100_results}. As UEC-FOOD 256, it can be seen that the localisation is better than the previous work with 67\% accuracy (the result is slightly lower than UEC-FOOD 256 as the dataset has a higher proportion of multiple food items per picture). The overall accuracy is 33\%.
 
 \begin{table}
     \centering
@@ -224,11 +222,11 @@ I also run the segmentation and classification on UEC FOOD 100. The results are 
         \hline
         Process & My method & DCNN from \cite{Shimoda2015} & DCNN from  \cite{Kawano2014} \\
         \hline
-        Overall & \textbf{33 \%} & - & - \\ 
+        Overall & \textbf{33\%} & - & - \\ 
         \hline
-        Localisation &  \textbf{67 \%} & 60 \% & - \\
+        Localisation &  \textbf{67\%} & 60\% & - \\
         \hline
-        Classification &  \textbf{50 \%} & -  & 72 \% \\
+        Classification &  \textbf{50\%} & -  & 72\% \\
         \hline
     \end{tabulary}
     \caption{Average accuracy result for UEC FOOD 100}

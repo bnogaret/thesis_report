@@ -6,6 +6,13 @@
 
 \chapter{Appendix}
 
+Structure of the dataset:
+a file associating one number ($[1 - 256]$) to a class
+a file containing a list of file id containing multiple images
+a directory per class: contains the picture. Resolution are all different
+	contains a file giving the bounding boxes of this class for each picture
+	Thus, we can have the same picture in different directories
+
 \section{RGB to HSV}
 
 Assuming the RGB values have been normalised to be in $[0, 1]$, we have:

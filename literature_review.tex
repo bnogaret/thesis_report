@@ -19,15 +19,14 @@ The colour-based segmentation normalised the lightning condition with a Gaussian
     \item remove small object
     \item fill the binary image regions and holes
 \end{enumerate}
-For orange detection, the colour segmentation has an higher accuracy. Yet, it is very hard to generalise this method.
+For orange detection, the colour segmentation has an higher accuracy. Yet, it is very hard to generalise this method as it has only been tested on oranges, a food item with a very distinctive colour.
 
 %% Circle
 %% 2.2 (partial) + 6.3 + \cite{Dehais2015} ?
 
 An other method for food detection relies on circle detection. Indeed, food items are often served in a round shape container such as a bowl, pan or plate.
 
-In \cite{Wazumi2011}, the authors describe their use of the Hough transformation. The purpose of this technique is to find approximations of instances a certain class of shapes by a voting procedure.
-In this paper it is used to detect circles assuming the food is only contained in round plates or bowls. Keeping only the central part of the circle, the segmentation is then fed to the recognition process.
+In \cite{Wazumi2011}, Wazumi et al. describe their use of the Hough transformation. The purpose of this technique is to find approximations of instances a certain class of shapes by a voting procedure. In this paper it is used to detect circles assuming the food is only contained in round plates or bowls and with edges not obstructed on the picture (it performs poorly with cropped pictures). Keeping only the central part of the circle, the segmentation is then fed to the recognition process.
 
 %% CNN
 %% DCNN: * ? + 9.1 (in food intake)
@@ -35,7 +34,7 @@ In this paper it is used to detect circles assuming the food is only contained i
 
 A more recent development is the used of convolutional neural network.
 
-In \cite{Shimoda2015}, the authors presents their segmentation process based on a pre-trained deep CNN.
+In \cite{Shimoda2015}, Shimoda et al. presents their segmentation process based on a pre-trained deep CNN.
 
 The proposed pipeline is composed of 6 main steps:
 \begin{enumerate}
@@ -48,28 +47,19 @@ The proposed pipeline is composed of 6 main steps:
 
 The authors apply this process on the UEC-FOOD 100 dataset and PASCAL VOC 2007. The latter is used for object detection and recognition of 20 common classes (train, tv, cat, human ...)). These two datasets use bounding box to spot items. A segmentation is correct if the overlap ratio exceeds 50\% between the predicted and the ground truth bounding box.
 
-UEC FOOD 100 \footnote{Dataset can be found at \url{http://foodcam.mobi/dataset100.html}} is a dataset created in \cite{Matsuda2012a} containing 100 types of food, mainly Japanese food, and is composed of 9060 pictures. Thus, an image can contain multiple dishes. That's why each food picture has is associated with the bounding box coordinates indicating the food localisation.
+UEC FOOD 100 \footnote{Dataset can be found at \url{http://foodcam.mobi/dataset100.html}} is a dataset created by Matsuda et al. in \cite{Matsuda2012a} containing 100 types of food, mainly Japanese food, and is composed of 9060 pictures. Thus, an image can contain multiple dishes. That's why each food picture is associated with the bounding box coordinates indicating the food localisation.
 
 For UEC-FOOD 100, the authors obtain 49.9\% mean average accuracy and 58.7\% for PASCAL VOC 2007.
 
-In \cite{Bolanos2016}, the authors use a pre-trained DCNN to classify each pixel as food or non-food. The DCNN is exactly the same structure as \enquote{GoogleNet}, a neural network composed of 22 layers and first used on ILSVRC14 (ImageNet Large Scale Visual Recognition Competition 2014). On UEC-FOOD 256, the authors obtain 60\% of accuracy.
+A pre-trained DCNN is also used by Bolanos et al. \cite{Bolanos2016} to classify each pixel as food or non-food. The DCNN is modelled on \enquote{GoogleNet} \cite{Szegedy2015}, a neural network composed of 22 layers and first used on ILSVRC14 (ImageNet Large Scale Visual Recognition Competition 2014). On UEC-FOOD 256, the authors obtain 60\% of accuracy.
 
-UEC FOOD 256 \footnote{Dataset can be found at \url{http://foodcam.mobi/dataset256.html}} is presented in \cite{Kawano2015} and it is an extension of UEC FOOD 100 (same creators' team). It adds 156 kinds of food from all the over the world (French, Italian, Vietnamese, American, ...). As for FOOD 100, every food photo has a bounding box indicating the food location.
+UEC FOOD 256 \footnote{Dataset can be found at \url{http://foodcam.mobi/dataset256.html}} is presented in \cite{Kawano2015} and it is an extension of UEC-FOOD 100 (same creators' team). It adds 156 kinds of food from all the over the world (French, Italian, Vietnamese, American, ...). As for UEC-FOOD 100, every food photo has a bounding box indicating the food location.
 
 \section{Food recognition}
 
-%Food recognition
-%
-%Using SVM:
-%
-%Local using BOW: 3.3
-%global feature:
-%Colour and texture description: 
-%Spatial pyramid:
-
 Over the last few years, authors have focused on food recognition. Various methods were tried. For feature extraction, it often combines colour and texture descriptors, global and local.
 
-In \cite{Chen2009}, the authors provide two simple food classification baseline methods for PFID. PFID (stands for Pittsburgh fast-food image dataset) \footnote{Dataset can be found at \url{http://pfid.rit.albany.edu/}} was presented in \cite{Chen2009} in summer 2008 from the collaboration of Intel Labs Pitssburgh, Columbia and Carnegie Mellon universitie. It is one of the first mature datasets released for food recognition.
+In \cite{Chen2009}, CHen et al. create a new dataset named PFID and provide two simple food classification baseline methods. PFID (stands for Pittsburgh fast-food image dataset) \footnote{Dataset can be found at \url{http://pfid.rit.albany.edu/}} was presented in \cite{Chen2009} in summer 2008 from the collaboration of Intel Labs Pitssburgh, Columbia and Carnegie Mellon universitie. It is one of the first mature datasets released for food recognition.
 
 It contains 101 meals (categories) from 11 popular fast food chains found in the USA with images and videos captured in both restaurant conditions and controlled lab setting. It contains foods such as chickens, sandwiches, salads, burgers and drinks from Arby's, Bruggers Bagels, Dunkin Donuts, KFC, McDonalds, Panera, Pizza hut, Quiznos, Subway, Taco Bell and Wendy's.
 

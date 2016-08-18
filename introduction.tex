@@ -11,7 +11,7 @@ Over the last few decades, the rate of obesity and overweight people in the Worl
 
 Being \enquote{overweight} is defined as having a Body Mass Index (BMI) – a person's weight in kilograms divided by the square of his height in meters ($ kg / m^2 $) – of between 25 and 29.9, and \enquote{obese} by a BMI of 30 and above.
 
-As stated in \cite{Mokdad2003}), obesity is strongly associated with several major health risk factors such as stroke, high blood pressure, type 2 diabetes and high cholesterol. Thus, it has a great human and economic (\cite{Zhang2010} in 2010, 12\% of the total worldwide health expenditure is spent on diabetes and will continue to increase) cost for societies.
+As stated in \cite{Mokdad2003}, obesity is strongly associated with several major health risk factors such as stroke, high blood pressure, type 2 diabetes and high cholesterol. Thus, it has a great human and economic (Zhang et al. \cite{Zhang2010} in 2010 showed 12\% of the total worldwide health expenditure is spent on diabetes and the total cost will continue to grow) cost for societies.
 
 Associated with lifestyle changes, recording what we eat is one way to control our eating. Studies such as \cite{Burke2011a} show the benefit of reporting its daily diet to lose weight and improve the quality of its food intake. And more generally, it can be a way to treat eat disorders
 
@@ -32,7 +32,7 @@ With the widespread use of smartphone, cameras or wearable devices, people can e
 
 That's why, it has recently been proposed to automate the process and assist patient and their medical personnel (nutritionists, psychologists) to understand the patient's behaviour and habits. It extends the reach of care in a cost effective ways and counters some of the previous problem of manual report. It's part of the rise of e-healthcare / m-healthcare \cite{Hillestad2005, Menachemi2011}.
 
-The idea is to have users who upload pictures of their daily meals to the application or website that constructs their food diary automatically. Using image processing, it estimates the dietary composition of the meal and records the information for later viewing in formats such as tables or graphical representations.
+The idea is to have users who upload pictures of their daily meals to the application or website that constructs their food diary automatically. Using image processing, it estimates the dietary composition of the meal and keep record of the information for later viewing in formats such as tables or graphical representations.
 
 Food recognition is a promising applications of image processing and machine learning. Its overall process is:
 \begin{itemize}
@@ -41,19 +41,19 @@ Food recognition is a promising applications of image processing and machine lea
     \item Recognise the food
 \end{itemize}
 
-Feature description is essential to achieve good object detection and image categorisation. Preferably the method should be invariant of the conditions, i.e.the luminosity, orientation or scale of the picture.
+Feature description is essential to achieve good object detection and image categorisation. Preferably the method should be invariant of the conditions, i.e. the luminosity, orientation or scale of the picture.
 
 In this thesis, we focus on the food recognition. It has already numerous challenges such as:
 \begin{itemize}
     \item \textbf{high intra-class variability} : we can have high variability between pictures for the same particular kind of food items, due to:
     \begin{itemize}
         \item environmental conditions (e.g. luminosity, quality of the camera)
-        \item the way it is served
-        \item variation of the way the picture is taken: numerous transformation can be applied to a same picture (scale, translation, rotation, skewness)
+        \item plating (the way it is served)
+        \item variation of the way the picture is taken: numerous transformation can be applied to a same picture (scale, translation, rotation, skewness, crop)
     \end{itemize}
-    This is illustrated in figure \ref{fig:intra-class_variability} for pictures of kaya toast.
+    This is illustrated in Fig. \ref{fig:intra-class_variability} for pictures of kaya toast.
     
-    \item \textbf{low inter-class variability} : we can have low variability between different type of food such as between clear and miso soup as showed in \ref{fig:inter-class_variability}.
+    \item \textbf{low inter-class variability} : we can have low variability between different type of food such as between clear and miso soup as showed in Fig. \ref{fig:inter-class_variability}.
 \end{itemize}
 
 This makes localisation, classification and retrieval of food images a difficult task for current state-of-the-art techniques, and hence a compelling challenge for image processing and machine learning researchers.

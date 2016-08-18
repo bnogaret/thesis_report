@@ -87,7 +87,7 @@ The table \ref{table:localisation_result} gathers the average accuracy, recall, 
 
 Compare to the found literature, my method lead to a higher accuracy. It seems that the assumptions made to switch from a DCNN trained to detect food / non-food detection to salient object detection is founded. Moreover, a higher accuracy is not to the detriment of the recall or precision.
 
-For the result of the table \ref{table:localisation_result}, we use an IoU of 50\%. In Fig \ref{fig:segmentation_overlap}, we can see that the metrics' values are greatly influenced by the threshold choose for correctness (from 73\% of average accuracy with a threshold at 50\% to 0\% of accuracy for a threshold of 100\%).
+For the result of the table \ref{table:localisation_result}, we use an IoU of 50\%. In Fig. \ref{fig:segmentation_overlap}, we can see that the metrics' values are greatly influenced by the threshold choose for correctness (from 73\% of average accuracy with a threshold at 50\% to 0\% of accuracy for a threshold of 100\%).
 
 \begin{figure}
     \centering
@@ -161,12 +161,12 @@ Using the segmentation and classification method with the highest accuracy, i.e.
     \label{fig:top_5}
 \end{figure}
 
-As can been seen in Fig \ref{fig:top_5} and \ref{fig:least_5}, the best performing class is rice and the least one is tanmen. The possible explanations are:
+As can been seen in Fig. \ref{fig:top_5} and \ref{fig:least_5}, the best performing class is rice and the least one is tanmen. The possible explanations are:
 \begin{itemize}
     \item rice is the most represented food items in the dataset, maximising the size of the training sets (same for miso soup)
     \item rice has a specific texture and colour that is relatively invariant to the condition
     \item tanmen is a soup containing noodle and various vegetables. Thus, it can occur in different colour, shape and size.
-    \item there are numerous soups in the dataset and tanmen is often confused with them. Figure \ref{fig:confusing_4} show the most class couples that are the most confused and it shows that clear  and miso soup are often mixed up by the method.
+    \item there are numerous soups in the dataset and tanmen is often confused with them. Fig. \ref{fig:confusing_4} show the most class couples that are the most confused and it shows that clear  and miso soup are often mixed up by the method.
 \end{itemize}
 
 %14 roll bread 0.905660291919

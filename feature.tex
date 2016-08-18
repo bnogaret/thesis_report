@@ -4,19 +4,19 @@ Image classification studies algorithms to regroup related data into a finite se
 
 Supervised classification typically employs two phases of processing: training and testing. In the training phase, characteristics are extracted to find rules to distinguish classes (the group of each set of data is already known). In the subsequent phase, these rules are used to classify the data.
 
-A common representation of the data is to use a feature vector $(x_1, x_2, \ldots, x_n)$, i.e. a list of $n$ values corresponding to a point. Each vector is associated a label $y$ that we try to predict. Thus, the goal of the classifier is to find a mapping, a function to pass from the feature vector to the label. Usually, the function is an approximation that minimize the error.
+A common representation of the data is to use a feature vector $(x_1, x_2, \ldots, x_n)$, i.e. a list of $n$ values corresponding to a point. Each vector is associated a label $y$ that is predicted. Thus, the goal of the classifier is to find a mapping, a function to pass from the feature vector to the label. Usually, the function is an approximation that minimize the error.
 
 Thus, the description is extremely important. For a computer, a picture is represented as a 2-D or 3-D array. To facilitate the classification, feature descriptor extract derived values (the features), calculated to be more informative and invariant to some common picture transformations.
 
 As such, colour is one of the key components of a food item, thus it is widely applied for classification. Colour statistics are commonly used, such as the first and second moment values for different channels. It can be computed for multiple colour representations (RGB, HSV, grey, YCrCb or L*a*b* space).
 
-Another import feature of food is the texture. Numerous texture descriptors can be used such as Gabor filters or Local Binary Pattern.
+Another import feature of food is the texture. Numerous texture descriptors can be used such as Gabor Filters or Local Binary Pattern.
 
 \section{Local binary pattern}
 
 % http://www.pyimagesearch.com/2015/12/07/local-binary-patterns-with-python-opencv/
 
-Local binary pattern is a visual descriptor for texture composition of an image, first presented in 2002 in \cite{Ojala2002} by  (although the concept of LBPs were introduced as early as 1993).
+Local binary pattern is a visual descriptor for texture composition of an image, first presented in 2002 in \cite{Ojala2002} by Ojala et al. (although the concept of LBPs were introduced as early as 1993).
 
 \subsection{Gray-scale LBP}
 
@@ -50,7 +50,7 @@ The number of histograms bins for $LBP_{P, R}$ is $2^P$.
 
 \subsection{Uniform LBP}
 
-This algorithm has been enhanced to make it rotation invariant. Still in \cite{Ojala2002}, the authors introduce the notion of uniform LBP. A LBP is considered to be uniform if it has at most two bitwise transitions (0 to 1 or 1 to 0 transitions in the binary word). 
+This algorithm has been enhanced to make it rotation invariant. Still in \cite{Ojala2002}, Ojala et al. introduce the notion of uniform LBP. A LBP is considered to be uniform if it has at most two bitwise transitions (0 to 1 or 1 to 0 transitions in the binary word). 
 
 For example, the pattern \textit{01000000}  (2 transitions) and \textit{11111110} (1 transition) are both considered to be uniform. For a $LBP_{P, R}$, there is $p + 1$ possible uniforms.
 
@@ -66,8 +66,8 @@ P + 1 & \text{otherwise} \\
 \end{cases}
 $$
 
-\section{Color descriptor}
-\subsection{Color histogram}
+\section{Colour descriptor}
+\subsection{Colour histogram}
 
 HSV space is composed of:
 \begin{itemize}
@@ -76,7 +76,7 @@ HSV space is composed of:
     \item \textbf{Value} channel: represents the brightness of the colour
 \end{itemize}
 
-Hue and Saturation corresponds to the chromaticity of the colour. For the joint histogram (2D histogram), the H and S channels are used as value is dependant of the condition where the picture were taken, thus is not interesting. The coordinate system is cylindrical, and is often represented by a six-sided inverted pyramid (see figure \ref{fig:hsv_pyramid}).
+Hue and Saturation corresponds to the chromaticity of the colour. For the joint histogram (2D histogram), the H and S channels are used as value is dependant of the condition where the picture were taken, thus is not interesting. The coordinate system is cylindrical, and is often represented by a six-sided inverted pyramid (see Fig. \ref{fig:hsv_pyramid}).
 
 \begin{figure}
     \centering
@@ -86,7 +86,7 @@ Hue and Saturation corresponds to the chromaticity of the colour. For the joint 
 \end{figure}
 
 
-\subsection{Color moments}
+\subsection{Colour moments}
 
 \subsection{The first two moments}
 
@@ -157,7 +157,7 @@ The combination of a dense grid and SIFT is commonly called dense SIFT. It has b
     \label{fig:bow_process}
 \end{figure}
 
-\subsection{SIFT and SURF}
+\subsection{SIFT}
 
 \textbf{Scale-Invariant Feature Transform} \textit{SIFT} is an algorithm used for detection and description of local feature created by Lowe in 2004 \cite{Lowe2004}.
 
@@ -174,7 +174,7 @@ The major stages of the algorithm are:
     G(x, y, k \sigma) - G(x, y, \sigma) \approx (k - 1) \sigma^2 \nabla^2 G
     $$
     
-    As presented in figure \ref{fig:sift_difference_of_gaussian}, pyramid of DoG for each octave of scale space is computed: the initial image is repeatedly convolved with Gaussian filters for different values of $\sigma$ to produce the set of scale space images shown on the left. Adjacent Gaussian images are subtracted to produce the difference-of-Gaussian.
+    As presented in Fig. \ref{fig:sift_difference_of_gaussian}, pyramid of DoG for each octave of scale space is computed: the initial image is repeatedly convolved with Gaussian filters for different values of $\sigma$ to produce a list of scale space. Adjacent Gaussian images are subtracted to produce the Difference-of-Gaussian.
     
     \begin{figure}[h]
         \centering
@@ -185,7 +185,7 @@ The major stages of the algorithm are:
     
     \item Keypoint localisation: In order to detect the local maxima and minima of $D(x, y,\sigma)$, each sample point is compared to its eight neighbours in the current image and nine neighbours in the scale above and below. Low contrast and edge keypoints are filtered.
     
-    \item Orientation and magnitude assignment: by assigning a consistent orientation to each keypoint based on local image properties, the keypoint descriptor can be represented relative to this orientation and therefore achieve invariance to image rotation.
+    \item Orientation and magnitude assignment: to obtain an orientation invariant descriptor, each keypoint is assigned a consistent value based on local image properties. Then, the keypoint descriptor can be represented relative to this orientation.
     
     The magnitude and orientation are defined as:
     $$
@@ -195,7 +195,7 @@ The major stages of the algorithm are:
     \theta(x, y) =\tan^{-1} ( \frac{L(x, y + 1) - L(x, y - 1 )}{L(x + 1, y) - L(x - 1, y)} )
     $$
     
-    \item Keypoint descriptor: the local image gradients of a keypoint as presented in figure \ref{fig:sift_descriptor} are computed and accumulated in a histogram. An additional Gaussian weighting function is applied to give less importance to gradients farther away from the keypoint centrer. Once a keypoint candidate has been found by comparing a pixel to its neighbours, the next step is to perform a detailed fit to the nearby data for location, scale, and ratio of principal curvatures. This information allows points to be rejected that have low contrast (and are therefore sensitive to noise) or are poorly localised along an edge.
+    \item Keypoint descriptor: the local image gradients of a keypoint as presented in Fig. \ref{fig:sift_descriptor} are computed and accumulated in a histogram. An additional Gaussian weighting function is applied to give less importance to gradients farther away from the keypoint centrer.
     
     Usually, SIFT is evaluated at 8 orientation planes over a 4 × 4 neighbourhood giving a
     128-dimension feature vector
@@ -208,13 +208,11 @@ The major stages of the algorithm are:
     \end{figure}
 \end{enumerate}
 
-As proven in \cite{Lowe2004}, this method is invariant to translation, scaling and rotation of the picture and is robust to illumination changes, addition of noise, change in the 3-D viewpoint and local geometric distortion.
+As proven by Lowe in the paper \cite{Lowe2004}, this method is invariant to translation, scaling and rotation of the picture and is robust to illumination changes, addition of noise, change in the 3-D viewpoint and local geometric distortion.
 
 Multiple variant of SIFT exists. Colour SIFT computes the SIFT in the same manner than the grey scale, except that it does it for each channel independently. Root SIFT is a simple variant of SIFT, presented in \cite{Arandjelovic2012}. When the SIFT descriptors as been computed for each keypoints, we apply an element wise square root of the L1 normalized SIFT vectors
 
-
-However the SIFT algorithm is quite slow method. That's why in \cite{Bay2006}, the authors present a faster algorithm base on the SIFT approach - \textbf{Speeded Up Robust Features} \textit{SURF}. 
-The key is to approximate the LoG with the Box Filter which is the other approximation but of DoG. Using them, the integral image can be constructed and used, which speeds up the whole process since there is no need to iteratively apply those filters one by one (it can be even parallelized). This approach is eagerly applied in the real-time object recognition tasks.
+However the SIFT algorithm is quite slow method. That is why in \cite{Bay2006}, Bay et al. present a faster algorithm base on the SIFT approach - \textbf{Speeded Up Robust Features} \textit{SURF}. 
 
 \subsection{K-mean clustering}
 
@@ -242,4 +240,4 @@ It is an iterative method that find a local minima of the Eq. \ref{eq:kmean_obje
 
 The centroid results and number of iterations are highly dependant of the initial centroid. As a result, the computation is often done several times, with different initialisations.
 
-To help to overcome this issue, the \enquote{kmeans++} initialisation scheme is often used, which has been described in \cite{Arthur2007}. This method initializes the centroids to be (generally) distant from each other, leading to provably better results than random initialization.
+To help to overcome this issue, the \enquote{kmeans++} initialisation scheme is often used, which has been described by Arthur et al. in \cite{Arthur2007}. This method initializes the centroids to be (generally) distant from each other, leading to provably better results than random initialization.

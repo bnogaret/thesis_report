@@ -59,19 +59,17 @@ UEC FOOD 256 \footnote{Dataset can be found at \url{http://foodcam.mobi/dataset2
 
 Over the last few years, authors have focused on food recognition. Various methods were tried. For feature extraction, it often combines colour and texture descriptors, global and local.
 
-In \cite{Chen2009}, CHen et al. create a new dataset named PFID and provide two simple food classification baseline methods. PFID (stands for Pittsburgh fast-food image dataset) \footnote{Dataset can be found at \url{http://pfid.rit.albany.edu/}} was presented in \cite{Chen2009} in summer 2008 from the collaboration of Intel Labs Pitssburgh, Columbia and Carnegie Mellon universitie. It is one of the first mature datasets released for food recognition.
+In \cite{Chen2009}, Chen et al. create a new dataset named PFID and provide two simple food classification baseline methods. PFID (stands for Pittsburgh fast-food image dataset) \footnote{Dataset can be found at \url{http://pfid.rit.albany.edu/}} was presented in \cite{Chen2009} in summer 2008 from the collaboration of Intel Labs Pittsburgh, Columbia and Carnegie Mellon universities. It is one of the first mature datasets released for food recognition.
 
 It contains 101 meals (categories) from 11 popular fast food chains found in the USA with images and videos captured in both restaurant conditions and controlled lab setting. It contains foods such as chickens, sandwiches, salads, burgers and drinks from Arby's, Bruggers Bagels, Dunkin Donuts, KFC, McDonalds, Panera, Pizza hut, Quiznos, Subway, Taco Bell and Wendy's.
 
-The authors provide :
+In their paper, Chen et al. provide two baseline methods:
 \begin{itemize}
     \item Colour histogram and SVM classifier. They obtain a mean accuracy of around 12\%.
-    \item Bag of SIFT features and SVM classifier. They obtain a mean accuracy of around 25\%.
+    \item Bag-of-Features using SIFT and SVM classifier. They obtain a mean accuracy of around 25\%.
 \end{itemize}
 
-In \cite{Zong2010}, the authors use a local texture feature and their spatial distribution to classify food images from the PFID.
-
-The author use the Bag-Of-Word method; SIFT for detection of the keypoints and LBP for description. The shape context algorithm is used to keep the spatial relationship between codewords (for each image, compute the histogram of one word compared to the others / then mean of the histograms).
+Song et al. \cite{Zong2010} use also a Bag-of-Word method using SIFT for detection of the keypoints and LBP for description. They use a local texture feature and their spatial distribution to classify food images from the PFID. The shape context algorithm is used to keep the spatial relationship between codewords (for each image, compute the histogram of one word compared to the others / then mean of the histograms).
 
 For the classification, the authors pick the smallest cost between an image and a food category. For each interest points found with SIFT in the image, we associate a similarity between the point and each visual words of the codebook. The similarity function is based on the Bhattacharyya distance. Then, the shape context between the point of interests and the visual word is calculated and a cost is deduced for each food category. The category with the smallest cost is chosen.
 
@@ -79,13 +77,11 @@ Regrouping the different pictures in 6 main groups the PFI dataset (sandwiches a
 
 Moreover, Fast foods, as they are standardized and have nutrition information available online, can easily be used to measure the calories. In \cite{Wen2009}, the authors are using the PFID's videos to estimate energy intake of a meal.
 
-In \cite{Bosch2011}, the authors use local and global features to identify the food consumed.
-For the global features, they use colour properties (entropy, histogram and moments) with texture information provided by Gabor filters. They add local features with the Bag-Of-Features, using SIFT for detection and SIFT, steerable filters and DAISY descriptors. To classify, they use SVM (using the Radial Basis function kernel).
-On a in-house dataset (28 classes, 179 images), the authors obtain 86\% of accuracy.
+While Chen et al. use global and local features separately, Bosch et al. \cite{Bosch2011} combine to identify the food consumed. For the global features, they use colour properties (entropy, histogram and moments) with texture information provided by Gabor filters. They add local features with the Bag-Of-Features, using SIFT for detection and SIFT, steerable filters and DAISY descriptors. To classify, they use SVM (using the Radial Basis function kernel). On a in-house dataset composed of 28 classes and 179 images, the authors obtain 86\% of accuracy.
 
 % 4.3 (PFID)
 
-In \cite{Yang2010}, the authors use a novel feature, named PFD (for pairwise local feature distribution) for food recognition and SVM. Then, they apply it on the Pittsburgh fast-food image dataset (PFID) dataset.
+Still evaluated on PFID, Yang et al. \cite{Yang2010} use a novel feature, named PFD (for pairwise local feature distribution) for food recognition.
 
 The different steps of this method are:
 \begin{enumerate}
@@ -105,7 +101,7 @@ The different steps of this method are:
     Then, normalization of the histogram.
 \end{enumerate}
 
-For the PFID dataset, they obtain an accuracy between 19\% and 28\% for each of the 61 categories.
+Fed to a linear SVM, they obtain an accuracy between 19\% and 28\% for each of the 61 categories.
 When they pick the 6 major types of food, they get almost 80\% of accuracy.
 
 % ETHZ Food 101
@@ -191,10 +187,8 @@ MyPyramid \cite{MyPyramid} was designed by the United State Department of Agricu
     \label{fig:my_pyramid}
 \end{figure}
 
-In \cite{Aizawa2013} the Support Vector Machine is replaced by a Bayesian Framework \textit{BF}.
-The BF is based on the Gaussian Naive Bayesian (suppose independence between every pair of features and the distribution of each feature is assumed to be Gaussian). The BF takes into account the estimation using colour moments and Bag-Of-Feature of SIFT, the prior distribution and the mealtime category (breakfast, lunch and dinner).
-
-In \cite{Kagaya2014}, the authors use a Convolutional Neural Network \textins{CNN} to detect and classify food from a small subset of image loaded in the FoodLog system. Compared to the other conventional methods (use of a feature descriptor such as Bag-of-Words with a classifier, e.g. SVM) described previously, the CNN showed a significantly higher accuracy.
+In \cite{Aizawa2013} the Support Vector Machine is replaced by a Bayesian Framework \textit{BF} to improve the classification, taking into account the previous picture of a specific user to update the classifier. The BF is based on the Gaussian Naive Bayesian (suppose independence between every pair of features and the distribution of each feature is assumed to be Gaussian). The BF takes into account the estimation using colour moments and Bag-Of-Feature of SIFT, the prior distribution and the mealtime category (breakfast, lunch and dinner). 
+The team further improve their accuracy in \cite{Kagaya2014}. Kagaya et al. use a Convolutional Neural Network \textins{CNN} to detect and classify food from a small subset of image loaded in the FoodLog system. Compared to the other conventional methods (use of a feature descriptor such as Bag-of-Words with a classifier, e.g. SVM) described previously, the CNN showed a significantly higher accuracy.
 
 %% Others
 
@@ -203,8 +197,7 @@ An other method to estimate the food intake is to evaluate the food volume.
 In \cite{Chen2012}, the authors presents a method that use the depth information of the picture. Once the food has been classified, the area of the food container (bowl, plate) and the depth value of the contained food is computed to obtain the food volume.
 Yet, this technique is still limited as it can only be used for non-transparent food, i.e it can't detect some food item such as water or cooked rice, and force the user to have a depth camera (such as Kinect).
 
-In \cite{Almaghrabi2012a}, the authors presents a novel food recognition system that is able to estimate of the nutrition intake. Moreover, they develop a mobile application to easily take pictures and keep track of the user's diet.
-To measure the food intake, authors compare before and after eating pictures and use the thumb as the calibration system (it supposes a one-time calibration to know the size of the thumb of the user).
+Without depth information, the volume can also be estimated as in \cite{Almaghrabi2012a}. Almaghrabi et al. presents a novel food recognition system that is able to estimate of the nutrition intake. Moreover, they develop a mobile application to easily take pictures and keep track of the user's diet. To measure the food intake, authors compare before and after eating pictures and use the thumb as the calibration system (it supposes a one-time calibration to know the size of the thumb of the user).
 The process to show the intake is:
 \begin{enumerate}
     \item the user takes food pictures
